@@ -9,12 +9,10 @@ function VehicleIntroMenu({ list }: IContent) {
   return (
     <S.Container
       onMouseEnter={(e: any) => {
-        console.log("마우스 들어옴");
         setOnMouse(1);
       }}
       onMouseLeave={(e: any) => {
         setOnMouse(0);
-        console.log("마우스 나감");
       }}
     >
       {list.map((content, index) =>
