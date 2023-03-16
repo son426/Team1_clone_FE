@@ -1,11 +1,20 @@
 import * as S from "./VehicleIntroMenu.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 interface IContent {
   list: string[];
+  func?: any;
+  currentIndex?: number;
 }
-function VehicleIntroMenu({ list }: IContent) {
+function VehicleIntroMenu({ list, func, currentIndex }: IContent) {
   const [clickedIndex, setClickedIndex] = useState(0);
   const [onMouse, setOnMouse] = useState(0);
+  const handleClick = (index: number) => {
+    setClickedIndex(index);
+    func(index);
+  };
+  useEffect(() => {
+    setClickedIndex(currentIndex as number);
+  }, [currentIndex]);
   return (
     <S.Container
       onMouseEnter={(e: any) => {
@@ -17,11 +26,7 @@ function VehicleIntroMenu({ list }: IContent) {
     >
       {list.map((content, index) =>
         clickedIndex === index ? (
-          <S.ElementWrapper
-            onClick={(e: any) => {
-              setClickedIndex(index);
-            }}
-          >
+          <S.ElementWrapper onClick={() => handleClick(index)}>
             <S.Circle style={{ height: "25px", backgroundColor: "#002C5F" }} />
             <S.Letter style={{ fontWeight: 600, color: "#002c5f" }}>
               {content}
@@ -30,7 +35,7 @@ function VehicleIntroMenu({ list }: IContent) {
         ) : (
           <S.ElementWrapper
             onClick={(e: any) => {
-              setClickedIndex(index);
+              handleClick(index);
             }}
           >
             <S.Circle />

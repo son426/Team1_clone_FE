@@ -5,9 +5,10 @@ interface IContent {
   list: string[];
   style?: React.CSSProperties;
   id?: string;
+  func?: any;
 }
 
-function VehicleNavbar({ list, style, id }: IContent) {
+function VehicleNavbar({ list, style, id, func }: IContent) {
   const [offsetLeft, setOffsetLeft] = useState(0);
   const [offsetWidth, setOffsetWidth] = useState(0);
   useEffect(() => {
@@ -56,12 +57,18 @@ function VehicleNavbar({ list, style, id }: IContent) {
           <S.Button>
             시승 신청 <S.Arrow />
           </S.Button>
-          <S.MouseWrapper>
-            <S.Mouse>
-              <S.Wheel></S.Wheel>
-            </S.Mouse>
-            <S.MouseArrow />
-          </S.MouseWrapper>
+          {id === "scrolled" ? null : (
+            <S.MouseWrapper>
+              <S.Mouse
+                onClick={() => {
+                  func();
+                }}
+              >
+                <S.Wheel></S.Wheel>
+              </S.Mouse>
+              <S.MouseArrow />
+            </S.MouseWrapper>
+          )}
         </S.BtnGroup>
       </S.Wrapper>
     </S.Container>
