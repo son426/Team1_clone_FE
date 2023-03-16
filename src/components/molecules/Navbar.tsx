@@ -5,6 +5,12 @@ import search from "../../assets/search.png";
 import shop from "../../assets/shop.png";
 import { useState } from "react";
 const Container = styled.div`
+  position: fixed;
+  top: 0;
+  transition: top 0.5s;
+`;
+
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,108 +57,114 @@ const LineDivide = styled.div`
   background-color: rgb(153, 153, 153);
   margin-left: 20px;
 `;
-function Navbar() {
+
+interface IStyle {
+  style?: any;
+}
+function Navbar({ style }: IStyle) {
   const [offsetLeft, setOffsetLeft] = useState(0);
   const [offsetWidth, setOffsetWidth] = useState(0);
   return (
-    <Container>
-      <Logo src={logo} />
-      <Menu>
-        {offsetLeft ? (
-          <Underbar
-            style={{ width: `${offsetWidth}px`, left: `${offsetLeft}px` }}
-          />
-        ) : null}
-        <Children
-          onMouseEnter={(e: any) => {
-            setOffsetLeft(e.target.offsetLeft);
-            setOffsetWidth(e.target.offsetWidth);
-          }}
-        >
-          모델
-        </Children>
-        <Children
-          onMouseEnter={(e: any) => {
-            setOffsetLeft(e.target.offsetLeft);
-            setOffsetWidth(e.target.offsetWidth);
-          }}
-        >
-          구매/이벤트
-        </Children>
-        <Children
-          onMouseEnter={(e: any) => {
-            setOffsetLeft(e.target.offsetLeft);
-            setOffsetWidth(e.target.offsetWidth);
-          }}
-        >
-          서비스/멤버십
-        </Children>
-        <Children
-          onMouseEnter={(e: any) => {
-            setOffsetLeft(e.target.offsetLeft);
-            setOffsetWidth(e.target.offsetWidth);
-          }}
-        >
-          디지털/고객지원
-        </Children>
-        <Children
-          onMouseEnter={(e: any) => {
-            setOffsetLeft(e.target.offsetLeft);
-            setOffsetWidth(e.target.offsetWidth);
-          }}
-        >
-          브랜드
-        </Children>
-        <Children
-          style={{
-            width: "44px",
-            height: "17px",
-            backgroundSize: "cover",
-            backgroundImage: `url(${shop})`,
-            marginRight: "100px",
-          }}
-        ></Children>
-      </Menu>
-      <Menu>
-        <Children>
-          <p>my</p>
-          <p style={{ fontWeight: 600 }}>Hyundai</p>
-        </Children>
-        <LangSelect>KR</LangSelect>
-        <LineDivide />
-      </Menu>
-      <Menu>
-        <Children
-          style={{
-            width: "30px",
-            height: "30px",
-            marginRight: "20px",
-            backgroundImage: `url(${mypage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            marginLeft: "-10px",
-          }}
-        ></Children>
-        <Children
-          style={{
-            width: "30px",
-            height: "30px",
-            marginRight: "20px",
-            backgroundImage: `url(${search})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></Children>
-        <Children
-          style={{
-            width: "30px",
-            height: "30px",
-            backgroundImage: `url(${mypage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></Children>
-      </Menu>
+    <Container style={style}>
+      <Wrapper>
+        <Logo src={logo} />
+        <Menu>
+          {offsetLeft ? (
+            <Underbar
+              style={{ width: `${offsetWidth}px`, left: `${offsetLeft}px` }}
+            />
+          ) : null}
+          <Children
+            onMouseEnter={(e: any) => {
+              setOffsetLeft(e.target.offsetLeft);
+              setOffsetWidth(e.target.offsetWidth);
+            }}
+          >
+            모델
+          </Children>
+          <Children
+            onMouseEnter={(e: any) => {
+              setOffsetLeft(e.target.offsetLeft);
+              setOffsetWidth(e.target.offsetWidth);
+            }}
+          >
+            구매/이벤트
+          </Children>
+          <Children
+            onMouseEnter={(e: any) => {
+              setOffsetLeft(e.target.offsetLeft);
+              setOffsetWidth(e.target.offsetWidth);
+            }}
+          >
+            서비스/멤버십
+          </Children>
+          <Children
+            onMouseEnter={(e: any) => {
+              setOffsetLeft(e.target.offsetLeft);
+              setOffsetWidth(e.target.offsetWidth);
+            }}
+          >
+            디지털/고객지원
+          </Children>
+          <Children
+            onMouseEnter={(e: any) => {
+              setOffsetLeft(e.target.offsetLeft);
+              setOffsetWidth(e.target.offsetWidth);
+            }}
+          >
+            브랜드
+          </Children>
+          <Children
+            style={{
+              width: "44px",
+              height: "17px",
+              backgroundSize: "cover",
+              backgroundImage: `url(${shop})`,
+              marginRight: "100px",
+            }}
+          ></Children>
+        </Menu>
+        <Menu>
+          <Children>
+            <p>my</p>
+            <p style={{ fontWeight: 600 }}>Hyundai</p>
+          </Children>
+          <LangSelect>KR</LangSelect>
+          <LineDivide />
+        </Menu>
+        <Menu>
+          <Children
+            style={{
+              width: "30px",
+              height: "30px",
+              marginRight: "20px",
+              backgroundImage: `url(${mypage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              marginLeft: "-10px",
+            }}
+          ></Children>
+          <Children
+            style={{
+              width: "30px",
+              height: "30px",
+              marginRight: "20px",
+              backgroundImage: `url(${search})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></Children>
+          <Children
+            style={{
+              width: "30px",
+              height: "30px",
+              backgroundImage: `url(${mypage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></Children>
+        </Menu>
+      </Wrapper>
     </Container>
   );
 }

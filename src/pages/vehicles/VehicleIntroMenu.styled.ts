@@ -4,6 +4,10 @@ import React from "react";
 
 export const Container = styled.div`
   padding-left: 35px;
+  width: 200px;
+  position: sticky;
+  top: 50%;
+  transform: translate(0, -50%);
 `;
 export const ElementWrapper = styled.div`
   display: flex;
