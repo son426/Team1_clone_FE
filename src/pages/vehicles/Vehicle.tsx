@@ -11,12 +11,13 @@ function Vehicle() {
   const handleScroll = () => {
     setScroll(window.scrollY);
   };
-  const childScrollHandler = () => {
+  const mainScrollHandler = () => {
     window.scrollTo(0, 0);
     setScroll(0);
   };
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { capture: true });
+    window.scrollTo(0, 0);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -44,12 +45,15 @@ function Vehicle() {
           list={["모델소개", "제원", "가격", "갤러리", "구매후기"]}
           style={{ bottom: 0 }}
           id='unscrolled'
+          func={() => {
+            window.scrollTo(0, 1);
+          }}
         />
       )}
       <MainIntroArea
         stuff={["red", "blue", "green"]}
         scroll={scroll ? true : false}
-        func={childScrollHandler}
+        func={mainScrollHandler}
       />
     </S.Container>
   );
