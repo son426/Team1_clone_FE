@@ -1,13 +1,16 @@
 import styled from "styled-components";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logo.png";
 import mypage from "../../assets/mypage.png";
 import search from "../../assets/search.png";
 import shop from "../../assets/shop.png";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 const Container = styled.div`
   position: fixed;
   top: 0;
   transition: top 0.5s;
+  z-index: 100;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
 `;
 
 const Wrapper = styled.div`
@@ -17,7 +20,10 @@ const Wrapper = styled.div`
   height: 80px;
   width: 100vw;
   position: relative;
-  background-color: white;
+  /* background-color: rgba(255, 255, 255, 0.2);*/
+  backdrop-filter: blur(4px);
+  background: hsla(0, 0%, 100%, 0.9);
+  background: transparent;
 `;
 const Logo = styled.img`
   width: 166px;
@@ -26,19 +32,18 @@ const Logo = styled.img`
   background-position: center;
   background-size: cover;
   margin-right: 60px;
+  cursor: pointer;
 `;
 const Menu = styled.ul`
   display: flex;
   list-style: none;
   align-items: center;
   font-size: 16px;
-  font-family: "HyundaiSansTextKR";
 `;
 const Children = styled.li`
   list-style: none;
   margin-right: 35px;
   cursor: pointer;
-  font-family: "HyundaiSansTextKR";
   display: flex;
 `;
 
@@ -65,13 +70,49 @@ interface IStyle {
 function Navbar({ style }: IStyle) {
   const [offsetLeft, setOffsetLeft] = useState(0);
   const [offsetWidth, setOffsetWidth] = useState(0);
+
+  const [scroll, setScroll] = useState(false);
+  let bg = useRef<any>();
+  let under = useRef<any>();
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    if (window.scrollY >= 1) {
+      setScroll(true);
+    } else {
+      setScroll(false);
+    }
+  };
+
+  useEffect(() => {
+    if (scroll) {
+      bg.current.style.background = "hsla(0, 0%, 100%, 0.9)";
+    } else {
+      bg.current.style.background = "transparent";
+    }
+  }, [scroll]);
+
   return (
     <Container style={style}>
-      <Wrapper>
+      <Wrapper ref={bg}>
         <Logo src={logo} />
-        <Menu>
+        <Menu
+          onMouseOver={() => {
+            under.current.style.opacity = "1";
+          }}
+          onMouseOut={() => {
+            under.current.style.opacity = "0";
+          }}
+        >
           {offsetLeft ? (
             <Underbar
+              ref={under}
               style={{ width: `${offsetWidth}px`, left: `${offsetLeft}px` }}
             />
           ) : null}
