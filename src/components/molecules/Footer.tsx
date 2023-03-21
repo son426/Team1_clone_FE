@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import icons from "../../assets/icons.png";
 /* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -101,9 +102,11 @@ const Con2Inside1Div3Icon = styled.div`
   width: 30px;
   height: 32px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Con2Inside1Div3Box = styled.button`
+  position: relative;
   height: 30px;
   width: 100%;
   padding: 0 13px;
@@ -272,20 +275,21 @@ function Footer() {
           </Con2Inside1Div2>
           <Con2Inside1Div3>
             <Con2Inside1Div3Icon>
-              {/* <FontAwesomeIcon icon={["fab", "facebook"]} />
-              <FontAwesomeIcon icon={["fab", "youtube"]} />
-              <FontAwesomeIcon icon={["fab", "facebook"]} /> */}
+              <img src={icons} alt="" style={{ width: "255px" }}></img>
             </Con2Inside1Div3Icon>
             <Con2Inside1Div3Box>
-              Family Sites{" "}
-              {/* <FontAwesomeIcon
-                icon={faSortDown}
+              Family Sites
+              <span
+                className="material-symbols-outlined"
                 style={{
-                  marginLeft: "160px",
-                  paddingBottom: "2px",
-                  fontSize: "11px",
+                  color: "#999",
+                  fontSize: "18px",
+                  position: "absolute",
+                  right: "10px",
                 }}
-              /> */}
+              >
+                arrow_drop_down
+              </span>
             </Con2Inside1Div3Box>
           </Con2Inside1Div3>
         </Con2Inside1>

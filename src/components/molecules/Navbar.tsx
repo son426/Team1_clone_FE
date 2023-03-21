@@ -3,6 +3,7 @@ import logo from "../../assets/logo.png";
 import mypage from "../../assets/mypage.png";
 import search from "../../assets/search.png";
 import shop from "../../assets/shop.png";
+import menu from "../../assets/menu.png";
 import { useState, useEffect, useRef } from "react";
 const Container = styled.div`
   position: fixed;
@@ -85,8 +86,10 @@ function Navbar({ style }: IStyle) {
   const handleScroll = () => {
     if (window.scrollY >= 1) {
       setScroll(true);
+      bg.current.style.backdropFilter = "blur(4px)";
     } else {
       setScroll(false);
+      bg.current.style.backdropFilter = "blur(0px)";
     }
   };
 
@@ -175,17 +178,20 @@ function Navbar({ style }: IStyle) {
           <LineDivide />
         </Menu>
         <Menu>
-          <Children
-            style={{
-              width: "30px",
-              height: "30px",
-              marginRight: "20px",
-              backgroundImage: `url(${mypage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              marginLeft: "-10px",
-            }}
-          ></Children>
+          <a href="/login">
+            <Children
+              style={{
+                width: "30px",
+                height: "30px",
+                marginRight: "20px",
+                backgroundImage: `url(${mypage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                marginLeft: "-10px",
+              }}
+            ></Children>
+          </a>
+
           <Children
             style={{
               width: "30px",
@@ -200,7 +206,7 @@ function Navbar({ style }: IStyle) {
             style={{
               width: "30px",
               height: "30px",
-              backgroundImage: `url(${mypage})`,
+              backgroundImage: `url(${menu})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
