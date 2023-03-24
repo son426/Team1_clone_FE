@@ -5,6 +5,7 @@ import MainIntroArea from "./MainIntroArea";
 import * as S from "./Vehicle.styled";
 import VehicleIntroMenu from "./VehicleIntroMenu";
 import VehicleNavbar from "./VehicleNavbar";
+import VR from "./VR";
 
 function Vehicle() {
   const [scroll, setScroll] = useState(0);
@@ -38,13 +39,13 @@ function Vehicle() {
           style={{
             top: 0,
           }}
-          id='scrolled'
+          id="scrolled"
         />
       ) : (
         <VehicleNavbar
           list={["모델소개", "제원", "가격", "갤러리", "구매후기"]}
           style={{ bottom: 0 }}
-          id='unscrolled'
+          id="unscrolled"
           func={() => {
             window.scrollTo(0, 1);
           }}
@@ -55,6 +56,7 @@ function Vehicle() {
         scroll={scroll ? true : false}
         func={mainScrollHandler}
       />
+      <VR></VR>
     </S.Container>
   );
 }

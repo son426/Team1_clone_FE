@@ -5,6 +5,7 @@ import search from "../../assets/search.png";
 import shop from "../../assets/shop.png";
 import menu from "../../assets/menu.png";
 import { useState, useEffect, useRef } from "react";
+
 const Container = styled.div`
   position: fixed;
   top: 0;
@@ -17,7 +18,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   height: 80px;
   width: 100vw;
   position: relative;
@@ -29,16 +30,19 @@ const Wrapper = styled.div`
 const Logo = styled.img`
   width: 166px;
   height: 70px;
+  line-height: 100%;
   padding-left: 20px;
   background-position: center;
   background-size: cover;
-  margin-right: 60px;
+  margin-right: 40px;
+  padding-top: 5px;
   cursor: pointer;
 `;
 const Menu = styled.ul`
   display: flex;
   list-style: none;
   align-items: center;
+  justify-content: space-evenly;
   font-size: 16px;
 `;
 const Children = styled.li`
@@ -46,6 +50,8 @@ const Children = styled.li`
   margin-right: 35px;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
 const Underbar = styled.div`
@@ -57,12 +63,32 @@ const Underbar = styled.div`
   transition: left 0.5s, width 0.5s;
 `;
 
-const LangSelect = styled.button``;
+const LangSelect = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+`;
 const LineDivide = styled.div`
   width: 1px;
   height: 14px;
   background-color: rgb(153, 153, 153);
   margin-left: 20px;
+`;
+
+const A = styled.a`
+  cursor: pointer;
+  text-decoration: none;
+  text-decoration-line: none;
+  color: black;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    text-decoration: none;
+    color: black;
+    text-decoration-line: none;
+  }
 `;
 
 interface IStyle {
@@ -96,15 +122,19 @@ function Navbar({ style }: IStyle) {
   useEffect(() => {
     if (scroll) {
       bg.current.style.background = "hsla(0, 0%, 100%, 0.9)";
+      bg.current.style.borderBottom = "1px solid #e5e5e5";
     } else {
       bg.current.style.background = "transparent";
+      bg.current.style.borderBottom = "none";
     }
   }, [scroll]);
 
   return (
     <Container style={style}>
       <Wrapper ref={bg}>
-        <Logo src={logo} />
+        <A href="/">
+          <Logo src={logo} />
+        </A>
         <Menu
           onMouseOver={() => {
             under.current.style.opacity = "1";
@@ -119,14 +149,16 @@ function Navbar({ style }: IStyle) {
               style={{ width: `${offsetWidth}px`, left: `${offsetLeft}px` }}
             />
           ) : null}
-          <Children
-            onMouseEnter={(e: any) => {
-              setOffsetLeft(e.target.offsetLeft);
-              setOffsetWidth(e.target.offsetWidth);
-            }}
-          >
-            모델
-          </Children>
+          <A href="/vehicles">
+            <Children
+              onMouseEnter={(e: any) => {
+                setOffsetLeft(e.target.offsetLeft);
+                setOffsetWidth(e.target.offsetWidth);
+              }}
+            >
+              모델
+            </Children>
+          </A>
           <Children
             onMouseEnter={(e: any) => {
               setOffsetLeft(e.target.offsetLeft);
@@ -169,7 +201,7 @@ function Navbar({ style }: IStyle) {
             }}
           ></Children>
         </Menu>
-        <Menu>
+        <Menu style={{ marginLeft: "30px" }}>
           <Children>
             <p>my</p>
             <p style={{ fontWeight: 600 }}>Hyundai</p>
@@ -181,8 +213,8 @@ function Navbar({ style }: IStyle) {
           <a href="/login">
             <Children
               style={{
-                width: "30px",
-                height: "30px",
+                width: "28px",
+                height: "28px",
                 marginRight: "20px",
                 backgroundImage: `url(${mypage})`,
                 backgroundSize: "cover",
@@ -191,11 +223,10 @@ function Navbar({ style }: IStyle) {
               }}
             ></Children>
           </a>
-
           <Children
             style={{
-              width: "30px",
-              height: "30px",
+              width: "28px",
+              height: "28px",
               marginRight: "20px",
               backgroundImage: `url(${search})`,
               backgroundSize: "cover",
@@ -204,8 +235,8 @@ function Navbar({ style }: IStyle) {
           ></Children>
           <Children
             style={{
-              width: "30px",
-              height: "30px",
+              width: "28px",
+              height: "28px",
               backgroundImage: `url(${menu})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
