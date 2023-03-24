@@ -463,23 +463,21 @@ function Main() {
               color: "white",
             }}
           >
-            
-              <Car.CarTitle
-                style={{
-                  color: "white",
-                  marginTop: "125px",
-                  fontSize: "80px",
-                }}
-              >
-                로보틱스
-              </Car.CarTitle>
-              <Car.CarSubtitle
-                style={{
-                  color: "white",
-                  paddingTop: "5px",
-                }}
-              ></Car.CarSubtitle>
-            
+            <Car.CarTitle
+              style={{
+                color: "white",
+                marginTop: "125px",
+                fontSize: "80px",
+              }}
+            >
+              로보틱스
+            </Car.CarTitle>
+            <Car.CarSubtitle
+              style={{
+                color: "white",
+                paddingTop: "5px",
+              }}
+            ></Car.CarSubtitle>
           </Car.CarDiv>
           <Car.CarDiv
             ref={(element) => {
@@ -1113,7 +1111,9 @@ function Main() {
               <Elec.ElecNEW>NEW</Elec.ElecNEW>
               <Elec.ElecTitle>아이오닉 6</Elec.ElecTitle>
               <Elec.ElecText1>내가 만드는 세상</Elec.ElecText1>
-              <Elec.ElecMore>자세히 보기</Elec.ElecMore>
+              <a href="https://www.hyundai.com/kr/ko/e/vehicles/ioniq6/intro">
+                <Elec.ElecMore>자세히 보기</Elec.ElecMore>
+              </a>
             </Elec.ElecDiv1>
             <Elec.ElecDiv2>
               <Elec.ElecNetwork>충전소&서비스 네트워크</Elec.ElecNetwork>

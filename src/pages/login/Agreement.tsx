@@ -296,6 +296,7 @@ function Agreement() {
       ch.current[2].style.color = "black";
       next.current.classList.add("checked");
     } else {
+      ch.current[0].style.color = "rgba(0,0,0,0.1)";
       next.current.classList.remove("checked");
     }
   }, [chN]);

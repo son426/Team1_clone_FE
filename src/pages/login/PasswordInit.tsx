@@ -62,15 +62,53 @@ const TitleDivInner = styled.div`
 const Section = styled.div`
   box-sizing: border-box;
   width: 680px;
-  height: 353px;
+  height: fit-content;
   margin: 0 auto;
   display: flex;
-  padding: 25px 13px;
+  padding: 24px;
   font-weight: 400;
   font-size: 13px;
   color: #666;
   flex-direction: column;
   position: relative;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DivTitle = styled.div`
+  margin-bottom: 8px;
+  width: 590px;
+  height: 24px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+`;
+
+const DivContent = styled.div`
+  border-left: 1px solid #bdbdbd;
+  padding-left: 20px;
+  padding-right: 8px;
+  margin-left: 12px;
+  width: 550px;
+  height: fit-content;
+  margin-bottom: 8px;
+  padding-top: 5px;
+`;
+
+const CircleN = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #3387bd;
+  color: white;
+  display: inline-block;
+  margin-right: 7px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 24px;
 `;
 
 const Footer = styled.div`
@@ -87,22 +125,23 @@ const Footer = styled.div`
 
 const BtnDiv = styled.div`
   width: 100%;
-  height: 55px;
+  height: fit-content;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 18px;
-  margin-bottom: 45px;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 `;
 
 const Btn = styled.div`
   box-sizing: border-box;
-  width: 400px;
+  width: 271px;
   height: 50px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: white;
-  background-color: #3387bd;
-  font-weight: 500;
+  border: 1px solid #6f6f6f;
+  background-color: hsla(0, 0%, 85.9%, 0.1);
+  color: #6f6f6f;
+  font-weight: 300;
   font-size: 15px;
   display: flex;
   align-items: center;
@@ -110,17 +149,13 @@ const Btn = styled.div`
   transition: 0.3s ease;
   position: relative;
   line-height: 100%;
-  cursor: default;
-  opacity: 0.5;
-  &.checked {
-    cursor: pointer;
-    opacity: 1;
-    &:hover {
-      background-color: rgb(0, 40, 132);
-    }
-    &:focus {
-      background-color: rgb(0, 40, 132);
-    }
+  margin-bottom: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: hsla(0, 0%, 85.9%, 0.35);
+  }
+  &:focus {
+    background-color: hsla(0, 0%, 85.9%, 0.35);
   }
 `;
 
@@ -182,6 +217,17 @@ const MenuA = styled.a`
   }
 `;
 
+const Dot = styled.div`
+  width: 4px;
+  height: 4px;
+  margin: 6px 6px 0 0;
+  content: no-open-quote;
+  display: inline-block;
+  background: #999;
+  border-radius: 3px;
+  vertical-align: top;
+`;
+
 function PasswordInit() {
   return (
     <Wrapper>
@@ -208,7 +254,39 @@ function PasswordInit() {
           </div>
         </TitleDivInner>
       </TitleDiv>
-      <Section></Section>
+      <Section>
+        <DivTitle>
+          <CircleN>1</CircleN>비밀번호 초기화
+        </DivTitle>
+        <DivContent>
+          <Dot></Dot>비밀번호를 초기화하시려면 아래 인증 수단을 선택하세요.
+          <BtnDiv>
+            <Btn>본인 인증</Btn>
+            <Btn>이메일 인증</Btn>
+            <Btn>모바일 인증</Btn>
+          </BtnDiv>
+        </DivContent>
+        <DivTitle>
+          <CircleN style={{ backgroundColor: "transparent", color: "#666" }}>
+            2
+          </CircleN>
+          인증 요청
+        </DivTitle>
+        <DivContent style={{ height: "20px" }}></DivContent>
+        <DivTitle>
+          <CircleN style={{ backgroundColor: "transparent", color: "#666" }}>
+            3
+          </CircleN>
+          인증 확인
+        </DivTitle>
+        <DivContent style={{ height: "20px" }}></DivContent>
+        <DivTitle>
+          <CircleN style={{ backgroundColor: "transparent", color: "#666" }}>
+            4
+          </CircleN>
+          정보 확인 또는 변경
+        </DivTitle>
+      </Section>
       <Footer>
         <MenuSection>
           <MenuDiv>
