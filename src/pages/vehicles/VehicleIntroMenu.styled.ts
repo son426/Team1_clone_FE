@@ -1,11 +1,10 @@
 import styled, { keyframes, css } from "styled-components";
-import PropTypes from "prop-types";
-import React from "react";
 
 export const Container = styled.div`
   padding-left: 35px;
   width: 200px;
   position: sticky;
+  z-index: 5;
   top: 50%;
   transform: translate(0, -50%);
 `;

@@ -8,6 +8,7 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   transition: top 0.5s;
+  background-color: white;
 `;
 
 const Wrapper = styled.div`
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
   height: 80px;
   width: 100vw;
   position: relative;
-  background-color: white;
+  background-color: transparent;
 `;
 const Logo = styled.img`
   width: 166px;
