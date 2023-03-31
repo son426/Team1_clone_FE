@@ -4,6 +4,7 @@ import Firstarea from "./Firstarea";
 import MainIntroArea from "./MainIntroArea";
 import * as S from "./Vehicle.styled";
 import VehicleNavbar from "./VehicleNavbar";
+
 import Highlights from "./VehicleIntroPage/Highlights";
 import Space from "./VehicleIntroPage/Space";
 import Design from "./VehicleIntroPage/Design";
@@ -16,6 +17,7 @@ import ServiceNetwork from "./VehicleIntroPage/ServiceNetwork";
 import { useRecoilState } from "recoil";
 import { clickedButtonAtom } from "../../lib/util/atoms";
 import SideButton from "../../components/molecules/SideButton";
+
 
 function Vehicle() {
   const [mainIntroIdentity, setMainIntroIdentity] =
@@ -57,13 +59,13 @@ function Vehicle() {
           style={{
             top: 0,
           }}
-          id='scrolled'
+          id="scrolled"
         />
       ) : (
         <VehicleNavbar
           list={["모델소개", "제원", "가격", "갤러리", "구매후기"]}
           style={{ bottom: 0 }}
-          id='unscrolled'
+          id="unscrolled"
           func={() => {
             setIsMainMounted(true);
           }}
@@ -118,6 +120,7 @@ function Vehicle() {
         scroll={isMainMounted ? true : false}
         func={setIsMainMounted}
       />
+      <VR></VR>
     </S.Container>
   );
 }

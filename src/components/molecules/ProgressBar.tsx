@@ -5,10 +5,12 @@ const Bar = styled.div`
   width: 100px;
   height: 5px;
   background-color: #007fa8;
-  position: sticky;
+  position: fixed;
   top: 0;
   transition: ease-in-out;
-  z-index: 600;
+
+  z-index: 1000;
+
 `;
 
 function ProgressBar() {

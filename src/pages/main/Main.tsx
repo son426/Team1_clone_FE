@@ -1,13 +1,22 @@
+
+// eslint-disable-next-line
+
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import Footer from "../../components/molecules/Footer";
 import ProgressBar from "../../components/molecules/ProgressBar";
 import * as S from "./CarouselBtn.styled";
 import RightBtn from "./RightBtn";
-import tag0 from "../../assets/tag1.png";
-import tag1 from "../../assets/tag2.png";
-import tag2 from "../../assets/tag3.png";
-import tag3 from "../../assets/tag4.png";
+
+import * as Model from "./Model.styled";
+import * as Elec from "./Elec.styled";
+import * as My from "./My.styled";
+import * as Shop from "./Shop.styled";
+import * as Brand from "./Brand.styled";
+import * as Events from "./Events.styled";
+import * as News from "./News.styled";
+import * as Car from "./Car.styled";
+
 import Navbar from "../../components/molecules/Navbar";
 
 const Wrapper = styled.div`
@@ -17,11 +26,6 @@ const Wrapper = styled.div`
   letter-spacing: -0.7px;
   padding: 0;
   width: 100%;
-`;
-
-const MainCar = styled.div`
-  width: 100%;
-  height: 300px;
 `;
 
 const Section = styled.div`
@@ -54,593 +58,6 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const ModelInner1 = styled.div`
-  width: 51%;
-  position: relative;
-  cursor: pointer;
-  &:before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: block;
-    content: "1위";
-    width: 60px;
-    height: 60px;
-    background: #007fa8;
-    font-size: 20px;
-    letter-spacing: -0.24px;
-    color: #fff;
-    line-height: 60px;
-  }
-`;
-
-const ModelInner2 = styled.div`
-  width: 43%;
-  position: relative;
-`;
-
-const ModelAge = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  display: flex;
-  justify-content: left;
-`;
-
-const Ages = styled.li`
-  display: inline-block;
-  border-right: 1px solid #999;
-  color: #666;
-  line-height: 100%;
-  padding: 0 15px;
-  font-size: 16px;
-  font-weight: 300;
-  margin-top: 10px;
-`;
-
-const Model1 = styled.div`
-  text-align: left;
-  font-size: 40px;
-  color: #000;
-  margin-top: 25px;
-  letter-spacing: -1.2px;
-  cursor: pointer;
-`;
-
-const ModelDiv = styled.div`
-  width: 100%;
-  height: auto;
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  align-content: space-between;
-  justify-content: space-between;
-`;
-
-const ModelDiv2 = styled.div`
-  width: 47%;
-`;
-
-const ModelSmallImg = styled.div`
-  width: 100%;
-  cursor: pointer;
-`;
-
-const Model2n3 = styled.div`
-  width: 100%;
-  text-align: left;
-  font-size: 18px;
-  padding-bottom: 20px;
-  color: #000;
-  cursor: pointer;
-`;
-
-const ElecInner1 = styled.div`
-  width: 67%;
-`;
-
-const ElecInner2 = styled.div`
-  width: 33%;
-  position: relative;
-  display: flex;
-  align-content: space-between;
-  justify-content: space-between;
-  flex-direction: column;
-  padding: 2vw 2.61vw 6.36vw 3vw;
-  background: #f7f3f2;
-  text-align: left;
-`;
-
-const ElecDiv1 = styled.div`
-  width: 100%;
-  height: fit-content;
-`;
-
-const ElecNEW = styled.div`
-  background-color: #007fa8;
-  border: 1px solid #007fa8;
-  color: #fff;
-  padding: 4px 5px 3px;
-  font-size: 11px;
-  display: inline-block;
-  font-weight: 400;
-  line-height: 1;
-`;
-
-const ElecTitle = styled.div`
-  font-size: 44px;
-  color: #000;
-  line-height: 58px;
-  margin: 8px 0 6px;
-`;
-
-const ElecText1 = styled.div`
-  font-size: 16px;
-  line-height: 30px;
-  color: #000;
-  font-weight: 500;
-`;
-
-const ElecMore = styled.div`
-  margin-top: 2.6vw;
-  width: 120px;
-  height: 40px;
-  font-size: 15px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  background: #002c5f;
-  line-height: 35px;
-  font-weight: 500;
-`;
-
-const ElecDiv2 = styled.div`
-  width: 100%;
-  height: fit-content;
-  z-index: 1;
-`;
-
-const ElecNetwork = styled.div`
-  font-size: 24px;
-  color: #000;
-  line-height: 34px;
-`;
-
-const ElecText2 = styled.div`
-  font-size: 16px;
-  line-height: 30px;
-  color: #666;
-  font-weight: 500;
-  margin: 6px 0 3px;
-`;
-
-const ElecLink = styled.div`
-  color: #002c5f;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-`;
-
-const ElecImg = styled.div`
-  position: absolute;
-  right: 2.6vw;
-  bottom: 2.6vw;
-  display: block;
-  content: "";
-  width: 200px;
-  height: 100px;
-  background: url(https://www.hyundai.com/static/images/ev_icon_w.jpg) no-repeat;
-`;
-
-const MyInner1 = styled.div`
-  width: 795px;
-  height: 440px;
-  border: 1px solid #ccc;
-  overflow: scroll;
-  overflow: hidden;
-`;
-
-const MyInner1WrapDiv = styled.div`
-  width: fit-content;
-  height: 100%;
-  display: flex;
-  overflow-x: scroll;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  position: relative;
-`;
-
-const MyInner1Div = styled.div`
-  width: 397px;
-  height: 100%;
-  text-align: left;
-  transition: 0.3s ease-in-out;
-`;
-
-const MyInner1DivTitle = styled.div`
-  margin-top: 32px;
-  font-size: 30px;
-  padding-left: 40px;
-  color: #000;
-`;
-
-const MyInner1DivText = styled.div`
-  margin-top: 5px;
-  font-size: 16px;
-  padding-left: 40px;
-  font-weight: 500;
-  color: #666;
-`;
-
-const MyInner1DivMore = styled.div`
-  margin-top: 32px;
-  font-size: 16px;
-  padding-left: 40px;
-  color: #002c5f;
-  cursor: pointer;
-`;
-
-const MyInner1DivLine = styled.div`
-  width: 0.5px;
-  margin-top: 40px;
-  height: calc(100% - 40px);
-  background-color: #e5e5e5;
-  transition: 0.3s ease-in-out;
-`;
-
-const MyInner2 = styled.div`
-  position: relative;
-  width: 290px;
-  height: 442px;
-  text-align: left;
-  background-color: #f6f3f2;
-  &:before {
-    position: absolute;
-    right: 40px;
-    bottom: 36px;
-    display: block;
-    content: "";
-    width: 120px;
-    height: 120px;
-    background: url(https://www.hyundai.com/static/images/re_hyundaishop_app.png)
-      no-repeat;
-  }
-`;
-
-const MyInner2Title = styled.div`
-  padding: 35px 35px 0;
-  font-size: 30px;
-  color: #000;
-`;
-
-const MyInner2text = styled.div`
-  padding: 5px 35px;
-  font-size: 16px;
-  color: #666;
-  word-break: keep-all;
-  line-height: 30px;
-  font-weight: 450;
-  vertical-align: middle;
-`;
-
-const MyInner2Link = styled.div`
-  padding: 30px 20px 0 35px;
-  font-size: 16px;
-  color: #012d5e;
-  cursor: pointer;
-`;
-
-const ShopInner1A = styled.div`
-  width: 31%;
-  height: fit-content;
-  text-align: left;
-  cursor: pointer;
-  position: relative;
-  &:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    font-size: 18px;
-    color: #fff;
-    line-height: 30px;
-    text-align: left;
-    content: "봄타는 자동차를 위한 봄맞이 차량관리 TIP";
-  }
-`;
-
-const ShopInner1B = styled.div`
-  width: 31%;
-  height: fit-content;
-  text-align: left;
-  cursor: pointer;
-  position: relative;
-  &:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    font-size: 18px;
-    color: #fff;
-    line-height: 30px;
-    text-align: left;
-    content: "봄 맞이 전기자전거 라이딩을 위한 필수 체크리스트";
-  }
-`;
-
-const ShopInner1C = styled.div`
-  width: 31%;
-  height: fit-content;
-  text-align: left;
-  cursor: pointer;
-  position: relative;
-  &:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    font-size: 18px;
-    color: #fff;
-    line-height: 30px;
-    text-align: left;
-    content: "색다른 재미!? 이색 데이트 즐겨보기~";
-  }
-`;
-
-const ShopInner2 = styled.div`
-  width: 17%;
-  height: fit-content;
-  text-align: left;
-  display: block;
-  cursor: pointer;
-`;
-
-const ShopInner2LeftTitle = styled.div`
-  padding: 35px 30px 0;
-  font-size: 24px;
-  color: #000;
-`;
-
-const ShopInner2LeftText = styled.div`
-  padding: 10px 30px;
-  font-size: 16px;
-  color: #666;
-  word-break: keep-all;
-  line-height: 30px;
-  font-weight: 450;
-  vertical-align: middle;
-`;
-
-const ShopInner2LeftLink = styled.div`
-  padding: 20px 25px 0 30px;
-  font-size: 16px;
-  color: #012d5e;
-  cursor: pointer;
-`;
-
-const ShopInner2Img = styled.div`
-  width: 100%;
-  aspect-ratio: 1;
-  border: 1px solid #e5e5e5;
-`;
-
-const ShopInner2Num = styled.div`
-  align-items: center;
-  width: 34px;
-  height: 34px;
-  background: #007fa8;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 30px;
-  color: #fff;
-  text-align: center;
-  z-index: 1;
-  position: absolute;
-`;
-
-const ShopInner2Title = styled.div`
-  margin: 15px 0 0;
-  font-size: 16px;
-  letter-spacing: -0.24px;
-  color: #000;
-  line-height: 26px;
-  font-weight: 500;
-  height: 52px;
-  width: 100%;
-  word-break: keep-all;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  vertical-align: middle;
-`;
-
-const ShopInner2Sale = styled.div`
-  display: flex;
-  font-size: 16px;
-  letter-spacing: -0.24px;
-  color: #000;
-  line-height: 26px;
-  color: #e63312;
-  font-weight: 600;
-`;
-
-const ShopInner2Price = styled.div`
-  display: flex;
-  margin: 7px 0 0;
-  font-size: 16px;
-  letter-spacing: -0.24px;
-  color: #000;
-  line-height: 26px;
-  font-weight: 500;
-`;
-
-const BrandInner = styled.div`
-  width: 22%;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-`;
-
-const BrandInnerText = styled.div`
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
-  font-size: 18px;
-  color: #fff;
-  line-height: 30px;
-  text-align: center;
-  opacity: 0;
-  transition: 0.2s;
-  z-index: 10;
-`;
-
-const EventsInner = styled.div`
-  width: 95vw;
-  width: calc((100vw - (100vw - 100%)) * 0.95);
-  height: fit-content;
-  text-align: left;
-  overflow: hidden;
-`;
-
-const EventsWrapDiv = styled.div`
-  width: 190vw;
-  height: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  position: relative;
-  justify-content: space-between;
-`;
-
-const EventsDiv = styled.div`
-  height: 100%;
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
-  width: 30vw;
-  height: fit-content;
-  text-align: left;
-  overflow: hidden;
-`;
-
-const EventsImg = styled.div`
-  width: 100%;
-  height: fit-content;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-`;
-
-const EventsInnerText = styled.div`
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
-  font-size: 22px;
-  color: #fff;
-  line-height: 30px;
-  text-align: center;
-  transition: 0.2s;
-  z-index: 10;
-  opacity: 0;
-`;
-
-const EventsInnerTitle = styled.div`
-  width: 95%;
-  margin-top: 28px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #000;
-`;
-
-const EventsInnerSubtitle = styled.div`
-  width: 95%;
-  margin-top: 10px;
-  margin-bottom: 22px;
-  font-size: 16px;
-  font-weight: 400;
-`;
-
-const EventsInnerDate = styled.div`
-  width: 100%;
-  font-size: 16px;
-  font-weight: 400;
-`;
-
-const NewsInner = styled.div`
-  width: 24.75%;
-  aspect-ratio: 1;
-  border: 1px solid black;
-  background: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-`;
-
-const NewsInnerText = styled.div`
-  background: rgba(0, 44, 95, 0.9);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 40px;
-  font-size: 16px;
-  color: #fff;
-  line-height: 30px;
-  text-align: center;
-  opacity: 0;
-  transition: 0.2s;
-  z-index: 10;
-  font-weight: 400;
-  letter-spacing: -0.5px;
-`;
-
-const MyBtn = styled.div`
-  bottom: 0;
-  width: 100%;
-  margin-top: 30px;
-  display: inline-flex;
-  justify-content: left;
-  width: calc(100vw - 60px);
-  max-width: 1120px;
-`;
-
-const EventsBtn = styled.div`
-  bottom: 0;
-  width: 100%;
-  margin-top: 45px;
-  display: inline-flex;
-  justify-content: center;
-`;
-
 const Hashtag = styled.div`
   background-color: #f6f3f2;
   width: fit-content;
@@ -658,6 +75,176 @@ const Hashtag = styled.div`
 `;
 
 function Main() {
+  let CarArr = [
+    {
+      left: "CASPER",
+      right: "The new AVANTE",
+    },
+    {
+      left: "BRAND",
+      right: "The all-new KONA",
+    },
+    {
+      left: "The new AVANTE",
+      right: "The all-new GRANDEUR",
+    },
+    {
+      left: "The all-new KONA",
+      right: "CASPER",
+    },
+    {
+      left: "The all-new GRANDEUR",
+      right: "BRAND",
+    },
+    {
+      left: "CASPER",
+      right: "The new AVANTE",
+    },
+    {
+      left: "BRAND",
+      right: "The all-new KONA",
+    },
+  ];
+
+  let ModelArr = [
+    {
+      first: "1위. 디 올 뉴 그랜저 Hybrid",
+      second: "2위. 팰리세이드",
+      third: "3위. 투싼 Hybrid",
+      firstImg:
+        "https://www.hyundai.com/static/images/lineUp/SEDAN/GN02_EXT.jpg",
+      secondImg:
+        "https://www.hyundai.com/static/images/lineUp/SUV/LX05_EXT.jpg",
+      thirdImg: "https://www.hyundai.com/static/images/lineUp/SUV/NX06_EXT.jpg",
+    },
+    {
+      first: "1위. 투싼",
+      second: "2위. 팰리세이드",
+      third: "3위. 디 올 뉴 그랜저 Hybrid",
+      firstImg: "https://www.hyundai.com/static/images/lineUp/SUV/NX05_EXT.jpg",
+      secondImg:
+        "https://www.hyundai.com/static/images/lineUp/SUV/LX05_EXT.jpg",
+      thirdImg:
+        "https://www.hyundai.com/static/images/lineUp/SEDAN/GN02_EXT.jpg",
+    },
+    {
+      first: "1위. 디 올 뉴 그랜저 Hybrid",
+      second: "2위. 팰리세이드",
+      third: "3위. 아이오닉 6",
+      firstImg:
+        "https://www.hyundai.com/static/images/lineUp/SEDAN/GN02_EXT.jpg",
+      secondImg:
+        "https://www.hyundai.com/static/images/lineUp/SUV/LX05_EXT.jpg",
+      thirdImg: "https://www.hyundai.com/static/images/lineUp/ECO/CE01_EXT.jpg",
+    },
+    {
+      first: "1위. 디 올 뉴 그랜저 Hybrid",
+      second: "2위. 투싼 Hybrid",
+      third: "3위. 아이오닉 6",
+      firstImg:
+        "https://www.hyundai.com/static/images/lineUp/SEDAN/GN02_EXT.jpg",
+      secondImg:
+        "https://www.hyundai.com/static/images/lineUp/SUV/NX06_EXT.jpg",
+      thirdImg: "https://www.hyundai.com/static/images/lineUp/ECO/CE01_EXT.jpg",
+    },
+  ];
+
+  let HashArr = [
+    {
+      text1: "KONA | 디지털 월드 프리미어 | 현대자동차",
+      text2: "IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차",
+      text3: "CASPER | 캐스퍼 그리기 대회 - 대상 수상작 | 현대자동차",
+      text4: "CASPER | 현대자동차 TAP: CASPER | 현대자동차",
+      img1: "https://img.youtube.com/vi/uHot_6GQ6aY/0.jpg",
+      img2: "https://img.youtube.com/vi/hmntTkxoBTw/0.jpg",
+      img3: "https://img.youtube.com/vi/SU4CnsfjQ6g/0.jpg",
+      img4: "https://img.youtube.com/vi/s1OWqUUN6d8/0.jpg",
+    },
+    {
+      text1: "KONA | 디지털 월드 프리미어 | 현대자동차",
+      text2: "IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차",
+      text3: "CASPER | 캐스퍼 그리기 대회 - 대상 수상작 | 현대자동차",
+      text4: "CASPER | 현대자동차 TAP: CASPER | 현대자동차",
+      img1: "https://img.youtube.com/vi/uHot_6GQ6aY/0.jpg",
+      img2: "https://img.youtube.com/vi/hmntTkxoBTw/0.jpg",
+      img3: "https://img.youtube.com/vi/SU4CnsfjQ6g/0.jpg",
+      img4: "https://img.youtube.com/vi/s1OWqUUN6d8/0.jpg",
+    },
+    {
+      text1: "Hyundai N | 현대 N X SURFYY BEACH | 현대자동차",
+      text2: "N | N Universe | 현대자동차",
+      text3: "N Day │ 전동화 비전 및 차량 공개 디지털 필름 공개 │ 현대자동차",
+      text4: "Hyundai N | 현대 N 라운지 | 현대자동차",
+      img1: "https://img.youtube.com/vi/-oQVy8MvizQ/0.jpg",
+      img2: "https://img.youtube.com/vi/iO7UNAYHBZY/0.jpg",
+      img3: "https://img.youtube.com/vi/PzaDDND2f7E/0.jpg",
+      img4: "https://img.youtube.com/vi/CRCTbpDM7ss/0.jpg",
+    },
+    {
+      text1: "CASPER | 캐스퍼 그리기 대회 - 대상 수상작 | 현대자동차",
+      text2: "CASPER | 현대자동차 TAP: CASPER | 현대자동차",
+      text3: "캐스퍼 | CASPER The Essential | 현대자동차",
+      text4: "캐스퍼 | 캐스퍼 사용법 (활용편) | 현대자동차",
+      img1: "https://img.youtube.com/vi/SU4CnsfjQ6g/0.jpg",
+      img2: "https://img.youtube.com/vi/s1OWqUUN6d8/0.jpg",
+      img3: "https://img.youtube.com/vi/gCnheDHozxg/0.jpg",
+      img4: "https://img.youtube.com/vi/g8lHPWYSyJU/0.jpg",
+    },
+    {
+      text1: "IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차",
+      text2: "Hyundai ContinueㅣJourney to move everyoneㅣ현대자동차",
+      text3:
+        "IONIQ 5 레벨 4 자율주행차 | 안전을 향한 여정 in 라스베가스 | 현대자동차",
+      text4: "당신을 향한 모빌리티 종합편 현대자동차",
+      img1: "https://img.youtube.com/vi/hmntTkxoBTw/0.jpg",
+      img2: "https://img.youtube.com/vi/StDfzkqW_Ww/0.jpg",
+      img3: "https://img.youtube.com/vi/utKM-Ncj9hs/0.jpg",
+      img4: "https://img.youtube.com/vi/chP43KM5vM8/0.jpg",
+    },
+    {
+      text1: "KONA | 디지털 월드 프리미어 | 현대자동차",
+      text2: "IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차",
+      text3: "CASPER | 캐스퍼 그리기 대회 - 대상 수상작 | 현대자동차",
+      text4: "CASPER | 현대자동차 TAP: CASPER | 현대자동차",
+      img1: "https://img.youtube.com/vi/uHot_6GQ6aY/0.jpg",
+      img2: "https://img.youtube.com/vi/hmntTkxoBTw/0.jpg",
+      img3: "https://img.youtube.com/vi/SU4CnsfjQ6g/0.jpg",
+      img4: "https://img.youtube.com/vi/s1OWqUUN6d8/0.jpg",
+    },
+    {
+      text1: "IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차",
+      text2:
+        "IONIQ 5 레벨 4 자율주행차 | 안전을 향한 여정 in 라스베가스 | 현대자동차",
+      text3: "당신을 향한 모빌리티 종합편 현대자동차",
+      text4: "IONIQ x wadiz | 아이오닉 라이프스타일 아이템 종합편 | 현대자동차",
+      img1: "https://img.youtube.com/vi/hmntTkxoBTw/0.jpg",
+      img2: "https://img.youtube.com/vi/utKM-Ncj9hs/0.jpg",
+      img3: "https://img.youtube.com/vi/chP43KM5vM8/0.jpg",
+      img4: "https://img.youtube.com/vi/mKQMQaqazWU/0.jpg",
+    },
+    {
+      text1: "Goal for the Century | BTS GOTC 플랫지 홍보 | 현대자동차",
+      text2: "[Goal of the Century - BTS]",
+      text3: "[지속가능한 세상을 위한 우리의 연대] - Goal of the Century",
+      text4: "아이오닉 콘셉트카 'SEVEN' | Live in SEVEN - 메인 영상",
+      img1: "https://img.youtube.com/vi/R035n2pW9Wg/0.jpg",
+      img2: "https://img.youtube.com/vi/f4NLyjIFffg/0.jpg",
+      img3: "https://img.youtube.com/vi/dawGCefOlH4/0.jpg",
+      img4: "https://img.youtube.com/vi/t04Z9QuTsro/0.jpg",
+    },
+    {
+      text1: "IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차",
+      text2:
+        "IONIQ 5 레벨 4 자율주행차 | 안전을 향한 여정 in 라스베가스 | 현대자동차",
+      text3: "IONIQ x wadiz | 아이오닉 라이프스타일 아이템 종합편 | 현대자동차",
+      text4: "전기차 How-To | 주행가능거리가 바뀌는 이유 | 현대자동차",
+      img1: "https://img.youtube.com/vi/hmntTkxoBTw/0.jpg",
+      img2: "https://img.youtube.com/vi/utKM-Ncj9hs/0.jpg",
+      img3: "https://img.youtube.com/vi/mKQMQaqazWU/0.jpg",
+      img4: "https://img.youtube.com/vi/0dVsXjbaO-s/0.jpg",
+    },
+  ];
+
   const ModelAges = useRef<any>([]);
   const MyRight = useRef<any>(null);
   const MyLeft = useRef<any>(null);
@@ -673,34 +260,736 @@ function Main() {
   const Tags = useRef<any>([]);
   const NewsDiv = useRef<any>([]);
   const NewsImg = useRef<any>([]);
+  const CarBtns = useRef<any>([]);
+  const CarDiv = useRef<any>([]);
+  const CarImg = useRef<any>([]);
+  const MenuDiv = useRef<any>([]);
+  const MenuLeft = useRef<any>(null);
+  const MenuRight = useRef<any>(null);
+  const MenuBg = useRef<any>(null);
+  const CarArrow = useRef<any>([]);
+  const NewsHover = useRef<any>([]);
 
+  const [carN, setCarN] = useState(1);
+  const [modelN, setModelN] = useState(0);
   const [tagN, setN] = useState(0);
+  const [auto, setAuto] = useState(1);
+  const [PlayOrPause, setPP] = useState("pause_circle");
+  const [nextN, setNext] = useState(1);
+
+  const transOn = () => {
+    for (let i = 0; i < CarDiv.current.length; i++) {
+      CarDiv.current[i].style.transition = "0.4s ease-in-out";
+    }
+  };
+
+  const transOff = () => {
+    for (let i = 0; i < CarDiv.current.length; i++) {
+      CarDiv.current[i].style.transition = "none";
+    }
+    for (let i = 0; i < CarImg.current.length; i++) {
+      CarImg.current[i].classList.remove("appear");
+    }
+  };
+
+  useEffect(() => {
+    switch (carN) {
+      case 0:
+        transOn();
+        MenuBg.current.style.background = "rgba(246, 243, 242, 0.5)";
+        for (let i = 0; i < CarArrow.current.length; i++) {
+          CarArrow.current[i].style.color = "white";
+          CarArrow.current[i].style.borderColor = "white";
+        }
+        CarBtns.current[4].style.backgroundColor = "#007fa8";
+        CarBtns.current[0].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[1].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[2].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[3].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        transOff();
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-500%)";
+        }
+        setCarN(5);
+        break;
+      case 1:
+        transOn();
+        for (let i = 0; i < CarArrow.current.length; i++) {
+          CarArrow.current[i].style.color = "black";
+          CarArrow.current[i].style.borderColor = "black";
+        }
+        MenuBg.current.style.background = "transparent";
+        CarImg.current[0].classList.add("appear");
+        CarBtns.current[0].style.backgroundColor = "#007fa8";
+        CarBtns.current[1].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[2].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[3].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[4].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-100%)";
+        }
+        setTimeout(transOff, 1300);
+        setTimeout(() => {
+          setNext(nextN + 1);
+        }, 3000);
+
+        break;
+      case 2:
+        transOn();
+        MenuBg.current.style.background = "transparent";
+        CarImg.current[1].classList.add("appear");
+        CarBtns.current[1].style.backgroundColor = "#007fa8";
+        CarBtns.current[0].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[2].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[3].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[4].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-200%)";
+        }
+        setTimeout(transOff, 1300);
+        setTimeout(() => {
+          setNext(nextN + 1);
+        }, 3000);
+        break;
+      case 3:
+        transOn();
+        MenuBg.current.style.background = "transparent";
+        CarImg.current[2].classList.add("appear");
+        CarBtns.current[2].style.backgroundColor = "#007fa8";
+        CarBtns.current[0].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[1].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[3].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[4].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-300%)";
+        }
+        setTimeout(transOff, 1300);
+        setTimeout(() => {
+          setNext(nextN + 1);
+        }, 3000);
+        break;
+      case 4:
+        transOn();
+        MenuBg.current.style.background = "transparent";
+        CarImg.current[3].classList.add("appear");
+        for (let i = 0; i < CarArrow.current.length; i++) {
+          CarArrow.current[i].style.color = "black";
+          CarArrow.current[i].style.borderColor = "black";
+        }
+        CarBtns.current[3].style.backgroundColor = "#007fa8";
+        CarBtns.current[0].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[1].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[2].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[4].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-400%)";
+        }
+        setTimeout(transOff, 1300);
+        setTimeout(() => {
+          setNext(nextN + 1);
+        }, 3000);
+        break;
+      case 5:
+        transOn();
+        MenuBg.current.style.background = "rgba(246, 243, 242, 0.5)";
+        for (let i = 0; i < CarArrow.current.length; i++) {
+          CarArrow.current[i].style.color = "white";
+          CarArrow.current[i].style.borderColor = "white";
+        }
+        CarBtns.current[4].style.backgroundColor = "#007fa8";
+        CarBtns.current[1].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[2].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[3].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[0].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-500%)";
+        }
+        setTimeout(transOff, 1300);
+        setTimeout(() => {
+          setNext(nextN + 1);
+        }, 3000);
+        break;
+      case 6:
+        transOn();
+        MenuBg.current.style.background = "transparent";
+        CarImg.current[4].classList.add("appear");
+        for (let i = 0; i < CarArrow.current.length; i++) {
+          CarArrow.current[i].style.color = "black";
+          CarArrow.current[i].style.borderColor = "black";
+        }
+        CarBtns.current[0].style.backgroundColor = "#007fa8";
+        CarBtns.current[1].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[2].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[3].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        CarBtns.current[4].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        transOff();
+        for (let i = 0; i < CarDiv.current.length; i++) {
+          CarDiv.current[i].style.transform = "translateX(-100%)";
+        }
+        setCarN(1);
+        break;
+    }
+  }, [carN]);
+
   useEffect(() => {
     Tags.current[`${tagN}`].style.backgroundColor = "#007fa8";
     Tags.current[`${tagN}`].style.color = "#fff";
   }, [tagN]);
 
+  useEffect(() => {
+    if (auto % 2 === 0) {
+      setPP("play_circle");
+    } else {
+      setPP("pause_circle");
+      if (carN === 6) {
+        setCarN(0);
+      } else {
+        setCarN(carN + 1);
+      }
+    }
+  }, [auto, nextN]);
+
   return (
     <Wrapper>
       <ProgressBar />
-      <Navbar style={{ zIndex: 500, backgroundColor: "#ffffffef" }} />
-      <MainCar></MainCar>
+
+      <Navbar></Navbar>
+      <Car.Car>
+        <Car.CarWrapDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[0] = element;
+            }}
+            style={{
+              backgroundImage:
+                "url(https://www.hyundai.com/contents/mainbanner/mobility_for_you_kv_w.jpg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              color: "white",
+            }}
+          >
+            <Car.CarTitle
+              style={{
+                color: "white",
+                marginTop: "125px",
+                fontSize: "80px",
+              }}
+            >
+              로보틱스
+            </Car.CarTitle>
+            <Car.CarSubtitle
+              style={{
+                color: "white",
+                paddingTop: "5px",
+              }}
+            ></Car.CarSubtitle>
+          </Car.CarDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[1] = element;
+            }}
+          >
+            <Car.CarTitle>The new AVANTE</Car.CarTitle>
+            <Car.CarSubtitle>지금, 더 매력적인</Car.CarSubtitle>
+            <Car.CarImg
+              ref={(element) => {
+                CarImg.current[0] = element;
+              }}
+              src="https://www.hyundai.com/contents/mainbanner/avante-23pe-w.png"
+              alt=""
+            ></Car.CarImg>
+          </Car.CarDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[2] = element;
+            }}
+          >
+            <Car.CarTitle>The all-new KONA</Car.CarTitle>
+            <Car.CarSubtitle>새로운 차원의 플레이</Car.CarSubtitle>
+            <Car.CarImg
+              ref={(element) => {
+                CarImg.current[1] = element;
+              }}
+              src="https://www.hyundai.com/contents/mainbanner/kona-23fc-w.png"
+              alt=""
+            ></Car.CarImg>
+          </Car.CarDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[3] = element;
+            }}
+          >
+            <Car.CarTitle>The all-new GRANDEUR</Car.CarTitle>
+            <Car.CarSubtitle>Outclass GRANDEUR</Car.CarSubtitle>
+            <Car.CarImg
+              ref={(element) => {
+                CarImg.current[2] = element;
+              }}
+              src="https://www.hyundai.com/contents/mainbanner/grandeur-23fc-w.png"
+              alt=""
+            ></Car.CarImg>
+          </Car.CarDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[4] = element;
+            }}
+          >
+            <Car.CarTitle style={{ marginTop: "125px", fontSize: "80px" }}>
+              CASPER
+            </Car.CarTitle>
+            <Car.CarSubtitle style={{ paddingTop: "5px" }}>
+              case by CASPER
+            </Car.CarSubtitle>
+            <Car.CarImg
+              ref={(element) => {
+                CarImg.current[3] = element;
+              }}
+              src="https://www.hyundai.com/contents/mainbanner/main_kv_CASPER_car_w.png"
+              alt=""
+            ></Car.CarImg>
+          </Car.CarDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[5] = element;
+            }}
+            style={{
+              backgroundImage:
+                "url(https://www.hyundai.com/contents/mainbanner/mobility_for_you_kv_w.jpg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              color: "white",
+            }}
+          >
+            <Car.CarTitle
+              style={{
+                color: "white",
+                marginTop: "125px",
+                fontSize: "80px",
+              }}
+            >
+              로보틱스
+            </Car.CarTitle>
+            <Car.CarSubtitle
+              style={{
+                color: "white",
+                paddingTop: "5px",
+              }}
+            >
+              당신을 향한 모빌리티
+            </Car.CarSubtitle>
+          </Car.CarDiv>
+          <Car.CarDiv
+            ref={(element) => {
+              CarDiv.current[6] = element;
+            }}
+          >
+            <Car.CarTitle>The new AVANTE</Car.CarTitle>
+            <Car.CarSubtitle>지금, 더 매력적인</Car.CarSubtitle>
+            <Car.CarImg
+              ref={(element) => {
+                CarImg.current[4] = element;
+              }}
+              src="https://www.hyundai.com/contents/mainbanner/avante-23pe-w.png"
+              alt=""
+            ></Car.CarImg>
+          </Car.CarDiv>
+        </Car.CarWrapDiv>
+      </Car.Car>
+      <S.CarouselArrow
+        ref={(element) => {
+          CarArrow.current[0] = element;
+        }}
+        style={{
+          background: "transparent",
+          position: "absolute",
+          left: "75px",
+          width: "fit-content",
+          height: "fit-content",
+          fontSize: "17px",
+          display: "flex",
+          fontWeight: "400",
+          alignItems: "center",
+          textAlign: "left",
+          top: "457px",
+          letterSpacing: "0.2px",
+        }}
+        onClick={() => {
+          setTimeout(() => {
+            if (carN === 0) {
+              setCarN(6);
+            } else {
+              setCarN(carN - 1);
+            }
+          }, 300);
+        }}
+      >
+        <S.CarouselArrowLeft
+          ref={(element) => {
+            CarArrow.current[1] = element;
+          }}
+          style={{
+            borderColor: "black",
+            borderWidth: "1px",
+            width: "34px",
+            height: "34px",
+            margin: "0",
+          }}
+        ></S.CarouselArrowLeft>
+        {CarArr[`${carN}`].left}
+      </S.CarouselArrow>
+      <S.CarouselArrow
+        ref={(element) => {
+          CarArrow.current[2] = element;
+        }}
+        onClick={() => {
+          setTimeout(() => {
+            if (carN === 6) {
+              setCarN(0);
+            } else {
+              setCarN(carN + 1);
+            }
+          }, 300);
+        }}
+        style={{
+          background: "transparent",
+          position: "absolute",
+          right: "76px",
+          width: "fit-content",
+          height: "fit-content",
+          fontSize: "17px",
+          display: "flex",
+          fontWeight: "400",
+          alignItems: "center",
+          textAlign: "right",
+          top: "457px",
+          letterSpacing: "0.2px",
+        }}
+      >
+        {CarArr[`${carN}`].right}
+        <S.CarouselArrowRight
+          ref={(element) => {
+            CarArrow.current[3] = element;
+          }}
+          style={{
+            borderColor: "black",
+            borderWidth: "1px",
+            width: "34px",
+            height: "34px",
+            margin: "0",
+          }}
+        ></S.CarouselArrowRight>
+      </S.CarouselArrow>
+      <Car.CarBtn1>
+        <S.CarouselBtn
+          ref={(element) => {
+            CarBtns.current[0] = element;
+          }}
+          onClick={() => {
+            setTimeout(() => {
+              setCarN(1);
+            }, 300);
+          }}
+          style={{ marginRight: "7px", backgroundColor: "#007fa8" }}
+        ></S.CarouselBtn>
+        <S.CarouselBtn
+          ref={(element) => {
+            CarBtns.current[1] = element;
+          }}
+          onClick={() => {
+            setTimeout(() => {
+              setCarN(2);
+            }, 300);
+          }}
+          style={{ marginRight: "7px" }}
+        ></S.CarouselBtn>
+        <S.CarouselBtn
+          ref={(element) => {
+            CarBtns.current[2] = element;
+          }}
+          onClick={() => {
+            setTimeout(() => {
+              setCarN(3);
+            }, 300);
+          }}
+          style={{ marginRight: "7px" }}
+        ></S.CarouselBtn>
+        <S.CarouselBtn
+          ref={(element) => {
+            CarBtns.current[3] = element;
+          }}
+          onClick={() => {
+            setTimeout(() => {
+              setCarN(4);
+            }, 300);
+          }}
+          style={{ marginRight: "7px" }}
+        ></S.CarouselBtn>
+        <S.CarouselBtn
+          ref={(element) => {
+            CarBtns.current[4] = element;
+          }}
+          onClick={() => {
+            setTimeout(() => {
+              setCarN(5);
+            }, 300);
+          }}
+        ></S.CarouselBtn>
+        <span
+          className="material-symbols-outlined"
+          style={{
+            fontSize: "21px",
+            fontVariationSettings: "'FILL' 1",
+            color: "rgba(0,0,0,0.7)",
+            marginLeft: "3px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setAuto(auto + 1);
+          }}
+        >
+          {PlayOrPause}
+        </span>
+      </Car.CarBtn1>
+      <Car.CarMenu ref={MenuBg}>
+        <Car.CarMenuIconDiv>
+          <Car.CarMenuWrapDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[0] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_estimation.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>견적내기</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[1] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_purchase_consult.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>구매상담</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[2] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_test_driving.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>시승신청</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[3] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_customer_branch.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>판매처 검색</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[4] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_monthly_benefit.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>구매혜택</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[5] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_service_reservation.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>정비예약</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[6] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_bluemembers.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>블루멤버스</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[7] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_my_point.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>포인트 사용</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[8] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_navigation_update.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>내비 업데이트</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[9] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_warranty.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>보증수리 안내</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[10] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_usedcar.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>중고차</Car.CarMenuText>
+            </Car.CarMenuDiv>
+            <Car.CarMenuDiv
+              ref={(element) => {
+                MenuDiv.current[11] = element;
+              }}
+            >
+              <Car.CarMenuIcon
+                src="https://www.hyundai.com/static/images/common/button/ico_event.png"
+                alt=""
+              ></Car.CarMenuIcon>
+              <Car.CarMenuText>이벤트</Car.CarMenuText>
+            </Car.CarMenuDiv>
+          </Car.CarMenuWrapDiv>
+        </Car.CarMenuIconDiv>
+      </Car.CarMenu>
+      <Car.CarBtn2>
+        <Car.CarouselRec
+          ref={MenuLeft}
+          style={{ background: "black" }}
+          onClick={() => {
+            for (let i = 0; i < MenuDiv.current.length; i++) {
+              MenuDiv.current[i].style.transform = "translateX(0)";
+            }
+            MenuLeft.current.style.background = "black";
+            MenuRight.current.style.background = "rgba(0, 0, 0, 0.1)";
+          }}
+        ></Car.CarouselRec>
+        <Car.CarouselRec
+          ref={MenuRight}
+          onClick={() => {
+            for (let i = 0; i < MenuDiv.current.length; i++) {
+              MenuDiv.current[i].style.transform = "translateX(-630px)";
+            }
+            MenuRight.current.style.background = "black";
+            MenuLeft.current.style.background = "rgba(0, 0, 0, 0.1)";
+          }}
+        ></Car.CarouselRec>
+      </Car.CarBtn2>
+      <S.CarouselArrow
+        style={{
+          background: "transparent",
+          transform: "translateY(-130px) translateX(calc(50vw - 368px))",
+        }}
+        onClick={() => {
+          if (MenuRight.current.style.background === "black") {
+            for (let i = 0; i < MenuDiv.current.length; i++) {
+              MenuDiv.current[i].style.transform = "translateX(0)";
+            }
+            MenuLeft.current.style.background = "black";
+            MenuRight.current.style.background = "rgba(0, 0, 0, 0.1)";
+          } else {
+            for (let i = 0; i < MenuDiv.current.length; i++) {
+              MenuDiv.current[i].style.transform = "translateX(-630px)";
+            }
+            MenuRight.current.style.background = "black";
+            MenuLeft.current.style.background = "rgba(0, 0, 0, 0.1)";
+          }
+        }}
+      >
+        <S.CarouselArrowLeft
+          style={{
+            borderColor: "black",
+            borderWidth: "1px",
+            width: "9px",
+            height: "9px",
+          }}
+        ></S.CarouselArrowLeft>
+      </S.CarouselArrow>
+      <S.CarouselArrow
+        style={{
+          background: "transparent",
+          transform: "translateY(-130px) translateX(calc(50vw + 308px))",
+        }}
+        onClick={() => {
+          if (MenuRight.current.style.background === "black") {
+            for (let i = 0; i < MenuDiv.current.length; i++) {
+              MenuDiv.current[i].style.transform = "translateX(0)";
+            }
+            MenuLeft.current.style.background = "black";
+            MenuRight.current.style.background = "rgba(0, 0, 0, 0.1)";
+          } else {
+            for (let i = 0; i < MenuDiv.current.length; i++) {
+              MenuDiv.current[i].style.transform = "translateX(-630px)";
+            }
+            MenuRight.current.style.background = "black";
+            MenuLeft.current.style.background = "rgba(0, 0, 0, 0.1)";
+          }
+        }}
+      >
+        <S.CarouselArrowRight
+          style={{
+            borderColor: "black",
+            borderWidth: "1px",
+            width: "9px",
+            height: "9px",
+          }}
+        ></S.CarouselArrowRight>
+      </S.CarouselArrow>
+
       <Section>
         <Title>Model</Title>
         <Subtitle>
           최근 한 달 동안 고객님들이 가장 많이 구매하신 모델입니다.
         </Subtitle>
         <Container>
-          <ModelInner1>
+          <Model.ModelInner1>
             <img
-              src='https://www.hyundai.com/static/images/lineUp/SEDAN/GN02_EXT.jpg'
-              alt=''
+
+              src={ModelArr[`${modelN}`].firstImg}
+              alt=""
+
               style={{ width: "100%" }}
             ></img>
-          </ModelInner1>
-          <ModelInner2>
-            <ModelAge>
-              <Ages
+          </Model.ModelInner1>
+          <Model.ModelInner2>
+            <Model.ModelAge>
+              <Model.Ages
                 ref={(element) => {
                   ModelAges.current[0] = element;
                 }}
@@ -712,9 +1001,16 @@ function Main() {
                 }}
                 style={{ paddingLeft: "0", color: "#007fa8" }}
               >
-                <span style={{ cursor: "pointer" }}>전체</span>
-              </Ages>
-              <Ages
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setModelN(0);
+                  }}
+                >
+                  전체
+                </span>
+              </Model.Ages>
+              <Model.Ages
                 ref={(element) => {
                   ModelAges.current[1] = element;
                 }}
@@ -725,9 +1021,16 @@ function Main() {
                   ModelAges.current[3].style.color = "#666";
                 }}
               >
-                <span style={{ cursor: "pointer" }}>2~30대</span>
-              </Ages>
-              <Ages
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setModelN(1);
+                  }}
+                >
+                  2~30대
+                </span>
+              </Model.Ages>
+              <Model.Ages
                 ref={(element) => {
                   ModelAges.current[2] = element;
                 }}
@@ -738,9 +1041,16 @@ function Main() {
                   ModelAges.current[3].style.color = "#666";
                 }}
               >
-                <span style={{ cursor: "pointer" }}>40대</span>
-              </Ages>
-              <Ages
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setModelN(2);
+                  }}
+                >
+                  40대
+                </span>
+              </Model.Ages>
+              <Model.Ages
                 ref={(element) => {
                   ModelAges.current[3] = element;
                 }}
@@ -754,33 +1064,43 @@ function Main() {
                   borderRight: "none",
                 }}
               >
-                <span style={{ cursor: "pointer" }}>50대</span>
-              </Ages>
-            </ModelAge>
-            <Model1>1위. 디 올 뉴 그랜저 Hybrid</Model1>
-            <ModelDiv>
-              <ModelDiv2>
-                <ModelSmallImg>
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setModelN(3);
+                  }}
+                >
+                  50대
+                </span>
+              </Model.Ages>
+            </Model.ModelAge>
+            <Model.Model1>{ModelArr[`${modelN}`].first}</Model.Model1>
+            <Model.ModelDiv>
+              <Model.ModelDiv2>
+                <Model.ModelSmallImg>
                   <img
-                    src='https://www.hyundai.com/static/images/lineUp/SEDAN/CN07_EXT.jpg'
-                    alt=''
+
+                    src={ModelArr[`${modelN}`].secondImg}
+                    alt=""
+
                     style={{ width: "100%" }}
                   ></img>
-                </ModelSmallImg>
-                <Model2n3>2위. 아반떼</Model2n3>
-              </ModelDiv2>
-              <ModelDiv2>
-                <ModelSmallImg>
+                </Model.ModelSmallImg>
+                <Model.Model2n3>{ModelArr[`${modelN}`].second}</Model.Model2n3>
+              </Model.ModelDiv2>
+              <Model.ModelDiv2>
+                <Model.ModelSmallImg>
                   <img
-                    src='https://www.hyundai.com/static/images/lineUp/SUV/NX05_EXT.jpg'
-                    alt=''
+
+                    src={ModelArr[`${modelN}`].thirdImg}
+                    alt=""
                     style={{ width: "100%" }}
                   ></img>
-                </ModelSmallImg>
-                <Model2n3>3위. 투싼</Model2n3>
-              </ModelDiv2>
-            </ModelDiv>
-          </ModelInner2>
+                </Model.ModelSmallImg>
+                <Model.Model2n3>{ModelArr[`${modelN}`].third}</Model.Model2n3>
+              </Model.ModelDiv2>
+            </Model.ModelDiv>
+          </Model.ModelInner2>
         </Container>
       </Section>
       <Section>
@@ -789,40 +1109,42 @@ function Main() {
           지구 환경을 품은 현대자동차의 미래형 모빌리티를 경험해보세요.
         </Subtitle>
         <Container style={{ width: "100%", maxWidth: "none" }}>
-          <ElecInner1>
+          <Elec.ElecInner1>
             <img
               src='https://www.hyundai.com/static/images/ev_ioniq6.jpg'
               alt=''
               width='100%'
               height='100%'
             ></img>
-          </ElecInner1>
-          <ElecInner2>
-            <ElecDiv1>
-              <ElecNEW>NEW</ElecNEW>
-              <ElecTitle>아이오닉 6</ElecTitle>
-              <ElecText1>내가 만드는 세상</ElecText1>
-              <ElecMore>자세히 보기</ElecMore>
-            </ElecDiv1>
-            <ElecDiv2>
-              <ElecNetwork>충전소&서비스 네트워크</ElecNetwork>
-              <ElecText2>
+          </Elec.ElecInner1>
+          <Elec.ElecInner2>
+            <Elec.ElecDiv1>
+              <Elec.ElecNEW>NEW</Elec.ElecNEW>
+              <Elec.ElecTitle>아이오닉 6</Elec.ElecTitle>
+              <Elec.ElecText1>내가 만드는 세상</Elec.ElecText1>
+              <a href="https://www.hyundai.com/kr/ko/e/vehicles/ioniq6/intro">
+                <Elec.ElecMore>자세히 보기</Elec.ElecMore>
+              </a>
+            </Elec.ElecDiv1>
+            <Elec.ElecDiv2>
+              <Elec.ElecNetwork>충전소&서비스 네트워크</Elec.ElecNetwork>
+              <Elec.ElecText2>
                 고객님의 계신 곳 근처의 충전소 및 서비스 네트워크를
                 안내해드립니다.
-              </ElecText2>
-              <ElecLink>
+              </Elec.ElecText2>
+              <Elec.ElecLink>
                 전기차
                 <RightBtn
                   style={{ borderColor: " #002c5f", marginRight: "25px" }}
                 ></RightBtn>
-              </ElecLink>
-              <ElecLink>
+              </Elec.ElecLink>
+              <Elec.ElecLink>
                 수소전기차
                 <RightBtn style={{ borderColor: " #002c5f" }}></RightBtn>
-              </ElecLink>
-            </ElecDiv2>
-            <ElecImg></ElecImg>
-          </ElecInner2>
+              </Elec.ElecLink>
+            </Elec.ElecDiv2>
+            <Elec.ElecImg></Elec.ElecImg>
+          </Elec.ElecInner2>
         </Container>
       </Section>
       <Section>
@@ -833,9 +1155,9 @@ function Main() {
           '라이프 플랫폼 myHyundai'를 만나보세요.
         </Subtitle>
         <Container>
-          <MyInner1>
-            <MyInner1WrapDiv>
-              <MyInner1Div
+          <My.MyInner1>
+            <My.MyInner1WrapDiv>
+              <My.MyInner1Div
                 ref={(element) => {
                   MyDiv.current[0] = element;
                 }}
@@ -845,21 +1167,21 @@ function Main() {
                   backgroundSize: "100%",
                 }}
               >
-                <MyInner1DivTitle>홈</MyInner1DivTitle>
-                <MyInner1DivText>
+                <My.MyInner1DivTitle>홈</My.MyInner1DivTitle>
+                <My.MyInner1DivText>
                   보유 차량 정보에 따른 맞춤 정보형 UI 통해 제공
-                </MyInner1DivText>
-                <MyInner1DivMore>
+                </My.MyInner1DivText>
+                <My.MyInner1DivMore>
                   자세히 보기{" "}
                   <RightBtn style={{ borderColor: " #002c5f" }}></RightBtn>
-                </MyInner1DivMore>
-              </MyInner1Div>
-              <MyInner1DivLine
+                </My.MyInner1DivMore>
+              </My.MyInner1Div>
+              <My.MyInner1DivLine
                 ref={(element) => {
                   MyDiv.current[1] = element;
                 }}
-              ></MyInner1DivLine>
-              <MyInner1Div
+              ></My.MyInner1DivLine>
+              <My.MyInner1Div
                 ref={(element) => {
                   MyDiv.current[2] = element;
                 }}
@@ -869,22 +1191,22 @@ function Main() {
                   backgroundSize: "100%",
                 }}
               >
-                <MyInner1DivTitle>차고</MyInner1DivTitle>
-                <MyInner1DivText>
+                <My.MyInner1DivTitle>차고</My.MyInner1DivTitle>
+                <My.MyInner1DivText>
                   차량정보 및 유지비 관리를 포함한 쉬운 차량 관리
-                </MyInner1DivText>
-                <MyInner1DivMore>
+                </My.MyInner1DivText>
+                <My.MyInner1DivMore>
                   자세히 보기{" "}
                   <RightBtn style={{ borderColor: " #002c5f" }}></RightBtn>
-                </MyInner1DivMore>
-              </MyInner1Div>
-              <MyInner1DivLine
+                </My.MyInner1DivMore>
+              </My.MyInner1Div>
+              <My.MyInner1DivLine
                 ref={(element) => {
                   MyDiv.current[3] = element;
                 }}
                 style={{ opacity: "0" }}
-              ></MyInner1DivLine>
-              <MyInner1Div
+              ></My.MyInner1DivLine>
+              <My.MyInner1Div
                 ref={(element) => {
                   MyDiv.current[4] = element;
                 }}
@@ -894,21 +1216,21 @@ function Main() {
                   backgroundSize: "100%",
                 }}
               >
-                <MyInner1DivTitle>Shop</MyInner1DivTitle>
-                <MyInner1DivText>
+                <My.MyInner1DivTitle>Shop</My.MyInner1DivTitle>
+                <My.MyInner1DivText>
                   마이현대 대표 커머스 현대Shop과의 연계
-                </MyInner1DivText>
-                <MyInner1DivMore>
+                </My.MyInner1DivText>
+                <My.MyInner1DivMore>
                   자세히 보기{" "}
                   <RightBtn style={{ borderColor: " #002c5f" }}></RightBtn>
-                </MyInner1DivMore>
-              </MyInner1Div>
-              <MyInner1DivLine
+                </My.MyInner1DivMore>
+              </My.MyInner1Div>
+              <My.MyInner1DivLine
                 ref={(element) => {
                   MyDiv.current[5] = element;
                 }}
-              ></MyInner1DivLine>
-              <MyInner1Div
+              ></My.MyInner1DivLine>
+              <My.MyInner1Div
                 ref={(element) => {
                   MyDiv.current[6] = element;
                 }}
@@ -918,27 +1240,23 @@ function Main() {
                   backgroundSize: "100%",
                 }}
               >
-                <MyInner1DivTitle>서비스</MyInner1DivTitle>
-                <MyInner1DivText>
+                <My.MyInner1DivTitle>서비스</My.MyInner1DivTitle>
+                <My.MyInner1DivText>
                   정비를 포함한 다양한 차량 관련 서비스
-                </MyInner1DivText>
-                <MyInner1DivMore>
+                </My.MyInner1DivText>
+                <My.MyInner1DivMore>
                   자세히 보기{" "}
                   <RightBtn style={{ borderColor: " #002c5f" }}></RightBtn>
-                </MyInner1DivMore>
-              </MyInner1Div>
-            </MyInner1WrapDiv>
+                </My.MyInner1DivMore>
+              </My.MyInner1Div>
+            </My.MyInner1WrapDiv>
             <S.CarouselArrow
               ref={MyArrowLeft}
               style={{ transform: "translateY(-240px)", opacity: "0" }}
               onClick={() => {
-                MyDiv.current[0].style.transform = "translateX(0%)";
-                MyDiv.current[1].style.transform = "translateX(0%)";
-                MyDiv.current[2].style.transform = "translateX(0%)";
-                MyDiv.current[3].style.transform = "translateX(0%)";
-                MyDiv.current[4].style.transform = "translateX(0%)";
-                MyDiv.current[5].style.transform = "translateX(0%)";
-                MyDiv.current[6].style.transform = "translateX(0%)";
+                for (let i = 0; i < MyDiv.current.length; i++) {
+                  MyDiv.current[i].style.transform = "translateX(0%)";
+                }
                 MyLeft.current.style.backgroundColor = "#007fa8";
                 MyRight.current.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
                 MyArrowLeft.current.style.opacity = "0";
@@ -966,14 +1284,14 @@ function Main() {
             >
               <S.CarouselArrowRight></S.CarouselArrowRight>
             </S.CarouselArrow>
-          </MyInner1>
-          <MyInner2>
-            <MyInner2Title>마이현대 APP</MyInner2Title>
-            <MyInner2text>
+          </My.MyInner1>
+          <My.MyInner2>
+            <My.MyInner2Title>마이현대 APP</My.MyInner2Title>
+            <My.MyInner2text>
               당신의 카라이프를 책임질 현대자동차 대표 앱 myHyundai를
               만나보세요.
-            </MyInner2text>
-            <MyInner2Link>
+            </My.MyInner2text>
+            <My.MyInner2Link>
               APP 다운로드
               <span
                 className='material-symbols-outlined'
@@ -986,10 +1304,10 @@ function Main() {
               >
                 open_in_new
               </span>
-            </MyInner2Link>
-          </MyInner2>
+            </My.MyInner2Link>
+          </My.MyInner2>
         </Container>
-        <MyBtn>
+        <My.MyBtn>
           <span
             style={{
               paddingLeft: "375px",
@@ -999,13 +1317,9 @@ function Main() {
             <S.CarouselBtn
               ref={MyLeft}
               onClick={() => {
-                MyDiv.current[0].style.transform = "translateX(0%)";
-                MyDiv.current[1].style.transform = "translateX(0%)";
-                MyDiv.current[2].style.transform = "translateX(0%)";
-                MyDiv.current[3].style.transform = "translateX(0%)";
-                MyDiv.current[4].style.transform = "translateX(0%)";
-                MyDiv.current[5].style.transform = "translateX(0%)";
-                MyDiv.current[6].style.transform = "translateX(0%)";
+                for (let i = 0; i < MyDiv.current.length; i++) {
+                  MyDiv.current[i].style.transform = "translateX(0%)";
+                }
                 MyLeft.current.style.backgroundColor = "#007fa8";
                 MyRight.current.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
                 MyArrowLeft.current.style.opacity = "0";
@@ -1030,7 +1344,7 @@ function Main() {
               }}
             ></S.CarouselBtn>
           </span>
-        </MyBtn>
+        </My.MyBtn>
       </Section>
       <Section>
         <Title>현대 shop</Title>
@@ -1038,30 +1352,30 @@ function Main() {
           현대자동차 공식 온라인몰에서 다양한 상품을 확인해보세요.
         </Subtitle>
         <Container>
-          <ShopInner1A>
+          <Shop.ShopInner1A>
             <img
               src='https://www.hyundai.com/contents/attach-1/2023/03/shop_story_01.jpg'
               alt=''
               style={{ width: "100%", display: "block" }}
             ></img>
-          </ShopInner1A>
-          <ShopInner1B>
+          </Shop.ShopInner1A>
+          <Shop.ShopInner1B>
             <img
               src='https://www.hyundai.com/contents/attach-1/2023/03/shop_story_02.jpg'
               alt=''
               style={{ width: "100%", display: "block" }}
             ></img>
-          </ShopInner1B>
-          <ShopInner1C>
+          </Shop.ShopInner1B>
+          <Shop.ShopInner1C>
             <img
               src='https://www.hyundai.com/contents/attach-1/2023/03/shop_story_03.jpg'
               alt=''
               style={{ width: "100%", display: "block" }}
             ></img>
-          </ShopInner1C>
+          </Shop.ShopInner1C>
         </Container>
         <Container>
-          <ShopInner2
+          <Shop.ShopInner2
             style={{
               backgroundColor: "#f6f3f2",
               width: "20%",
@@ -1069,11 +1383,11 @@ function Main() {
               cursor: "auto",
             }}
           >
-            <ShopInner2LeftTitle>현대 Shop Best</ShopInner2LeftTitle>
-            <ShopInner2LeftText>
+            <Shop.ShopInner2LeftTitle>현대 Shop Best</Shop.ShopInner2LeftTitle>
+            <Shop.ShopInner2LeftText>
               지금 현대Shop에서 인기 있는 상품이에요
-            </ShopInner2LeftText>
-            <ShopInner2LeftLink>
+            </Shop.ShopInner2LeftText>
+            <Shop.ShopInner2LeftLink>
               더보기
               <span
                 className='material-symbols-outlined'
@@ -1086,22 +1400,22 @@ function Main() {
               >
                 open_in_new
               </span>
-            </ShopInner2LeftLink>
-          </ShopInner2>
-          <ShopInner2>
-            <ShopInner2Img>
-              <ShopInner2Num>1</ShopInner2Num>
+            </Shop.ShopInner2LeftLink>
+          </Shop.ShopInner2>
+          <Shop.ShopInner2>
+            <Shop.ShopInner2Img>
+              <Shop.ShopInner2Num>1</Shop.ShopInner2Num>
               <img
                 src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_01.jpg'
                 alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
-            </ShopInner2Img>
-            <ShopInner2Title>
+            </Shop.ShopInner2Img>
+            <Shop.ShopInner2Title>
               [신차필수템] [디테일링] 괴물흡입력 17,000Pa BLDC 핸디형 무선청소기
-            </ShopInner2Title>
-            <ShopInner2Price>
-              <ShopInner2Sale>
+            </Shop.ShopInner2Title>
+            <Shop.ShopInner2Price>
+              <Shop.ShopInner2Sale>
                 34%{" "}
                 <span
                   style={{
@@ -1113,7 +1427,7 @@ function Main() {
                   {" "}
                   ↓{" "}
                 </span>
-              </ShopInner2Sale>
+              </Shop.ShopInner2Sale>
               <span
                 style={{
                   fontWeight: "700",
@@ -1125,22 +1439,22 @@ function Main() {
                 66,900
               </span>{" "}
               원
-            </ShopInner2Price>
-          </ShopInner2>
-          <ShopInner2>
-            <ShopInner2Img>
-              <ShopInner2Num>2</ShopInner2Num>
+            </Shop.ShopInner2Price>
+          </Shop.ShopInner2>
+          <Shop.ShopInner2>
+            <Shop.ShopInner2Img>
+              <Shop.ShopInner2Num>2</Shop.ShopInner2Num>
               <img
                 src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_02.jpg'
                 alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
-            </ShopInner2Img>
-            <ShopInner2Title>
+            </Shop.ShopInner2Img>
+            <Shop.ShopInner2Title>
               [안방그릴] 연기 잡는 전기그릴 시즌4 AB701MF (전용가방＋필터 포함)
-            </ShopInner2Title>
-            <ShopInner2Price>
-              <ShopInner2Sale>
+            </Shop.ShopInner2Title>
+            <Shop.ShopInner2Price>
+              <Shop.ShopInner2Sale>
                 14%{" "}
                 <span
                   style={{
@@ -1152,7 +1466,7 @@ function Main() {
                   {" "}
                   ↓{" "}
                 </span>
-              </ShopInner2Sale>
+              </Shop.ShopInner2Sale>
               <span
                 style={{
                   fontWeight: "700",
@@ -1164,19 +1478,21 @@ function Main() {
                 188,000
               </span>{" "}
               원
-            </ShopInner2Price>
-          </ShopInner2>
-          <ShopInner2>
-            <ShopInner2Img>
-              <ShopInner2Num>3</ShopInner2Num>
+            </Shop.ShopInner2Price>
+          </Shop.ShopInner2>
+          <Shop.ShopInner2>
+            <Shop.ShopInner2Img>
+              <Shop.ShopInner2Num>3</Shop.ShopInner2Num>
               <img
                 src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_03.jpg'
                 alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
-            </ShopInner2Img>
-            <ShopInner2Title>[샤오토] SUV 트렁크 매트 풀커버</ShopInner2Title>
-            <ShopInner2Price>
+            </Shop.ShopInner2Img>
+            <Shop.ShopInner2Title>
+              [샤오토] SUV 트렁크 매트 풀커버
+            </Shop.ShopInner2Title>
+            <Shop.ShopInner2Price>
               <span
                 style={{
                   fontWeight: "700",
@@ -1188,22 +1504,22 @@ function Main() {
                 81,000
               </span>{" "}
               원
-            </ShopInner2Price>
-          </ShopInner2>
-          <ShopInner2>
-            <ShopInner2Img>
-              <ShopInner2Num>4</ShopInner2Num>
+            </Shop.ShopInner2Price>
+          </Shop.ShopInner2>
+          <Shop.ShopInner2>
+            <Shop.ShopInner2Img>
+              <Shop.ShopInner2Num>4</Shop.ShopInner2Num>
               <img
                 src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_04.jpg'
                 alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
-            </ShopInner2Img>
-            <ShopInner2Title>
+            </Shop.ShopInner2Img>
+            <Shop.ShopInner2Title>
               [미락] 바이오 3세대 진공 쌀통 20kg SM-22A20R
-            </ShopInner2Title>
-            <ShopInner2Price>
-              <ShopInner2Sale>
+            </Shop.ShopInner2Title>
+            <Shop.ShopInner2Price>
+              <Shop.ShopInner2Sale>
                 16%{" "}
                 <span
                   style={{
@@ -1215,7 +1531,7 @@ function Main() {
                   {" "}
                   ↓{" "}
                 </span>
-              </ShopInner2Sale>
+              </Shop.ShopInner2Sale>
               <span
                 style={{
                   fontWeight: "700",
@@ -1227,8 +1543,8 @@ function Main() {
                 109,900
               </span>{" "}
               원
-            </ShopInner2Price>
-          </ShopInner2>
+            </Shop.ShopInner2Price>
+          </Shop.ShopInner2>
         </Container>
       </Section>
       <Section>
@@ -1238,7 +1554,7 @@ function Main() {
           만나보세요.
         </Subtitle>
         <Container>
-          <BrandInner
+          <Brand.BrandInner
             onMouseOver={() => {
               BrandDiv.current[0].style.opacity = "1";
               BrandImg.current[0].style.transform = "scale(1.2)";
@@ -1248,7 +1564,7 @@ function Main() {
               BrandImg.current[0].style.transform = "scale(1)";
             }}
           >
-            <BrandInnerText
+            <Brand.BrandInnerText
               ref={(element) => {
                 BrandDiv.current[0] = element;
               }}
@@ -1264,7 +1580,7 @@ function Main() {
               >
                 당신을 향한 모빌리티
               </span>
-            </BrandInnerText>
+            </Brand.BrandInnerText>
             <img
               ref={(element) => {
                 BrandImg.current[0] = element;
@@ -1277,8 +1593,8 @@ function Main() {
                 transition: "0.4s",
               }}
             ></img>
-          </BrandInner>
-          <BrandInner
+          </Brand.BrandInner>
+          <Brand.BrandInner
             onMouseOver={() => {
               BrandDiv.current[1].style.opacity = "1";
               BrandImg.current[1].style.transform = "scale(1.2)";
@@ -1288,7 +1604,7 @@ function Main() {
               BrandImg.current[1].style.transform = "scale(1)";
             }}
           >
-            <BrandInnerText
+            <Brand.BrandInnerText
               ref={(element) => {
                 BrandDiv.current[1] = element;
               }}
@@ -1304,7 +1620,7 @@ function Main() {
               >
                 현대차 x UNDP 2022
               </span>
-            </BrandInnerText>
+            </Brand.BrandInnerText>
             <img
               ref={(element) => {
                 BrandImg.current[1] = element;
@@ -1313,8 +1629,8 @@ function Main() {
               alt=''
               style={{ width: "100%", display: "block", transition: "0.4s" }}
             ></img>
-          </BrandInner>
-          <BrandInner
+          </Brand.BrandInner>
+          <Brand.BrandInner
             onMouseOver={() => {
               BrandDiv.current[2].style.opacity = "1";
               BrandImg.current[2].style.transform = "scale(1.2)";
@@ -1324,7 +1640,7 @@ function Main() {
               BrandImg.current[2].style.transform = "scale(1)";
             }}
           >
-            <BrandInnerText
+            <Brand.BrandInnerText
               ref={(element) => {
                 BrandDiv.current[2] = element;
               }}
@@ -1340,7 +1656,7 @@ function Main() {
               >
                 아이오닉 5 기반의 레벨 4 자율주행 자동차
               </span>
-            </BrandInnerText>
+            </Brand.BrandInnerText>
             <img
               ref={(element) => {
                 BrandImg.current[2] = element;
@@ -1349,8 +1665,8 @@ function Main() {
               alt=''
               style={{ width: "100%", display: "block", transition: "0.4s" }}
             ></img>
-          </BrandInner>
-          <BrandInner
+          </Brand.BrandInner>
+          <Brand.BrandInner
             onMouseOver={() => {
               BrandDiv.current[3].style.opacity = "1";
               BrandImg.current[3].style.transform = "scale(1.2)";
@@ -1360,7 +1676,7 @@ function Main() {
               BrandImg.current[3].style.transform = "scale(1)";
             }}
           >
-            <BrandInnerText
+            <Brand.BrandInnerText
               ref={(element) => {
                 BrandDiv.current[3] = element;
               }}
@@ -1376,7 +1692,7 @@ function Main() {
               >
                 아이들의 상상력을 현실로: 현대 키즈 모터쇼
               </span>
-            </BrandInnerText>
+            </Brand.BrandInnerText>
             <img
               ref={(element) => {
                 BrandImg.current[3] = element;
@@ -1385,7 +1701,7 @@ function Main() {
               alt=''
               style={{ width: "100%", display: "block", transition: "0.4s" }}
             ></img>
-          </BrandInner>
+          </Brand.BrandInner>
         </Container>
       </Section>
       <Section>
@@ -1400,9 +1716,9 @@ function Main() {
             justifyContent: "space-evenly",
           }}
         >
-          <EventsInner>
-            <EventsWrapDiv>
-              <EventsDiv
+          <Events.EventsInner>
+            <Events.EventsWrapDiv>
+              <Events.EventsDiv
                 ref={(element) => {
                   EventDiv.current[0] = element;
                 }}
@@ -1413,30 +1729,32 @@ function Main() {
                   EventText.current[0].style.opacity = "0";
                 }}
               >
-                <EventsImg>
-                  <EventsInnerText
+                <Events.EventsImg>
+                  <Events.EventsInnerText
                     ref={(element) => {
                       EventText.current[0] = element;
                     }}
                   >
                     자세히 보기 +
-                  </EventsInnerText>
+                  </Events.EventsInnerText>
                   <img
                     src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/10/event-myhyundai-soccer-match-ticket-eco-vehicles-banner-739x489.png'
                     alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
-                </EventsImg>
-                <EventsInnerTitle>
+                </Events.EventsImg>
+                <Events.EventsInnerTitle>
                   마이현대가 국가대표 축구경기 1등석 초대권 쏜다!
-                </EventsInnerTitle>
-                <EventsInnerSubtitle>
+                </Events.EventsInnerTitle>
+                <Events.EventsInnerSubtitle>
                   마이현대에서 전기수소차 구매보조금 조회하고 1등석에서 A매치
                   직관하자!
-                </EventsInnerSubtitle>
-                <EventsInnerDate>2023-03-14 ~ 2023-03-20</EventsInnerDate>
-              </EventsDiv>
-              <EventsDiv
+                </Events.EventsInnerSubtitle>
+                <Events.EventsInnerDate>
+                  2023-03-14 ~ 2023-03-20
+                </Events.EventsInnerDate>
+              </Events.EventsDiv>
+              <Events.EventsDiv
                 ref={(element) => {
                   EventDiv.current[1] = element;
                 }}
@@ -1447,30 +1765,32 @@ function Main() {
                   EventText.current[1].style.opacity = "0";
                 }}
               >
-                <EventsImg>
-                  <EventsInnerText
+                <Events.EventsImg>
+                  <Events.EventsInnerText
                     ref={(element) => {
                       EventText.current[1] = element;
                     }}
                   >
                     자세히 보기 +
-                  </EventsInnerText>
+                  </Events.EventsInnerText>
                   <img
                     src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/08/event-2023-the-new-avante-is-coming-seoul-mobility-show-banner-739x489.jpg'
                     alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
-                </EventsImg>
-                <EventsInnerTitle>
+                </Events.EventsImg>
+                <Events.EventsInnerTitle>
                   The new AVANTE 정보 알림 서비스
-                </EventsInnerTitle>
-                <EventsInnerSubtitle>
+                </Events.EventsInnerTitle>
+                <Events.EventsInnerSubtitle>
                   The new AVANTE 소식도 받고, 서울 모빌리티 쇼 티켓도
                   받아가세요!
-                </EventsInnerSubtitle>
-                <EventsInnerDate>2023-03-13 ~ 2023-03-20</EventsInnerDate>
-              </EventsDiv>
-              <EventsDiv
+                </Events.EventsInnerSubtitle>
+                <Events.EventsInnerDate>
+                  2023-03-13 ~ 2023-03-20
+                </Events.EventsInnerDate>
+              </Events.EventsDiv>
+              <Events.EventsDiv
                 ref={(element) => {
                   EventDiv.current[2] = element;
                 }}
@@ -1481,29 +1801,31 @@ function Main() {
                   EventText.current[2].style.opacity = "0";
                 }}
               >
-                <EventsImg>
-                  <EventsInnerText
+                <Events.EventsImg>
+                  <Events.EventsInnerText
                     ref={(element) => {
                       EventText.current[2] = element;
                     }}
                   >
                     자세히 보기 +
-                  </EventsInnerText>
+                  </Events.EventsInnerText>
                   <img
                     src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/06/event-lg-bestshop-use-bluemembers-point-reward-benefit-banner-739x489.png'
                     alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
-                </EventsImg>
-                <EventsInnerTitle>
+                </Events.EventsImg>
+                <Events.EventsInnerTitle>
                   LG전자 베스트샵 포인트 리워드 EVENT
-                </EventsInnerTitle>
-                <EventsInnerSubtitle>
+                </Events.EventsInnerTitle>
+                <Events.EventsInnerSubtitle>
                   블루멤버스 포인트 사용하고 리워드 받자!
-                </EventsInnerSubtitle>
-                <EventsInnerDate>2023-03-08 ~ 2023-03-31</EventsInnerDate>
-              </EventsDiv>
-              <EventsDiv
+                </Events.EventsInnerSubtitle>
+                <Events.EventsInnerDate>
+                  2023-03-08 ~ 2023-03-31
+                </Events.EventsInnerDate>
+              </Events.EventsDiv>
+              <Events.EventsDiv
                 ref={(element) => {
                   EventDiv.current[3] = element;
                 }}
@@ -1514,29 +1836,31 @@ function Main() {
                   EventText.current[3].style.opacity = "0";
                 }}
               >
-                <EventsImg>
-                  <EventsInnerText
+                <Events.EventsImg>
+                  <Events.EventsInnerText
                     ref={(element) => {
                       EventText.current[3] = element;
                     }}
                   >
                     자세히 보기 +
-                  </EventsInnerText>
+                  </Events.EventsInnerText>
                   <img
                     src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/02/event-bluemembers-1years-anniversary-hyundaishop-banner-739x489.jpg'
                     alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
-                </EventsImg>
-                <EventsInnerTitle>
+                </Events.EventsImg>
+                <Events.EventsInnerTitle>
                   현대샵 1주년 기념 삼행시 이벤트
-                </EventsInnerTitle>
-                <EventsInnerSubtitle>
+                </Events.EventsInnerTitle>
+                <Events.EventsInnerSubtitle>
                   센스 있는 삼행시 쓰고 푸짐한 상품 받자!
-                </EventsInnerSubtitle>
-                <EventsInnerDate>2023-03-07 ~ 2023-03-31</EventsInnerDate>
-              </EventsDiv>
-              <EventsDiv
+                </Events.EventsInnerSubtitle>
+                <Events.EventsInnerDate>
+                  2023-03-07 ~ 2023-03-31
+                </Events.EventsInnerDate>
+              </Events.EventsDiv>
+              <Events.EventsDiv
                 ref={(element) => {
                   EventDiv.current[4] = element;
                 }}
@@ -1547,27 +1871,31 @@ function Main() {
                   EventText.current[4].style.opacity = "0";
                 }}
               >
-                <EventsImg>
-                  <EventsInnerText
+                <Events.EventsImg>
+                  <Events.EventsInnerText
                     ref={(element) => {
                       EventText.current[4] = element;
                     }}
                   >
                     자세히 보기 +
-                  </EventsInnerText>
+                  </Events.EventsInnerText>
                   <img
                     src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/02/28/event-hc-purchase-benefits-202303-banner-739x489.jpg'
                     alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
-                </EventsImg>
-                <EventsInnerTitle>3월 신차 구매 혜택</EventsInnerTitle>
-                <EventsInnerSubtitle>
+                </Events.EventsImg>
+                <Events.EventsInnerTitle>
+                  3월 신차 구매 혜택
+                </Events.EventsInnerTitle>
+                <Events.EventsInnerSubtitle>
                   Hyundai Mobility카드만의 구매 프로그램
-                </EventsInnerSubtitle>
-                <EventsInnerDate>2023-03-02 ~ 2023-03-31</EventsInnerDate>
-              </EventsDiv>
-              <EventsDiv
+                </Events.EventsInnerSubtitle>
+                <Events.EventsInnerDate>
+                  2023-03-02 ~ 2023-03-31
+                </Events.EventsInnerDate>
+              </Events.EventsDiv>
+              <Events.EventsDiv
                 ref={(element) => {
                   EventDiv.current[5] = element;
                 }}
@@ -1578,29 +1906,31 @@ function Main() {
                   EventText.current[5].style.opacity = "0";
                 }}
               >
-                <EventsImg>
-                  <EventsInnerText
+                <Events.EventsImg>
+                  <Events.EventsInnerText
                     ref={(element) => {
                       EventText.current[5] = element;
                     }}
                   >
                     자세히 보기 +
-                  </EventsInnerText>
+                  </Events.EventsInnerText>
                   <img
                     src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/02/28/event-app-yesdrive-benefit-only-hmc-2023-mar-banner-739x489.png'
                     alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
-                </EventsImg>
-                <EventsInnerTitle>
+                </Events.EventsImg>
+                <Events.EventsInnerTitle>
                   현대자동차가 준비한 운전결심만의 전용혜택!
-                </EventsInnerTitle>
-                <EventsInnerSubtitle>
+                </Events.EventsInnerTitle>
+                <Events.EventsInnerSubtitle>
                   운전결심! 하고 최대 197만원+α 상당의 혜택을 받으세요!
-                </EventsInnerSubtitle>
-                <EventsInnerDate>2023-03-02 ~ 2023-03-31</EventsInnerDate>
-              </EventsDiv>
-            </EventsWrapDiv>
+                </Events.EventsInnerSubtitle>
+                <Events.EventsInnerDate>
+                  2023-03-02 ~ 2023-03-31
+                </Events.EventsInnerDate>
+              </Events.EventsDiv>
+            </Events.EventsWrapDiv>
             <S.CarouselArrow
               style={{
                 display: "relative",
@@ -1667,9 +1997,9 @@ function Main() {
             >
               <S.CarouselArrowRight></S.CarouselArrowRight>
             </S.CarouselArrow>
-          </EventsInner>
+          </Events.EventsInner>
         </Container>
-        <EventsBtn>
+        <Events.EventsBtn>
           <S.CarouselBtn
             ref={EventLeft}
             onClick={() => {
@@ -1697,7 +2027,7 @@ function Main() {
               EventLeft.current.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
             }}
           ></S.CarouselBtn>
-        </EventsBtn>
+        </Events.EventsBtn>
       </Section>
       <Section style={{ margin: "0 0 160px" }}>
         <Title>현대자동차 소식</Title>
@@ -1830,126 +2160,246 @@ function Main() {
           </Hashtag>
         </Subtitle>
         <Container style={{ flexWrap: "wrap" }}>
-          <NewsInner
+          <News.NewsInner
             onMouseOver={() => {
               NewsDiv.current[0].style.opacity = "1";
               NewsImg.current[0].style.transform = "scale(1.2)";
+              NewsHover.current[0].style.border = "2px solid white";
+              NewsHover.current[0].style.background = "transparent";
+              NewsHover.current[4].style.opacity = "1";
             }}
             onMouseLeave={() => {
               NewsDiv.current[0].style.opacity = "0";
               NewsImg.current[0].style.transform = "scale(1)";
+              NewsHover.current[0].style.border = "none";
+              NewsHover.current[0].style.background = "rgba(0, 0, 0, 0.5)";
+              NewsHover.current[4].style.opacity = "0";
             }}
           >
-            <NewsInnerText
+            <News.Sns
+              ref={(element) => {
+                NewsHover.current[0] = element;
+              }}
+            >
+              SNS
+            </News.Sns>
+            <News.Play
+              ref={(element) => {
+                NewsHover.current[8] = element;
+              }}
+              src="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAQAAACQ9RH5AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfjBgsPEivbUX+DAAAEVUlEQVRYw8XZe2iVdRjA8a9nNpWdOcucmVuyFLuYUSaJJl7mJYUuIEwjkaK0IJDszzSK/EMngQXmIOgGWdHFQWxBUSo6p1nbsjmJxJpuaypEmziHup3z7Y+z2abbzntu9Xv+e/f83s/h5bxnz+95hkkCK4/ZzGQaRUxkDGGgg3Za+YPj1HCY88FvNSwgXMAqVjCLLKCF32ihgw4gTA6F3EEBEOEI5XxBU6A7Gj/mWWG3Wus2l5k7YE6uD1tqrdpthfPj3zVewgIPqGfd7JQAHxGnuNkz6gEXJA9PcJfa7HpHBUJ7Y4TPe1rd5YRk4BLb7XRTgmhvjHKTnbZbkhic7Q61OuDjHfyx/6DucERQONfvjVrq8JRYxBvcbtT93hQEHmeNXT6dMtobT3rJo46LB+dZ60WXp41FXOJF68wbCs52j1d8LK0s4qNedo/Zg8M7jbo67SziaqPuHAwuUUszwiJuVVcOBE+0zUNmZQzOsto2C66Hy+1M8b2NF5PttPxaeKH6SkZZxI3qov5wlU2OzDg80iar+sLz1PUBN3860O9Q4FivzvsXrvBs4H8G2uKypOFRnrGiF863K4HXSLuN+s4gBUH82GKX+TF4g3p3AvB2S4140rlJwXepG2JwlXUJbNSt4lxPGvGNpL6QdVYJ5tnttoRhzLHMqA3enzBcard5IeaQxd5EatyedZEXWM4YjvAqwxPauY8s5oSYQZTqJGCAb5nOZ7zOIe5MYFc1MDPEdBrpSBKGNtZQQhF1bCAUcE8HzUwLUcTJpNnY+pJ7+I432cOkgDtOUBTiVv5MEYZzPM4zzKCeZwPltzAxxBj+ThkG+IB7qeFdKhkfN/cCo0OE6U4LDKdZzIsU00BJXDg36Bci6BIZFiDvynA6yE0TOon3KeZr1nEmTmYuHSHaCaeFfYpfmMlaHonLQi4XQrRyS8roeL7iQ45yH+8Fyi/gXIhGpqTIrqCBJbxEMY0Bd0ylMUQDReQkjd7IR+zmFA/wFtGAe8IUcjxELSHmJsku5RireI3Z/JrAroeAmhCHiFCcBJpDGd9wnllsTvCXYCERDv8fhUBtrBBIrvTp9vfUS598u3qqimBw2oo9rLS1/yFySDiV8jbbViulb0G/NuDW1Ar6df0Leqzy1H9yhDnV/wiDi9SNGYdfVhf3h2PH1MkZZQc8pmKBbVZn9GB+cOCDOa68WqxnIrYM1opALMto86Ws75X+f852n5cz1G7aP1S7Ccdan5EGW71j+1+9Pi3fn73imrSxT3jJevOvvT5Q6mj3GnVL2pqoB4I1URFH+LZaneJ7PdnD6s7gbeNYpKNRfj7RRnksJvix2pTEaOA5T6ufJDcaiMUCq3qGIcEe++09w5CDLhw6M8jN5ltpRK2x1KWGB8wJu9RSf1IjVgYZ/wQdeN3GSlbwIFlAMydovjrwClPIVAqBCD9SzufBBl5B4diKjfimU8TNfUZ8f9HIsURHfP8APWzgRjZ+jUgAAAAASUVORK5CYII="
+              alt=""
+            ></News.Play>
+            <News.Youtube
+              ref={(element) => {
+                NewsHover.current[4] = element;
+              }}
+              src="https://www.hyundai.com/static/images/social/ico_youtube.png"
+              alt=""
+            ></News.Youtube>
+            <News.NewsInnerText
               ref={(element) => {
                 NewsDiv.current[0] = element;
               }}
             >
-              KONA | 디지털 월드 프리미어 | 현대자동차
-            </NewsInnerText>
+              {HashArr[`${tagN}`].text1}
+            </News.NewsInnerText>
             <img
               ref={(element) => {
                 NewsImg.current[0] = element;
               }}
-              src={tag0}
-              alt=''
+
+              src={HashArr[`${tagN}`].img1}
+              alt=""
+
               style={{
-                width: "100%",
-                display: "block",
+                height: "100%",
+                margin: "auto",
                 transition: "0.5s",
+                opacity: "0.8",
               }}
             ></img>
-          </NewsInner>
-          <NewsInner
+          </News.NewsInner>
+          <News.NewsInner
             onMouseOver={() => {
               NewsDiv.current[1].style.opacity = "1";
               NewsImg.current[1].style.transform = "scale(1.2)";
+              NewsHover.current[1].style.border = "2px solid white";
+              NewsHover.current[1].style.background = "transparent";
+              NewsHover.current[5].style.opacity = "1";
             }}
             onMouseLeave={() => {
               NewsDiv.current[1].style.opacity = "0";
               NewsImg.current[1].style.transform = "scale(1)";
+              NewsHover.current[1].style.border = "none";
+              NewsHover.current[1].style.background = "rgba(0,0,0,0.5)";
+              NewsHover.current[5].style.opacity = "0";
             }}
           >
-            <NewsInnerText
+            <News.Sns
+              ref={(element) => {
+                NewsHover.current[1] = element;
+              }}
+            >
+              SNS
+            </News.Sns>
+            <News.Play
+              ref={(element) => {
+                NewsHover.current[9] = element;
+              }}
+              src="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAQAAACQ9RH5AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfjBgsPEivbUX+DAAAEVUlEQVRYw8XZe2iVdRjA8a9nNpWdOcucmVuyFLuYUSaJJl7mJYUuIEwjkaK0IJDszzSK/EMngQXmIOgGWdHFQWxBUSo6p1nbsjmJxJpuaypEmziHup3z7Y+z2abbzntu9Xv+e/f83s/h5bxnz+95hkkCK4/ZzGQaRUxkDGGgg3Za+YPj1HCY88FvNSwgXMAqVjCLLKCF32ihgw4gTA6F3EEBEOEI5XxBU6A7Gj/mWWG3Wus2l5k7YE6uD1tqrdpthfPj3zVewgIPqGfd7JQAHxGnuNkz6gEXJA9PcJfa7HpHBUJ7Y4TPe1rd5YRk4BLb7XRTgmhvjHKTnbZbkhic7Q61OuDjHfyx/6DucERQONfvjVrq8JRYxBvcbtT93hQEHmeNXT6dMtobT3rJo46LB+dZ60WXp41FXOJF68wbCs52j1d8LK0s4qNedo/Zg8M7jbo67SziaqPuHAwuUUszwiJuVVcOBE+0zUNmZQzOsto2C66Hy+1M8b2NF5PttPxaeKH6SkZZxI3qov5wlU2OzDg80iar+sLz1PUBN3860O9Q4FivzvsXrvBs4H8G2uKypOFRnrGiF863K4HXSLuN+s4gBUH82GKX+TF4g3p3AvB2S4140rlJwXepG2JwlXUJbNSt4lxPGvGNpL6QdVYJ5tnttoRhzLHMqA3enzBcard5IeaQxd5EatyedZEXWM4YjvAqwxPauY8s5oSYQZTqJGCAb5nOZ7zOIe5MYFc1MDPEdBrpSBKGNtZQQhF1bCAUcE8HzUwLUcTJpNnY+pJ7+I432cOkgDtOUBTiVv5MEYZzPM4zzKCeZwPltzAxxBj+ThkG+IB7qeFdKhkfN/cCo0OE6U4LDKdZzIsU00BJXDg36Bci6BIZFiDvynA6yE0TOon3KeZr1nEmTmYuHSHaCaeFfYpfmMlaHonLQi4XQrRyS8roeL7iQ45yH+8Fyi/gXIhGpqTIrqCBJbxEMY0Bd0ylMUQDReQkjd7IR+zmFA/wFtGAe8IUcjxELSHmJsku5RireI3Z/JrAroeAmhCHiFCcBJpDGd9wnllsTvCXYCERDv8fhUBtrBBIrvTp9vfUS598u3qqimBw2oo9rLS1/yFySDiV8jbbViulb0G/NuDW1Ar6df0Leqzy1H9yhDnV/wiDi9SNGYdfVhf3h2PH1MkZZQc8pmKBbVZn9GB+cOCDOa68WqxnIrYM1opALMto86Ws75X+f852n5cz1G7aP1S7Ccdan5EGW71j+1+9Pi3fn73imrSxT3jJevOvvT5Q6mj3GnVL2pqoB4I1URFH+LZaneJ7PdnD6s7gbeNYpKNRfj7RRnksJvix2pTEaOA5T6ufJDcaiMUCq3qGIcEe++09w5CDLhw6M8jN5ltpRK2x1KWGB8wJu9RSf1IjVgYZ/wQdeN3GSlbwIFlAMydovjrwClPIVAqBCD9SzufBBl5B4diKjfimU8TNfUZ8f9HIsURHfP8APWzgRjZ+jUgAAAAASUVORK5CYII="
+              alt=""
+            ></News.Play>
+            <News.Youtube
+              ref={(element) => {
+                NewsHover.current[5] = element;
+              }}
+              src="https://www.hyundai.com/static/images/social/ico_youtube.png"
+              alt=""
+            ></News.Youtube>
+            <News.NewsInnerText
               ref={(element) => {
                 NewsDiv.current[1] = element;
               }}
             >
-              IONIQ 6 | HSMR_아이오닉 6의 소리 | 현대자동차
-            </NewsInnerText>
+              {HashArr[`${tagN}`].text2}
+            </News.NewsInnerText>
             <img
               ref={(element) => {
                 NewsImg.current[1] = element;
               }}
-              src={tag1}
-              alt=''
+
+              src={HashArr[`${tagN}`].img2}
+              alt=""
+
               style={{
-                width: "100%",
-                display: "block",
+                height: "100%",
+                margin: "auto",
                 transition: "0.5s",
+                opacity: "0.8",
               }}
             ></img>
-          </NewsInner>
-          <NewsInner
+          </News.NewsInner>
+          <News.NewsInner
             onMouseOver={() => {
               NewsDiv.current[2].style.opacity = "1";
               NewsImg.current[2].style.transform = "scale(1.2)";
+              NewsHover.current[2].style.border = "2px solid white";
+              NewsHover.current[2].style.background = "transparent";
+              NewsHover.current[6].style.opacity = "1";
             }}
             onMouseLeave={() => {
               NewsDiv.current[2].style.opacity = "0";
               NewsImg.current[2].style.transform = "scale(1)";
+              NewsHover.current[2].style.border = "none";
+              NewsHover.current[2].style.background = "rgba(0,0,0,0.5)";
+              NewsHover.current[6].style.opacity = "0";
             }}
           >
-            <NewsInnerText
+            <News.Sns
+              ref={(element) => {
+                NewsHover.current[2] = element;
+              }}
+            >
+              SNS
+            </News.Sns>
+            <News.Play
+              ref={(element) => {
+                NewsHover.current[10] = element;
+              }}
+              src="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAQAAACQ9RH5AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfjBgsPEivbUX+DAAAEVUlEQVRYw8XZe2iVdRjA8a9nNpWdOcucmVuyFLuYUSaJJl7mJYUuIEwjkaK0IJDszzSK/EMngQXmIOgGWdHFQWxBUSo6p1nbsjmJxJpuaypEmziHup3z7Y+z2abbzntu9Xv+e/f83s/h5bxnz+95hkkCK4/ZzGQaRUxkDGGgg3Za+YPj1HCY88FvNSwgXMAqVjCLLKCF32ihgw4gTA6F3EEBEOEI5XxBU6A7Gj/mWWG3Wus2l5k7YE6uD1tqrdpthfPj3zVewgIPqGfd7JQAHxGnuNkz6gEXJA9PcJfa7HpHBUJ7Y4TPe1rd5YRk4BLb7XRTgmhvjHKTnbZbkhic7Q61OuDjHfyx/6DucERQONfvjVrq8JRYxBvcbtT93hQEHmeNXT6dMtobT3rJo46LB+dZ60WXp41FXOJF68wbCs52j1d8LK0s4qNedo/Zg8M7jbo67SziaqPuHAwuUUszwiJuVVcOBE+0zUNmZQzOsto2C66Hy+1M8b2NF5PttPxaeKH6SkZZxI3qov5wlU2OzDg80iar+sLz1PUBN3860O9Q4FivzvsXrvBs4H8G2uKypOFRnrGiF863K4HXSLuN+s4gBUH82GKX+TF4g3p3AvB2S4140rlJwXepG2JwlXUJbNSt4lxPGvGNpL6QdVYJ5tnttoRhzLHMqA3enzBcard5IeaQxd5EatyedZEXWM4YjvAqwxPauY8s5oSYQZTqJGCAb5nOZ7zOIe5MYFc1MDPEdBrpSBKGNtZQQhF1bCAUcE8HzUwLUcTJpNnY+pJ7+I432cOkgDtOUBTiVv5MEYZzPM4zzKCeZwPltzAxxBj+ThkG+IB7qeFdKhkfN/cCo0OE6U4LDKdZzIsU00BJXDg36Bci6BIZFiDvynA6yE0TOon3KeZr1nEmTmYuHSHaCaeFfYpfmMlaHonLQi4XQrRyS8roeL7iQ45yH+8Fyi/gXIhGpqTIrqCBJbxEMY0Bd0ylMUQDReQkjd7IR+zmFA/wFtGAe8IUcjxELSHmJsku5RireI3Z/JrAroeAmhCHiFCcBJpDGd9wnllsTvCXYCERDv8fhUBtrBBIrvTp9vfUS598u3qqimBw2oo9rLS1/yFySDiV8jbbViulb0G/NuDW1Ar6df0Leqzy1H9yhDnV/wiDi9SNGYdfVhf3h2PH1MkZZQc8pmKBbVZn9GB+cOCDOa68WqxnIrYM1opALMto86Ws75X+f852n5cz1G7aP1S7Ccdan5EGW71j+1+9Pi3fn73imrSxT3jJevOvvT5Q6mj3GnVL2pqoB4I1URFH+LZaneJ7PdnD6s7gbeNYpKNRfj7RRnksJvix2pTEaOA5T6ufJDcaiMUCq3qGIcEe++09w5CDLhw6M8jN5ltpRK2x1KWGB8wJu9RSf1IjVgYZ/wQdeN3GSlbwIFlAMydovjrwClPIVAqBCD9SzufBBl5B4diKjfimU8TNfUZ8f9HIsURHfP8APWzgRjZ+jUgAAAAASUVORK5CYII="
+              alt=""
+            ></News.Play>
+            <News.Youtube
+              ref={(element) => {
+                NewsHover.current[6] = element;
+              }}
+              src="https://www.hyundai.com/static/images/social/ico_youtube.png"
+              alt=""
+            ></News.Youtube>
+            <News.NewsInnerText
               ref={(element) => {
                 NewsDiv.current[2] = element;
               }}
             >
-              CASPER | 캐스퍼 그리기 대회 - 대상 수상작 | 현대자동차
-            </NewsInnerText>
+              {HashArr[`${tagN}`].text3}
+            </News.NewsInnerText>
             <img
               ref={(element) => {
                 NewsImg.current[2] = element;
               }}
-              src={tag2}
-              alt=''
+
+              src={HashArr[`${tagN}`].img3}
+              alt=""
+
               style={{
-                width: "100%",
-                display: "block",
+                height: "100%",
+                margin: "auto",
                 transition: "0.5s",
+                opacity: "0.8",
               }}
             ></img>
-          </NewsInner>
-          <NewsInner
+          </News.NewsInner>
+          <News.NewsInner
             onMouseOver={() => {
               NewsDiv.current[3].style.opacity = "1";
               NewsImg.current[3].style.transform = "scale(1.2)";
+              NewsHover.current[3].style.border = "2px solid white";
+              NewsHover.current[3].style.background = "transparent";
+              NewsHover.current[7].style.opacity = "1";
             }}
             onMouseLeave={() => {
               NewsDiv.current[3].style.opacity = "0";
               NewsImg.current[3].style.transform = "scale(1)";
+              NewsHover.current[3].style.border = "none";
+              NewsHover.current[3].style.background = "rgba(0,0,0,0.5)";
+              NewsHover.current[7].style.opacity = "0";
             }}
           >
-            <NewsInnerText
+            <News.Sns
+              ref={(element) => {
+                NewsHover.current[3] = element;
+              }}
+            >
+              SNS
+            </News.Sns>
+            <News.Play
+              ref={(element) => {
+                NewsHover.current[11] = element;
+              }}
+              src="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAQAAACQ9RH5AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfjBgsPEivbUX+DAAAEVUlEQVRYw8XZe2iVdRjA8a9nNpWdOcucmVuyFLuYUSaJJl7mJYUuIEwjkaK0IJDszzSK/EMngQXmIOgGWdHFQWxBUSo6p1nbsjmJxJpuaypEmziHup3z7Y+z2abbzntu9Xv+e/f83s/h5bxnz+95hkkCK4/ZzGQaRUxkDGGgg3Za+YPj1HCY88FvNSwgXMAqVjCLLKCF32ihgw4gTA6F3EEBEOEI5XxBU6A7Gj/mWWG3Wus2l5k7YE6uD1tqrdpthfPj3zVewgIPqGfd7JQAHxGnuNkz6gEXJA9PcJfa7HpHBUJ7Y4TPe1rd5YRk4BLb7XRTgmhvjHKTnbZbkhic7Q61OuDjHfyx/6DucERQONfvjVrq8JRYxBvcbtT93hQEHmeNXT6dMtobT3rJo46LB+dZ60WXp41FXOJF68wbCs52j1d8LK0s4qNedo/Zg8M7jbo67SziaqPuHAwuUUszwiJuVVcOBE+0zUNmZQzOsto2C66Hy+1M8b2NF5PttPxaeKH6SkZZxI3qov5wlU2OzDg80iar+sLz1PUBN3860O9Q4FivzvsXrvBs4H8G2uKypOFRnrGiF863K4HXSLuN+s4gBUH82GKX+TF4g3p3AvB2S4140rlJwXepG2JwlXUJbNSt4lxPGvGNpL6QdVYJ5tnttoRhzLHMqA3enzBcard5IeaQxd5EatyedZEXWM4YjvAqwxPauY8s5oSYQZTqJGCAb5nOZ7zOIe5MYFc1MDPEdBrpSBKGNtZQQhF1bCAUcE8HzUwLUcTJpNnY+pJ7+I432cOkgDtOUBTiVv5MEYZzPM4zzKCeZwPltzAxxBj+ThkG+IB7qeFdKhkfN/cCo0OE6U4LDKdZzIsU00BJXDg36Bci6BIZFiDvynA6yE0TOon3KeZr1nEmTmYuHSHaCaeFfYpfmMlaHonLQi4XQrRyS8roeL7iQ45yH+8Fyi/gXIhGpqTIrqCBJbxEMY0Bd0ylMUQDReQkjd7IR+zmFA/wFtGAe8IUcjxELSHmJsku5RireI3Z/JrAroeAmhCHiFCcBJpDGd9wnllsTvCXYCERDv8fhUBtrBBIrvTp9vfUS598u3qqimBw2oo9rLS1/yFySDiV8jbbViulb0G/NuDW1Ar6df0Leqzy1H9yhDnV/wiDi9SNGYdfVhf3h2PH1MkZZQc8pmKBbVZn9GB+cOCDOa68WqxnIrYM1opALMto86Ws75X+f852n5cz1G7aP1S7Ccdan5EGW71j+1+9Pi3fn73imrSxT3jJevOvvT5Q6mj3GnVL2pqoB4I1URFH+LZaneJ7PdnD6s7gbeNYpKNRfj7RRnksJvix2pTEaOA5T6ufJDcaiMUCq3qGIcEe++09w5CDLhw6M8jN5ltpRK2x1KWGB8wJu9RSf1IjVgYZ/wQdeN3GSlbwIFlAMydovjrwClPIVAqBCD9SzufBBl5B4diKjfimU8TNfUZ8f9HIsURHfP8APWzgRjZ+jUgAAAAASUVORK5CYII="
+              alt=""
+            ></News.Play>
+            <News.Youtube
+              ref={(element) => {
+                NewsHover.current[7] = element;
+              }}
+              src="https://www.hyundai.com/static/images/social/ico_youtube.png"
+              alt=""
+            ></News.Youtube>
+            <News.NewsInnerText
               ref={(element) => {
                 NewsDiv.current[3] = element;
               }}
             >
-              CASPER | 현대자동차 TAP: CASPER | 현대자동차
-            </NewsInnerText>
+              {HashArr[`${tagN}`].text4}
+            </News.NewsInnerText>
             <img
               ref={(element) => {
                 NewsImg.current[3] = element;
               }}
-              src={tag3}
-              alt=''
+
+              src={HashArr[`${tagN}`].img4}
+              alt=""
+
               style={{
-                width: "100%",
-                display: "block",
+                height: "100%",
+                margin: "auto",
                 transition: "0.5s",
+                opacity: "0.8",
               }}
             ></img>
-          </NewsInner>
+          </News.NewsInner>
         </Container>
       </Section>
       <Footer></Footer>
