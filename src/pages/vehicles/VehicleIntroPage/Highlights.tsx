@@ -17,15 +17,17 @@ function Highlights({ id, className, zIndex, height, selected }: IContent) {
       id={id}
       className={className}
       style={{
-        zIndex: `${zIndex}`,
+        zIndex: `${zIndex ? zIndex : 1}`,
         height: `${height}`,
       }}
     >
       <S.Wrapper>
         <S.TitleWrapper>
-          <S.Title>Highlights</S.Title>
-          <S.Headline>Positive Energy, NEXO</S.Headline>
-          <S.Details>
+          <S.Title id={selected ? "activated" : "none"}>Highlights</S.Title>
+          <S.Headline id={selected ? "activated" : "none"}>
+            Positive Energy, NEXO
+          </S.Headline>
+          <S.Details id={selected ? "activated" : "none"}>
             이동수단으로서의 차를 넘어 인간의 삶 전반을 아우르는 미래 모빌리티의
             완성. 첨단기술의 혁신적인 융합으로 구현된 넥쏘가 새로운 비전을
             제시합니다.

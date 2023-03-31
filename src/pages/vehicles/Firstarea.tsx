@@ -25,7 +25,7 @@ function Firstarea({ style }: IStyle) {
         <NavyButton
           message='카탈로그 다운로드'
           top='100px'
-          left='calc(100% - 430px)'
+          left='calc(100% - 470px)'
         />
         <NavyButton message='가격표 다운로드' top='100px' right='120px' />
         <S.Heart style={{ top: "112px", right: "80px" }} />

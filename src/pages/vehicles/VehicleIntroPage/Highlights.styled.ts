@@ -13,6 +13,8 @@ export const Container = styled.div`
   width: 100vw;
   bottom: 0px;
   left: 0px;
+  height: calc(100vh - 80px);
+  background-color: white;
 `;
 export const Wrapper = styled.div`
   position: relative;
@@ -34,18 +36,33 @@ export const Title = styled.h2`
   font-size: 44px;
   font-weight: 600;
   margin-bottom: 0px;
-  animation: ${letterMove} 1s ease-in-out;
+  animation: ${(props) =>
+    props.id === "activated"
+      ? css`
+          ${letterMove} 1s ease-in-out
+        `
+      : "none"};
 `;
 export const Headline = styled.div`
   font-family: "HyundaiSansTextKR";
   font-size: 30px;
   font-weight: 600;
   margin-bottom: 50px;
-  animation: ${letterMove} 1s ease-in-out;
+  animation: ${(props) =>
+    props.id === "activated"
+      ? css`
+          ${letterMove} 1s ease-in-out
+        `
+      : "none"};
 `;
 export const Details = styled.div`
   font-family: "HyundaiSansTextKR";
   font-size: 16px;
   padding-right: 50px;
-  animation: ${letterMove} 1s ease-in-out;
+  animation: ${(props) =>
+    props.id === "activated"
+      ? css`
+          ${letterMove} 1s ease-in-out
+        `
+      : "none"};
 `;

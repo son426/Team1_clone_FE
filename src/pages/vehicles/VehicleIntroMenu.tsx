@@ -1,18 +1,26 @@
 import * as S from "./VehicleIntroMenu.styled";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { clickedButtonAtom } from "../../lib/util/atoms";
+interface IList {
+  name: string;
+  color?: string;
+}
 interface IContent {
-  list: string[];
+  list: IList[];
   func?: any;
   currentIndex?: number;
 }
 function VehicleIntroMenu({ list, func, currentIndex }: IContent) {
   const [clickedIndex, setClickedIndex] = useState(0);
   const [onMouse, setOnMouse] = useState(0);
+  const [erase, setErase] = useRecoilState(clickedButtonAtom);
   const handleClick = (index: number) => {
     setClickedIndex(index);
     func(index);
   };
   useEffect(() => {
+    setErase({ message: "", index: 0 });
     setClickedIndex(currentIndex as number);
   }, [currentIndex]);
   return (
@@ -27,9 +35,19 @@ function VehicleIntroMenu({ list, func, currentIndex }: IContent) {
       {list.map((content, index) =>
         clickedIndex === index ? (
           <S.ElementWrapper onClick={() => handleClick(index)}>
-            <S.Circle style={{ height: "25px", backgroundColor: "#002C5F" }} />
-            <S.Letter style={{ fontWeight: 600, color: "#002c5f" }}>
-              {content}
+            <S.Circle
+              style={{
+                height: "25px",
+                backgroundColor: `${content.color ? content.color : "#002C5F"}`,
+              }}
+            />
+            <S.Letter
+              style={{
+                fontWeight: 600,
+                color: `${content.color ? content.color : "#002C5F"}`,
+              }}
+            >
+              {content.name}
             </S.Letter>
           </S.ElementWrapper>
         ) : (
@@ -46,7 +64,7 @@ function VehicleIntroMenu({ list, func, currentIndex }: IContent) {
                   : { color: "transparent", transform: "translateX(-30px)" }
               }
             >
-              {content}
+              {content.name}
             </S.Letter>
           </S.ElementWrapper>
         )

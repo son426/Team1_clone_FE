@@ -2,8 +2,13 @@ import * as S from "./MainIntroArea.styled";
 import VehicleIntroMenu from "./VehicleIntroMenu";
 import { useEffect, useState, useRef, ComponentElement } from "react";
 
+interface IStuff {
+  Component: any;
+  color?: string;
+  name?: string;
+}
 interface IContent {
-  stuff: any[];
+  stuff: IStuff[];
   scroll?: boolean;
   func?: any;
 }
@@ -34,6 +39,7 @@ function MainIntroArea({ stuff, scroll, func }: IContent) {
               [{ height: "0vh" }, { height: "calc(100vh - 80px)" }],
               {
                 duration: 1000,
+                easing: "ease-in-out",
               }
             );
             selectedChild.style.height = "calc(100vh - 80px)";
@@ -161,20 +167,28 @@ function MainIntroArea({ stuff, scroll, func }: IContent) {
     >
       <S.Wrapper>
         <VehicleIntroMenu
-          list={["Highlights", "Eco", "Design", "360VR", "Space"]}
+          list={stuff.map((element) => {
+            return {
+              name: String(
+                element.name ? element.name : element.Component.name
+              ),
+              color: String(element.color ? element.color : "#002C5F"),
+            };
+          })}
           currentIndex={mainIndex}
           func={setMenuValue}
         />
+
         {stuff.map((Component, index) => {
           return (
-            <Component
+            <Component.Component
               id={`${index}thChild`}
               className={index === 0 ? "stay" : "unselected"}
               style={{
                 zIndex: `${index === 0 ? 1 : 0}`,
                 height: `${index === 0 ? "100vh" : "0vh"}`,
               }}
-              selected={index === mainIndex ? true : true}
+              selected={index === mainIndex ? true : false}
             />
           );
         })}

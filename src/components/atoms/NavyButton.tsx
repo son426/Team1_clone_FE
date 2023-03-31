@@ -7,8 +7,10 @@ const Wrapper = styled.button`
   font-size: 16px;
   position: absolute;
   width: max-content;
-  padding: 10px 20px;
-  font-weight: 600;
+  height: max-content;
+  padding: 10px 30px;
+  cursor: pointer;
+  z-index: 10;
 `;
 interface IContent {
   message: string;
@@ -16,9 +18,17 @@ interface IContent {
   left?: string;
   right?: string;
   bottom?: string;
+  onClickFunction?: any;
 }
 
-function NavyButton({ message, top, left, right, bottom }: IContent) {
+function NavyButton({
+  message,
+  top,
+  left,
+  right,
+  bottom,
+  onClickFunction,
+}: IContent) {
   return (
     <Wrapper
       style={{
@@ -27,8 +37,16 @@ function NavyButton({ message, top, left, right, bottom }: IContent) {
         right: `${right}`,
         bottom: `${bottom}`,
       }}
+      onClick={onClickFunction}
     >
-      {message}
+      {message.split("\n").map((content) => {
+        return (
+          <>
+            {content}
+            <br />
+          </>
+        );
+      })}
     </Wrapper>
   );
 }

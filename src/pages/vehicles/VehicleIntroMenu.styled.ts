@@ -2,7 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 
 export const Container = styled.div`
   padding-left: 35px;
-  width: 200px;
+  width: max-content;
   position: sticky;
   z-index: 5;
   top: 50%;
@@ -12,6 +12,7 @@ export const ElementWrapper = styled.div`
   display: flex;
   margin-bottom: 8px;
   align-items: center;
+  cursor: pointer;
 `;
 export const Circle = styled.div`
   width: 6px;
