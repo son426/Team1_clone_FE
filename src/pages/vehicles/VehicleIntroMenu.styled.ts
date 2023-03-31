@@ -1,11 +1,10 @@
 import styled, { keyframes, css } from "styled-components";
-import PropTypes from "prop-types";
-import React from "react";
 
 export const Container = styled.div`
   padding-left: 35px;
-  width: 200px;
+  width: max-content;
   position: sticky;
+  z-index: 5;
   top: 50%;
   transform: translate(0, -50%);
 `;
@@ -13,6 +12,7 @@ export const ElementWrapper = styled.div`
   display: flex;
   margin-bottom: 8px;
   align-items: center;
+  cursor: pointer;
 `;
 export const Circle = styled.div`
   width: 6px;
