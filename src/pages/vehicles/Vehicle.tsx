@@ -4,7 +4,7 @@ import Firstarea from "./Firstarea";
 import MainIntroArea from "./MainIntroArea";
 import * as S from "./Vehicle.styled";
 import VehicleNavbar from "./VehicleNavbar";
-
+import VR from "./VR";
 import Highlights from "./VehicleIntroPage/Highlights";
 import Space from "./VehicleIntroPage/Space";
 import Design from "./VehicleIntroPage/Design";
@@ -17,7 +17,6 @@ import ServiceNetwork from "./VehicleIntroPage/ServiceNetwork";
 import { useRecoilState } from "recoil";
 import { clickedButtonAtom } from "../../lib/util/atoms";
 import SideButton from "../../components/molecules/SideButton";
-
 
 function Vehicle() {
   const [mainIntroIdentity, setMainIntroIdentity] =
