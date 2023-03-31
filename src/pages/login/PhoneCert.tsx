@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
+import { useMutation } from "@apollo/client";
+import { FINDID } from "../../apis/gql";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -70,6 +72,7 @@ const Section = styled.div`
   font-size: 13px;
   color: #666;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const Footer = styled.div`
@@ -84,36 +87,52 @@ const Footer = styled.div`
   padding-top: 5px;
 `;
 
-const BtnDiv = styled.div`
-  width: 680px;
-  height: 55px;
-  display: flex;
-  align-items: center;
-`;
-
-const Btn = styled.div`
+const Btn = styled.button`
+  font-family: "Noto Sans KR", sans-serif;
   box-sizing: border-box;
-  width: 316px;
-  height: 50px;
+  width: 400px;
+  height: 45px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: white;
   background-color: #3387bd;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
-  margin-top: 12px;
-  margin-left: 8px;
+  margin-top: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.3s ease;
   position: relative;
-  line-height: 100%;
   cursor: pointer;
+  margin: 0 auto;
+  margin-top: 5px;
   &:hover {
     background-color: rgb(0, 40, 132);
   }
   &:focus {
     background-color: rgb(0, 40, 132);
+  }
+`;
+
+const Input = styled.input`
+  box-sizing: border-box;
+  width: 400px;
+  height: 45px;
+  border: 1px solid #ced4da;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.2s ease;
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    letter-spacing: -0.7px;
+  }
+  &:focus {
+    outline: 1px solid #00a7cf;
   }
 `;
 
@@ -186,7 +205,16 @@ const Dot = styled.div`
   vertical-align: top;
 `;
 
-function Cert() {
+function PhoneCert() {
+  const [phone, setPhone] = useState("");
+
+  const [findId, { data, loading, error }] = useMutation(FINDID);
+  const findIdFunction = async (phoneNumber: any) => {
+    const result = await findId({ variables: { phone: phoneNumber } });
+    console.log("findIdFunction : ", result);
+    return result;
+  };
+
   return (
     <Wrapper>
       <Bar></Bar>
@@ -214,44 +242,23 @@ function Cert() {
         </TitleDivInner>
       </TitleDiv>
       <Section>
-        <span
-          style={{
-            lineHeight: "15px",
-            paddingBottom: "7px",
-            paddingLeft: "8px",
-            cursor: "pointer",
+        <Input
+          value={phone}
+          onChange={(event) => {
+            setPhone(event.target.value);
+          }}
+          type="string"
+          placeholder="휴대폰번호 : 01000000000"
+        />
+
+        <Btn
+          onClick={async () => {
+            await findIdFunction(phone);
+            setPhone("");
           }}
         >
-          <Dot></Dot>회원 본인 확인 시 휴대폰 인증 기관 또는 아이핀(i-PIN)
-          인증을 통해 본인확인이 가능합니다.
-        </span>
-        <BtnDiv>
-          <a href="/login/phonecert" style={{ textDecoration: "none" }}>
-            <Btn>휴대폰 인증</Btn>
-          </a>
-          <Btn>아이핀 (I-PIN) 인증</Btn>
-        </BtnDiv>
-        <span
-          style={{
-            lineHeight: "15px",
-            paddingBottom: "7px",
-            paddingLeft: "8px",
-            cursor: "pointer",
-            marginTop: "62px",
-          }}
-        >
-          <Dot></Dot>법인 명의 휴대폰 인증 안내
-        </span>
-        <span
-          style={{
-            lineHeight: "15px",
-            paddingBottom: "7px",
-            paddingLeft: "8px",
-            cursor: "pointer",
-          }}
-        >
-          <Dot></Dot>본인 인증 문자 미수신 안내
-        </span>
+          이메일 찾기
+        </Btn>
       </Section>
       <Footer>
         <MenuSection>
@@ -265,4 +272,4 @@ function Cert() {
   );
 }
 
-export default Cert;
+export default PhoneCert;

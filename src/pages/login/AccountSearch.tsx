@@ -260,7 +260,9 @@ function AccountSearch() {
           <Dot></Dot>이메일 아이디를 찾으시려면 본인 인증 또는 모바일 인증을
           선택하세요.
           <BtnDiv>
-            <Btn>본인 인증</Btn>
+            <a href="/login/cert" style={{ textDecoration: "none" }}>
+              <Btn>본인 인증</Btn>
+            </a>
             <Btn>모바일 인증</Btn>
           </BtnDiv>
         </DivContent>

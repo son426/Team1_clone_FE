@@ -1,6 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
+import { useMutation, useQuery } from "@apollo/client";
+import { LOGIN, MODELS } from "../../apis/gql";
+import google from "../../assets/google.png";
+import { SERVER_URL } from "./../../index";
+import { onError } from "apollo-link-error";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -47,6 +52,7 @@ const Section = styled.div`
   font-size: 13px;
   color: #666;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const Footer = styled.div`
@@ -63,7 +69,7 @@ const Footer = styled.div`
 const Input = styled.input`
   box-sizing: border-box;
   width: 400px;
-  height: 46px;
+  height: 40px;
   border: 1px solid #ced4da;
   color: rgba(0, 0, 0, 0.6);
   padding: 10px 12px;
@@ -82,17 +88,18 @@ const Input = styled.input`
   }
 `;
 
-const Btn = styled.div`
+const Btn = styled.button`
+  font-family: "Noto Sans KR", sans-serif;
   box-sizing: border-box;
   width: 400px;
-  height: 73px;
+  height: 55px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: white;
   background-color: #3387bd;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 19px;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
   margin-top: 7px;
   display: flex;
   align-items: center;
@@ -153,11 +160,28 @@ const MenuA = styled.a`
   }
 `;
 
+const LinkA = styled.a`
+  width: 50%;
+  cursor: pointer;
+  text-decoration-line: none;
+  color: white;
+  text-decoration: none;
+
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: white;
+    text-decoration: none;
+    text-decoration-line: none;
+  }
+`;
+
 const SocialBtn = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
   width: 400px;
-  height: 50px;
+  height: 45px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 20px;
   margin-top: 45px;
@@ -186,8 +210,64 @@ const Dot = styled.div`
 `;
 
 function Login() {
+  const [ch, setCh] = useState(false);
+  const next = useRef<any>(null);
+
+  useEffect(() => {
+    if (ch) {
+      next.current.classList.add("checked");
+    } else {
+      next.current.classList.remove("checked");
+    }
+  }, [ch]);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const saveAccessToken = (accessToken: any) => {
+    localStorage.setItem("accessToken", accessToken);
+  };
+
+  // LOGIN
+  const [login, {}] = useMutation(LOGIN, { onError: () => {} });
+  const loginFunction = async (email: any, password: any) => {
+    const login_result = await login({
+      variables: {
+        email,
+        password,
+      },
+    });
+
+    if (login_result.data) {
+      // 로그인됐을때
+      console.log(login_result.data);
+      console.log();
+    } else {
+      // 에러경우
+      const errors = login_result.errors;
+      console.log(errors);
+      alert("이메일 또는 비밀번호가 틀립니다.");
+    }
+
+    const accessToken = await login_result.data.login;
+    window.location.href = "/";
+    console.log("로그인 성공. accessToken이 발급되었습니다.");
+    console.log("accessToken : ", accessToken);
+    return accessToken;
+  };
+
+  const { loading, error, data } = useQuery(MODELS);
+
   return (
     <Wrapper>
+      <button
+        onClick={() => {
+          console.log(loading);
+          console.log(data);
+        }}
+      >
+        fetchModels 테스트
+      </button>
       <Bar></Bar>
       <LogoDiv>
         <LogoDivInner>
@@ -208,13 +288,38 @@ function Login() {
         >
           <Dot></Dot>이메일 로그인
         </span>
-        <Input type="email" placeholder="이메일 주소"></Input>
-        <Input
-          type="password"
-          placeholder="비밀번호"
-          style={{ letterSpacing: "7px", paddingLeft: "15px" }}
-        ></Input>
-        <Btn>로그인</Btn>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            console.log("submit");
+
+            const accessToken = await loginFunction(email, password);
+            /* if (!accessToken) console.log("로그인안됐다.");
+            if (accessToken) {
+              setCh(true);
+            } */
+            saveAccessToken(accessToken);
+          }}
+        >
+          <Input
+            type="email"
+            placeholder="이메일 주소"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          ></Input>
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            style={{ letterSpacing: "7px", paddingLeft: "15px" }}
+          ></Input>
+          <Btn type="submit" ref={next}>
+            로그인
+          </Btn>
+        </form>
         <MenuSection>
           <MenuDiv style={{ paddingLeft: "0", borderRight: "1px solid black" }}>
             <MenuA href="/login/account-search">아이디 찾기</MenuA>
@@ -226,32 +331,35 @@ function Login() {
             <MenuA href="/login/agreement">회원가입 ▶</MenuA>
           </MenuDiv>
         </MenuSection>
-        <SocialBtn>
-          <span
-            className="material-symbols-outlined"
-            style={{
-              margin: "0 8px",
-              color: "#3387bd",
-              fontSize: "25px",
-              fontVariationSettings: "wght 600",
-            }}
-          >
-            error
-          </span>
-          소셜 로그인을 이용한 적이 있으신가요?
-          <span
-            className="material-symbols-outlined"
-            style={{
-              textAlign: "right",
-              fontSize: "30px",
-              fontWeight: "200",
-              fontVariationSettings: "wght 100",
-              marginLeft: "95px",
-            }}
-          >
-            navigate_next
-          </span>
-        </SocialBtn>
+        <a
+          href={`${SERVER_URL}:8080/login/google`}
+          style={{ textDecoration: "none" }}
+        >
+          <SocialBtn style={{ marginLeft: "0" }}>
+            <img
+              src={google}
+              style={{
+                margin: "0 10px",
+                width: "17px",
+                height: "17px",
+              }}
+              alt=""
+            ></img>
+            구글 계정으로 로그인
+            <span
+              className="material-symbols-outlined"
+              style={{
+                textAlign: "right",
+                fontSize: "30px",
+                fontWeight: "200",
+                fontVariationSettings: "wght 100",
+                marginLeft: "200px",
+              }}
+            >
+              navigate_next
+            </span>
+          </SocialBtn>
+        </a>
       </Section>
       <Footer>
         <MenuSection style={{ justifyContent: "center" }}>
