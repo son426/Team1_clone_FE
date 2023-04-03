@@ -14,7 +14,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-export const SERVER_URL = "http://172.20.10.4";
+export const SERVER_URL = "http://172.30.1.31";
 
 const httpLink = createHttpLink({
   uri: `${SERVER_URL}:8080/graphql`,
