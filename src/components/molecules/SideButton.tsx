@@ -44,7 +44,7 @@ const Pluscircle = styled.div`
   transition: transform 0.2s linear;
   cursor: pointer;
   position: relative;
-  animation: ${Jump} 0.5s 2 ease-in-out;
+  animation: ${Jump} 0.2s 2 ease-in-out;
 `;
 const Circle = styled.div`
   width: 60px;
@@ -57,7 +57,6 @@ const Circle = styled.div`
   transition: transform 0.2s linear;
   cursor: pointer;
   position: relative;
-  animation: ${Jump} 0.5s 2 ease-in-out;
 `;
 const Balloon = styled.div`
   position: absolute;
