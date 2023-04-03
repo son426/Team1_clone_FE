@@ -8,7 +8,9 @@ const Bar = styled.div`
   position: fixed;
   top: 0;
   transition: ease-in-out;
+
   z-index: 1000;
+
 `;
 
 function ProgressBar() {

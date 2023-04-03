@@ -4,6 +4,14 @@ import { Canvas } from "@react-three/fiber";
 import { Model } from "./Model";
 import { OrbitControls } from "@react-three/drei";
 
+export const Container = styled.div`
+  position: absolute;
+  width: 100vw;
+  bottom: 0px;
+  left: 0px;
+  height: calc(100vh - 80px);
+  background-color: white;
+`;
 const Wrapper = styled.div`
   margin: 0;
   font-weight: 400;
@@ -83,7 +91,15 @@ const Text = styled.div`
   margin-top: 17px;
 `;
 
-function VR() {
+interface IContent {
+  id?: string;
+  className?: string;
+  zIndex?: number;
+  height?: string;
+  selected?: boolean;
+}
+
+function VR({ id, className, zIndex, height, selected }: IContent) {
   const model = useRef<any>(null);
   const [col, setCol] = useState<any>("#f2f6fa");
   const [colName, setName] = useState<any>("크리미 화이트 펄");
@@ -131,94 +147,102 @@ function VR() {
   });
 
   return (
-    <Wrapper>
-      <Title>360ºVR</Title>
-      <ModelDiv>
-        <Canvas camera={{ position: [0, 0, 7] }}>
-          <OrbitControls
-            enableZoom={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-          <ambientLight intensity={10} />
-          <spotLight
-            intensity={7}
-            position={[10, 200, -1]}
-            angle={100}
-            distance={1000}
-          />
-          <Suspense fallback={null}>
-            <Model ref={model} carColor={col} />
-          </Suspense>
-        </Canvas>
-      </ModelDiv>
-      <ColorDiv>
-        <ColorText>
-          Exterior color
-          <br />
-          <span style={{ fontWeight: "500", fontSize: "16px" }}>{colName}</span>
-        </ColorText>
-        <Circles
-          ref={(element) => {
-            ch.current[0] = element;
-          }}
-          onClick={() => {
-            setCol("#f4f6fa");
-            setName("크리미 화이트 펄");
-            setN(0);
-          }}
-          style={{ backgroundColor: "#f4f6fa" }}
-        ></Circles>
-        <Circles
-          ref={(element) => {
-            ch.current[1] = element;
-          }}
-          onClick={() => {
-            setCol("#b7b8b8");
-            setName("쉬머링 실버 메탈릭");
-            setN(1);
-          }}
-          style={{ backgroundColor: "#b7b8b8" }}
-        ></Circles>
-        <Circles
-          ref={(element) => {
-            ch.current[2] = element;
-          }}
-          onClick={() => {
-            setCol("#87786e");
-            setName("카퍼 메탈릭");
-            setN(2);
-          }}
-          style={{ backgroundColor: "#87786e" }}
-        ></Circles>
-        <Circles
-          ref={(element) => {
-            ch.current[3] = element;
-          }}
-          onClick={() => {
-            setCol("#6a6e71");
-            setName("티타늄 그레이 매트");
-            setN(3);
-          }}
-          style={{ backgroundColor: "#6a6e71" }}
-        ></Circles>
-        <Circles
-          ref={(element) => {
-            ch.current[4] = element;
-          }}
-          onClick={() => {
-            setCol("#2f333c");
-            setName("오션 인디고 펄");
-            setN(4);
-          }}
-          style={{ backgroundColor: "#2f333c" }}
-        ></Circles>
-      </ColorDiv>
-      <Text>
-        ※ 상기 이미지는 실제 차량 컬러와 다를 수 있으며 사전 예고없이 변경될 수
-        있습니다.
-      </Text>
-    </Wrapper>
+    <Container
+      id={id}
+      className={className}
+      style={{ zIndex: `${zIndex}`, height: `${height}` }}
+    >
+      <Wrapper>
+        <Title>360ºVR</Title>
+        <ModelDiv>
+          <Canvas camera={{ position: [0, 0, 7] }}>
+            <OrbitControls
+              enableZoom={false}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={Math.PI / 2}
+            />
+            <ambientLight intensity={10} />
+            <spotLight
+              intensity={7}
+              position={[10, 200, -1]}
+              angle={100}
+              distance={1000}
+            />
+            <Suspense fallback={null}>
+              <Model ref={model} carColor={col} />
+            </Suspense>
+          </Canvas>
+        </ModelDiv>
+        <ColorDiv>
+          <ColorText>
+            Exterior color
+            <br />
+            <span style={{ fontWeight: "500", fontSize: "16px" }}>
+              {colName}
+            </span>
+          </ColorText>
+          <Circles
+            ref={(element) => {
+              ch.current[0] = element;
+            }}
+            onClick={() => {
+              setCol("#f4f6fa");
+              setName("크리미 화이트 펄");
+              setN(0);
+            }}
+            style={{ backgroundColor: "#f4f6fa" }}
+          ></Circles>
+          <Circles
+            ref={(element) => {
+              ch.current[1] = element;
+            }}
+            onClick={() => {
+              setCol("#b7b8b8");
+              setName("쉬머링 실버 메탈릭");
+              setN(1);
+            }}
+            style={{ backgroundColor: "#b7b8b8" }}
+          ></Circles>
+          <Circles
+            ref={(element) => {
+              ch.current[2] = element;
+            }}
+            onClick={() => {
+              setCol("#87786e");
+              setName("카퍼 메탈릭");
+              setN(2);
+            }}
+            style={{ backgroundColor: "#87786e" }}
+          ></Circles>
+          <Circles
+            ref={(element) => {
+              ch.current[3] = element;
+            }}
+            onClick={() => {
+              setCol("#6a6e71");
+              setName("티타늄 그레이 매트");
+              setN(3);
+            }}
+            style={{ backgroundColor: "#6a6e71" }}
+          ></Circles>
+          <Circles
+            ref={(element) => {
+              ch.current[4] = element;
+            }}
+            onClick={() => {
+              setCol("#2f333c");
+              setName("오션 인디고 펄");
+              setN(4);
+            }}
+            style={{ backgroundColor: "#2f333c" }}
+          ></Circles>
+        </ColorDiv>
+        <Text>
+          ※ 상기 이미지는 실제 차량 컬러와 다를 수 있으며 사전 예고없이 변경될
+          수 있습니다.
+        </Text>
+      </Wrapper>
+    </Container>
   );
 }
 

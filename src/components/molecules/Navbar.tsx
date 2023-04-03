@@ -10,9 +10,11 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   transition: top 0.5s;
+
   z-index: 100;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
+
 `;
 
 const Wrapper = styled.div`
@@ -22,10 +24,12 @@ const Wrapper = styled.div`
   height: 80px;
   width: 100vw;
   position: relative;
+
   /* background-color: rgba(255, 255, 255, 0.2);*/
   backdrop-filter: blur(4px);
   background: hsla(0, 0%, 100%, 0.9);
   background: transparent;
+
 `;
 const Logo = styled.img`
   width: 166px;

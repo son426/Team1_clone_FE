@@ -1,10 +1,13 @@
+
 // eslint-disable-next-line
+
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import Footer from "../../components/molecules/Footer";
 import ProgressBar from "../../components/molecules/ProgressBar";
 import * as S from "./CarouselBtn.styled";
 import RightBtn from "./RightBtn";
+
 import * as Model from "./Model.styled";
 import * as Elec from "./Elec.styled";
 import * as My from "./My.styled";
@@ -13,6 +16,7 @@ import * as Brand from "./Brand.styled";
 import * as Events from "./Events.styled";
 import * as News from "./News.styled";
 import * as Car from "./Car.styled";
+
 import Navbar from "../../components/molecules/Navbar";
 
 const Wrapper = styled.div`
@@ -448,6 +452,7 @@ function Main() {
   return (
     <Wrapper>
       <ProgressBar />
+
       <Navbar></Navbar>
       <Car.Car>
         <Car.CarWrapDiv>
@@ -966,6 +971,7 @@ function Main() {
           }}
         ></S.CarouselArrowRight>
       </S.CarouselArrow>
+
       <Section>
         <Title>Model</Title>
         <Subtitle>
@@ -974,8 +980,10 @@ function Main() {
         <Container>
           <Model.ModelInner1>
             <img
+
               src={ModelArr[`${modelN}`].firstImg}
               alt=""
+
               style={{ width: "100%" }}
             ></img>
           </Model.ModelInner1>
@@ -1071,8 +1079,10 @@ function Main() {
               <Model.ModelDiv2>
                 <Model.ModelSmallImg>
                   <img
+
                     src={ModelArr[`${modelN}`].secondImg}
                     alt=""
+
                     style={{ width: "100%" }}
                   ></img>
                 </Model.ModelSmallImg>
@@ -1081,6 +1091,7 @@ function Main() {
               <Model.ModelDiv2>
                 <Model.ModelSmallImg>
                   <img
+
                     src={ModelArr[`${modelN}`].thirdImg}
                     alt=""
                     style={{ width: "100%" }}
@@ -1100,10 +1111,10 @@ function Main() {
         <Container style={{ width: "100%", maxWidth: "none" }}>
           <Elec.ElecInner1>
             <img
-              src="https://www.hyundai.com/static/images/ev_ioniq6.jpg"
-              alt=""
-              width="100%"
-              height="100%"
+              src='https://www.hyundai.com/static/images/ev_ioniq6.jpg'
+              alt=''
+              width='100%'
+              height='100%'
             ></img>
           </Elec.ElecInner1>
           <Elec.ElecInner2>
@@ -1283,7 +1294,7 @@ function Main() {
             <My.MyInner2Link>
               APP 다운로드
               <span
-                className="material-symbols-outlined"
+                className='material-symbols-outlined'
                 style={{
                   marginLeft: "7px",
                   fontSize: "17.5px",
@@ -1343,22 +1354,22 @@ function Main() {
         <Container>
           <Shop.ShopInner1A>
             <img
-              src="https://www.hyundai.com/contents/attach-1/2023/03/shop_story_01.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/03/shop_story_01.jpg'
+              alt=''
               style={{ width: "100%", display: "block" }}
             ></img>
           </Shop.ShopInner1A>
           <Shop.ShopInner1B>
             <img
-              src="https://www.hyundai.com/contents/attach-1/2023/03/shop_story_02.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/03/shop_story_02.jpg'
+              alt=''
               style={{ width: "100%", display: "block" }}
             ></img>
           </Shop.ShopInner1B>
           <Shop.ShopInner1C>
             <img
-              src="https://www.hyundai.com/contents/attach-1/2023/03/shop_story_03.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/03/shop_story_03.jpg'
+              alt=''
               style={{ width: "100%", display: "block" }}
             ></img>
           </Shop.ShopInner1C>
@@ -1379,7 +1390,7 @@ function Main() {
             <Shop.ShopInner2LeftLink>
               더보기
               <span
-                className="material-symbols-outlined"
+                className='material-symbols-outlined'
                 style={{
                   marginLeft: "7px",
                   fontSize: "17.5px",
@@ -1395,8 +1406,8 @@ function Main() {
             <Shop.ShopInner2Img>
               <Shop.ShopInner2Num>1</Shop.ShopInner2Num>
               <img
-                src="https://www.hyundai.com/contents/attach-1/2023/03/shop_best_01.jpg"
-                alt=""
+                src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_01.jpg'
+                alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
             </Shop.ShopInner2Img>
@@ -1434,8 +1445,8 @@ function Main() {
             <Shop.ShopInner2Img>
               <Shop.ShopInner2Num>2</Shop.ShopInner2Num>
               <img
-                src="https://www.hyundai.com/contents/attach-1/2023/03/shop_best_02.jpg"
-                alt=""
+                src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_02.jpg'
+                alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
             </Shop.ShopInner2Img>
@@ -1473,8 +1484,8 @@ function Main() {
             <Shop.ShopInner2Img>
               <Shop.ShopInner2Num>3</Shop.ShopInner2Num>
               <img
-                src="https://www.hyundai.com/contents/attach-1/2023/03/shop_best_03.jpg"
-                alt=""
+                src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_03.jpg'
+                alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
             </Shop.ShopInner2Img>
@@ -1499,8 +1510,8 @@ function Main() {
             <Shop.ShopInner2Img>
               <Shop.ShopInner2Num>4</Shop.ShopInner2Num>
               <img
-                src="https://www.hyundai.com/contents/attach-1/2023/03/shop_best_04.jpg"
-                alt=""
+                src='https://www.hyundai.com/contents/attach-1/2023/03/shop_best_04.jpg'
+                alt=''
                 style={{ width: "100%", display: "block" }}
               ></img>
             </Shop.ShopInner2Img>
@@ -1574,8 +1585,8 @@ function Main() {
               ref={(element) => {
                 BrandImg.current[0] = element;
               }}
-              src="https://www.hyundai.com/contents/attach-1/2023/02/brand_01_mobility_for_you_w.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/02/brand_01_mobility_for_you_w.jpg'
+              alt=''
               style={{
                 width: "100%",
                 display: "block",
@@ -1614,8 +1625,8 @@ function Main() {
               ref={(element) => {
                 BrandImg.current[1] = element;
               }}
-              src="https://www.hyundai.com/contents/attach-1/2023/02/brand_02_for_tomorrow_W.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/02/brand_02_for_tomorrow_W.jpg'
+              alt=''
               style={{ width: "100%", display: "block", transition: "0.4s" }}
             ></img>
           </Brand.BrandInner>
@@ -1650,8 +1661,8 @@ function Main() {
               ref={(element) => {
                 BrandImg.current[2] = element;
               }}
-              src="https://www.hyundai.com/contents/attach-1/2023/02/brand_03_ioniq5robotaxis_w.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/02/brand_03_ioniq5robotaxis_w.jpg'
+              alt=''
               style={{ width: "100%", display: "block", transition: "0.4s" }}
             ></img>
           </Brand.BrandInner>
@@ -1686,8 +1697,8 @@ function Main() {
               ref={(element) => {
                 BrandImg.current[3] = element;
               }}
-              src="https://www.hyundai.com/contents/attach-1/2023/02/brand_04_hyundaikidsmotorshow_w.jpg"
-              alt=""
+              src='https://www.hyundai.com/contents/attach-1/2023/02/brand_04_hyundaikidsmotorshow_w.jpg'
+              alt=''
               style={{ width: "100%", display: "block", transition: "0.4s" }}
             ></img>
           </Brand.BrandInner>
@@ -1727,8 +1738,8 @@ function Main() {
                     자세히 보기 +
                   </Events.EventsInnerText>
                   <img
-                    src="https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/10/event-myhyundai-soccer-match-ticket-eco-vehicles-banner-739x489.png"
-                    alt=""
+                    src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/10/event-myhyundai-soccer-match-ticket-eco-vehicles-banner-739x489.png'
+                    alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
                 </Events.EventsImg>
@@ -1763,8 +1774,8 @@ function Main() {
                     자세히 보기 +
                   </Events.EventsInnerText>
                   <img
-                    src="https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/08/event-2023-the-new-avante-is-coming-seoul-mobility-show-banner-739x489.jpg"
-                    alt=""
+                    src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/08/event-2023-the-new-avante-is-coming-seoul-mobility-show-banner-739x489.jpg'
+                    alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
                 </Events.EventsImg>
@@ -1799,8 +1810,8 @@ function Main() {
                     자세히 보기 +
                   </Events.EventsInnerText>
                   <img
-                    src="https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/06/event-lg-bestshop-use-bluemembers-point-reward-benefit-banner-739x489.png"
-                    alt=""
+                    src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/06/event-lg-bestshop-use-bluemembers-point-reward-benefit-banner-739x489.png'
+                    alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
                 </Events.EventsImg>
@@ -1834,8 +1845,8 @@ function Main() {
                     자세히 보기 +
                   </Events.EventsInnerText>
                   <img
-                    src="https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/02/event-bluemembers-1years-anniversary-hyundaishop-banner-739x489.jpg"
-                    alt=""
+                    src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/03/02/event-bluemembers-1years-anniversary-hyundaishop-banner-739x489.jpg'
+                    alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
                 </Events.EventsImg>
@@ -1869,8 +1880,8 @@ function Main() {
                     자세히 보기 +
                   </Events.EventsInnerText>
                   <img
-                    src="https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/02/28/event-hc-purchase-benefits-202303-banner-739x489.jpg"
-                    alt=""
+                    src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/02/28/event-hc-purchase-benefits-202303-banner-739x489.jpg'
+                    alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
                 </Events.EventsImg>
@@ -1904,8 +1915,8 @@ function Main() {
                     자세히 보기 +
                   </Events.EventsInnerText>
                   <img
-                    src="https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/02/28/event-app-yesdrive-benefit-only-hmc-2023-mar-banner-739x489.png"
-                    alt=""
+                    src='https://www.hyundai.com/content/dam/hyundai/kr/ko/data/event/2023/02/28/event-app-yesdrive-benefit-only-hmc-2023-mar-banner-739x489.png'
+                    alt=''
                     style={{ width: "100%", display: "block" }}
                   ></img>
                 </Events.EventsImg>
@@ -2197,8 +2208,10 @@ function Main() {
               ref={(element) => {
                 NewsImg.current[0] = element;
               }}
+
               src={HashArr[`${tagN}`].img1}
               alt=""
+
               style={{
                 height: "100%",
                 margin: "auto",
@@ -2255,8 +2268,10 @@ function Main() {
               ref={(element) => {
                 NewsImg.current[1] = element;
               }}
+
               src={HashArr[`${tagN}`].img2}
               alt=""
+
               style={{
                 height: "100%",
                 margin: "auto",
@@ -2313,8 +2328,10 @@ function Main() {
               ref={(element) => {
                 NewsImg.current[2] = element;
               }}
+
               src={HashArr[`${tagN}`].img3}
               alt=""
+
               style={{
                 height: "100%",
                 margin: "auto",
@@ -2371,8 +2388,10 @@ function Main() {
               ref={(element) => {
                 NewsImg.current[3] = element;
               }}
+
               src={HashArr[`${tagN}`].img4}
               alt=""
+
               style={{
                 height: "100%",
                 margin: "auto",
