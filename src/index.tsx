@@ -1,4 +1,4 @@
-import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -14,7 +14,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-export const SERVER_URL = "http://172.20.10.4";
+export const SERVER_URL = "http://172.30.1.31";
 
 const httpLink = createHttpLink({
   uri: `${SERVER_URL}:8080/graphql`,
@@ -40,12 +40,16 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const queryClient = new QueryClient();
 root.render(
-  <ApolloProvider client={client}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ApolloProvider>
+  <QueryClientProvider client={queryClient}>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
