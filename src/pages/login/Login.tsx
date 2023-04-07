@@ -6,6 +6,8 @@ import { LOGIN, MODELS } from "../../apis/gql";
 import google from "../../assets/google.png";
 import { SERVER_URL } from "./../../index";
 import { onError } from "apollo-link-error";
+import { useRecoilState } from "recoil";
+import { isUserAtom } from "../../lib/util/atoms";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -223,6 +225,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isUser, setIsUser] = useRecoilState(isUserAtom);
 
   const saveAccessToken = (accessToken: any) => {
     localStorage.setItem("accessToken", accessToken);
@@ -241,7 +244,6 @@ function Login() {
     if (login_result.data) {
       // 로그인됐을때
       console.log(login_result.data);
-      console.log();
     } else {
       // 에러경우
       const errors = login_result.errors;
@@ -250,8 +252,9 @@ function Login() {
     }
 
     const accessToken = await login_result.data.login;
+    setIsUser(true);
     window.location.href = "/";
-    console.log("로그인 성공. accessToken이 발급되었습니다.");
+
     console.log("accessToken : ", accessToken);
     return accessToken;
   };
@@ -260,21 +263,16 @@ function Login() {
 
   return (
     <Wrapper>
-      <button
-        onClick={() => {
-          console.log(loading);
-          console.log(data);
-        }}
-      >
-        fetchModels 테스트
-      </button>
       <Bar></Bar>
       <LogoDiv>
         <LogoDivInner>
           <img
             src={logo}
             alt=""
-            style={{ width: "145px", paddingTop: "4px" }}
+            style={{ width: "145px", paddingTop: "4px", cursor: "pointer" }}
+            onClick={() => {
+              window.location.href = "/";
+            }}
           ></img>
         </LogoDivInner>
       </LogoDiv>

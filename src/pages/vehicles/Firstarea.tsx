@@ -18,6 +18,8 @@ function Firstarea({ style }: IStyle) {
   const setLike = useSetRecoilState(likedOrNot);
   const btnOn = useSetRecoilState(likeBtn);
   const [logOn, setOn] = useState(false);
+
+  //
   const [loginCheck, { loading, error, data }] = useLazyQuery(USER);
   const [like, {}] = useMutation(LIKEADD, { onError: () => {} });
   const likeAdd = async (modelId: any) => {

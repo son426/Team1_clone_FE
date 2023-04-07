@@ -13,6 +13,7 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { CookiesProvider } from "react-cookie";
 
 export const SERVER_URL = "http://172.16.101.159";
 
@@ -45,9 +46,11 @@ const queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <CookiesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CookiesProvider>
     </ApolloProvider>
   </QueryClientProvider>
 );

@@ -5,16 +5,18 @@ import search from "../../assets/search.png";
 import shop from "../../assets/shop.png";
 import menu from "../../assets/menu.png";
 import { useState, useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
+import { isUserAtom } from "../../lib/util/atoms";
+import { useCookies } from "react-cookie";
+import LoginToggle from "./LoginToggle";
 
 const Container = styled.div`
   position: fixed;
   top: 0;
   transition: top 0.5s;
-
   z-index: 100;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
-
 `;
 
 const Wrapper = styled.div`
@@ -29,7 +31,6 @@ const Wrapper = styled.div`
   backdrop-filter: blur(4px);
   background: hsla(0, 0%, 100%, 0.9);
   background: transparent;
-
 `;
 const Logo = styled.img`
   width: 166px;
@@ -95,16 +96,48 @@ const A = styled.a`
   }
 `;
 
+const LoginDiv = styled.div`
+  position: absolute;
+  top: 5px;
+  left: -60px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 interface IStyle {
   style?: any;
+  isUser?: boolean;
 }
-function Navbar({ style }: IStyle) {
+function Navbar({ style, isUser }: IStyle) {
   const [offsetLeft, setOffsetLeft] = useState(0);
   const [offsetWidth, setOffsetWidth] = useState(0);
 
   const [scroll, setScroll] = useState(false);
+  const [, setIsUser] = useRecoilState(isUserAtom);
+
+  const [isToggled, setIsToggled] = useState(false);
+
   let bg = useRef<any>();
   let under = useRef<any>();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+
+  const logoutFn = async () => {
+    // 로컬스토리지 accessToken 지우기
+    localStorage.removeItem("accessToken");
+
+    // 쿠키 refreshToken 지우기
+    removeCookie("refreshToken");
+
+    // // recoil isUser false로 수정
+    setIsUser(false);
+
+    // 리다이렉트
+    window.location.href = "/";
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -195,15 +228,7 @@ function Navbar({ style }: IStyle) {
           >
             브랜드
           </Children>
-          <Children
-            style={{
-              width: "44px",
-              height: "17px",
-              backgroundSize: "cover",
-              backgroundImage: `url(${shop})`,
-              marginRight: "100px",
-            }}
-          ></Children>
+          <Children></Children>
         </Menu>
         <Menu style={{ marginLeft: "30px" }}>
           <Children>
@@ -214,19 +239,42 @@ function Navbar({ style }: IStyle) {
           <LineDivide />
         </Menu>
         <Menu>
-          <a href="/login">
-            <Children
-              style={{
-                width: "28px",
-                height: "28px",
-                marginRight: "20px",
-                backgroundImage: `url(${mypage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                marginLeft: "-10px",
-              }}
-            ></Children>
-          </a>
+          <Children
+            style={{
+              width: "28px",
+              height: "28px",
+              marginRight: "20px",
+              backgroundImage: `url(${mypage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              marginLeft: "-10px",
+              position: "relative",
+            }}
+            onClick={() => {
+              // 로그인상태일시 로그아웃
+              if (isUser) {
+                logoutFn();
+              } else {
+                // 로그아웃 상태일시 로그인으로.
+                window.location.href = "/login";
+              }
+            }}
+            onMouseEnter={() => {
+              setIsToggled((current) => !current);
+            }}
+          >
+            {isToggled ? (
+              <LoginDiv
+                onMouseLeave={() => {
+                  setIsToggled((current) => !current);
+                }}
+              >
+                <LoginToggle />
+              </LoginDiv>
+            ) : (
+              <></>
+            )}
+          </Children>
           <Children
             style={{
               width: "28px",

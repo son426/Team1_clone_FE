@@ -135,6 +135,7 @@ function ShinyCircle({ left, top, title, details, imgurl }: IContent) {
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
   });
+
   return (
     <Container
       style={{ left: left, top: top }}

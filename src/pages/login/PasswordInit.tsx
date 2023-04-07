@@ -5,7 +5,7 @@ import logo from "../../assets/logo.png";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { CHANGEPASSWORD, EMAIL, sendEmail } from "./../../apis/gql";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   margin: 0;
   font-weight: 400;
   font-family: "Noto Sans KR", sans-serif;
@@ -14,13 +14,13 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Bar = styled.div`
+export const Bar = styled.div`
   width: 100%;
   height: 6px;
   background-color: #012d5e;
 `;
 
-const LogoDiv = styled.div`
+export const LogoDiv = styled.div`
   width: 100%;
   height: 72px;
   text-align: center;
@@ -28,7 +28,7 @@ const LogoDiv = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-const LogoDivInner = styled.div`
+export const LogoDivInner = styled.div`
   text-align: left;
   box-sizing: border-box;
   margin: 0 auto;
@@ -39,7 +39,7 @@ const LogoDivInner = styled.div`
   padding: 0 13px;
 `;
 
-const TitleDiv = styled.div`
+export const TitleDiv = styled.div`
   width: 100%;
   height: 83px;
   text-align: center;
@@ -47,7 +47,7 @@ const TitleDiv = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-const TitleDivInner = styled.div`
+export const TitleDivInner = styled.div`
   text-align: center;
   box-sizing: border-box;
   margin: 0 auto;
@@ -62,7 +62,7 @@ const TitleDivInner = styled.div`
   color: rgba(0, 0, 0, 0.8);
 `;
 
-const Section = styled.div`
+export const Section = styled.div`
   box-sizing: border-box;
   width: 680px;
   height: fit-content;
@@ -79,7 +79,7 @@ const Section = styled.div`
   justify-content: center;
 `;
 
-const DivTitle = styled.div`
+export const DivTitle = styled.div`
   margin-bottom: 8px;
   width: 590px;
   height: 24px;
@@ -89,7 +89,7 @@ const DivTitle = styled.div`
   font-weight: 300;
 `;
 
-const DivContent = styled.div`
+export const DivContent = styled.div`
   border-left: 1px solid #bdbdbd;
   padding-left: 20px;
   padding-right: 8px;
@@ -100,7 +100,7 @@ const DivContent = styled.div`
   padding-top: 5px;
 `;
 
-const CircleN = styled.div`
+export const CircleN = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -114,7 +114,7 @@ const CircleN = styled.div`
   line-height: 24px;
 `;
 
-const Footer = styled.div`
+export const Footer = styled.div`
   width: 100%;
   height: 50%;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -126,7 +126,7 @@ const Footer = styled.div`
   padding-top: 5px;
 `;
 
-const BtnDiv = styled.div`
+export const BtnDiv = styled.div`
   width: 100%;
   height: fit-content;
   display: flex;
@@ -137,7 +137,7 @@ const BtnDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const Btn = styled.div`
+export const Btn = styled.div`
   box-sizing: border-box;
   width: 271px;
   height: 50px;
@@ -162,10 +162,7 @@ const Btn = styled.div`
   }
 `;
 
-// 수정사항 1
-// &.checked 전후로 pointer-events 추가
-// 클릭이 아예 안되게
-const BlueBtn = styled.div`
+export const BlueBtn = styled.div`
   box-sizing: border-box;
   width: 271px;
   height: 50px;
@@ -196,7 +193,7 @@ const BlueBtn = styled.div`
   }
 `;
 
-const MenuSection = styled.div`
+export const MenuSection = styled.div`
   box-sizing: border-box;
   position: relative;
   margin: 0 auto;
@@ -211,7 +208,7 @@ const MenuSection = styled.div`
   justify-content: center;
 `;
 
-const MenuDiv = styled.div`
+export const MenuDiv = styled.div`
   width: 120px;
   font-size: 13px;
   height: 15px;
@@ -233,7 +230,7 @@ const MenuDiv = styled.div`
   }
 `;
 
-const MenuA = styled.a`
+export const MenuA = styled.a`
   width: 120px;
   font-size: 13px;
   height: 15px;
@@ -254,7 +251,7 @@ const MenuA = styled.a`
   }
 `;
 
-const Dot = styled.div`
+export const Dot = styled.div`
   width: 4px;
   height: 4px;
   margin: 6px 6px 0 0;
@@ -265,7 +262,7 @@ const Dot = styled.div`
   vertical-align: top;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -309,14 +306,11 @@ function PasswordInit() {
   const btn = useRef<any>([]);
   const cir = useRef<any>([]);
 
-  // 인증 확인
-  // const [check_validation, {}] = useLazyQuery(EMAIL);
-  const { refetch } = useQuery(EMAIL, {
+  const { refetch, loading, error } = useQuery(EMAIL, {
     variables: { email },
     skip: !buttonClicked,
   });
 
-  // 이메일 보내기
   const [sendE, {}] = useMutation(sendEmail, { onError: () => {} });
   const sendFunction = async (email: any) => {
     const send_result = await sendE({
@@ -356,7 +350,10 @@ function PasswordInit() {
           <img
             src={logo}
             alt=""
-            style={{ width: "145px", paddingTop: "4px" }}
+            style={{ width: "145px", paddingTop: "4px", cursor: "pointer" }}
+            onClick={() => {
+              window.location.href = "/";
+            }}
           ></img>
         </LogoDivInner>
       </LogoDiv>
@@ -425,6 +422,7 @@ function PasswordInit() {
                 console.log(`to ${email}`);
                 const res = await sendFunction(email);
                 btn.current[1].classList.add("checked");
+                alert("발송완료. 이메일을 확인하세요.");
               }}
             >
               발송하기
@@ -459,11 +457,12 @@ function PasswordInit() {
                 const { data } = await refetch();
                 if (data) {
                   if (data.completeEmailCheck === "true") {
-                    console.log("인증완!!");
                     alert("인증되었습니다.");
                   } else {
                     alert("아직 인증 전입니다. 인증 메일을 확인해주세요.");
                   }
+                } else {
+                  alert("아직 인증 전입니다. 인증 메일을 확인해주세요.");
                 }
               }}
             >

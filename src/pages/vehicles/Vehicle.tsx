@@ -16,28 +16,37 @@ import Hstation from "./VehicleIntroPage/Hstation";
 import ServiceNetwork from "./VehicleIntroPage/ServiceNetwork";
 import { useRecoilState } from "recoil";
 import { FETCH_MODEL } from "../../lib/util/gql";
-import { clickedButtonAtom, fetchModelAtom } from "../../lib/util/atoms";
+import { clickedButtonAtom } from "../../lib/util/atoms";
 import SideButton from "../../components/molecules/SideButton";
 import { useQuery } from "@apollo/client";
 
 function Vehicle() {
   const [mainIntroIdentity, setMainIntroIdentity] =
     useRecoilState(clickedButtonAtom);
-  const [vehicleData, setVehicleData] = useRecoilState(fetchModelAtom);
   const [wheel, setWheel] = useState(0);
   const [isMainMounted, setIsMainMounted] = useState(false);
   const handleWheel = (e: any) => {
     setWheel(e.deltaY);
   };
-  const { loading, error, data } = useQuery(FETCH_MODEL, {
+
+  const [modelData, setModelData] = useState();
+
+  const { loading, error, data, refetch } = useQuery(FETCH_MODEL, {
     fetchPolicy: "no-cache",
     variables: {
       modelId: "1",
     },
     onCompleted: (data) => {
-      setVehicleData(data);
+      setModelData(data);
     },
   });
+
+  useEffect(() => {
+    console.log("modelData : ", modelData);
+    if (modelData) {
+      console.log("modelData : ", modelData);
+    }
+  }, [modelData]);
 
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { capture: true });
@@ -46,9 +55,6 @@ function Vehicle() {
       window.removeEventListener("scroll", handleWheel);
     };
   }, []);
-  useEffect(() => {
-    console.log(vehicleData);
-  }, [vehicleData]);
 
   useEffect(() => {
     if (wheel > 0) {
@@ -73,13 +79,13 @@ function Vehicle() {
           style={{
             top: 0,
           }}
-          id='scrolled'
+          id="scrolled"
         />
       ) : (
         <VehicleNavbar
           list={["모델소개", "제원", "가격", "갤러리", "구매후기"]}
           style={{ bottom: 0 }}
-          id='unscrolled'
+          id="unscrolled"
           func={() => {
             setIsMainMounted(true);
           }}

@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { CHECKSMS, SENDSMS } from "../../lib/util/gql";
 import { FINDID } from "../../apis/gql";
+import { useNavigate } from "react-router-dom";
 
 export const Wrapper = styled.div`
   margin: 0;
@@ -322,7 +323,6 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -369,7 +369,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-function AccountSearch() {
+function SignUpPhone() {
   const [pw1, setPw1] = useState("");
   const [pw2, setPw2] = useState("");
   const [phone, setPhone] = useState("");
@@ -379,6 +379,8 @@ function AccountSearch() {
   const btn = useRef<any>([]);
   const cir = useRef<any>([]);
   const box = useRef<any>([]);
+
+  const navigate = useNavigate();
 
   // 모달 관련
   const [showModal, setShowModal] = useState(false);
@@ -396,7 +398,6 @@ function AccountSearch() {
     });
     if (send_result.data) {
       console.log(send_result.data);
-      return send_result;
     } else {
       const errors = send_result.errors;
       console.log(errors);
@@ -434,10 +435,9 @@ function AccountSearch() {
       {showModal && (
         <ModalWrapper onClick={toggleModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <div className="header">아이디 찾기 완료</div>
             <div className="row2">
-              <span>회원님의 아이디는</span>
-              <span>{email}입니다</span>
+              <span>가입된 아이디가 존재합니다.</span>
+              <span>{email} 으로 로그인해주세요</span>
             </div>
             <div className="row3">
               <span>비밀번호를 잊으셨나요?</span>
@@ -483,7 +483,7 @@ function AccountSearch() {
               marginBottom: "9px",
             }}
           >
-            아이디 찾기
+            본인 인증
           </div>
         </TitleDivInner>
       </TitleDiv>
@@ -497,7 +497,7 @@ function AccountSearch() {
           >
             1
           </CircleN>
-          아이디 찾기
+          약관 동의
         </DivTitle>
         <DivContent
           className="checked"
@@ -505,27 +505,42 @@ function AccountSearch() {
             box.current[0] = e;
           }}
         >
-          <Dot></Dot>이메일 아이디를 찾으시려면 본인 인증 또는 모바일 인증을
-          선택하세요.
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>[필수] 개인정보 수집/이용 동의
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>[필수] 고유식별정보 처리 동의
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>[필수] 통신사 이용약관 동의
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>[필수] 서비스 이용약관 동의
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>[필수] 개인정보 제 3자 제공 동의(알뜰폰)
+            </div>
+          </div>
           <BtnDiv>
             <Btn
               onClick={() => {
-                cir.current[1].classList.toggle("checked");
-                box.current[0].classList.remove("checked");
-                box.current[1].classList.add("checked");
+                window.location.href = "/login/agreement";
               }}
             >
-              본인 인증
+              이전
             </Btn>
-            <Btn
+
+            <BlueBtn
+              className="checked"
               onClick={() => {
                 cir.current[1].classList.toggle("checked");
                 box.current[0].classList.remove("checked");
                 box.current[1].classList.add("checked");
               }}
             >
-              모바일 인증
-            </Btn>
+              전체 동의
+            </BlueBtn>
           </BtnDiv>
         </DivContent>
         <DivTitle>
@@ -536,7 +551,7 @@ function AccountSearch() {
           >
             2
           </CircleN>
-          인증 요청
+          인증 정보 입력
         </DivTitle>
         <DivContent
           ref={(e) => {
@@ -569,20 +584,7 @@ function AccountSearch() {
                 btn.current[0] = e;
               }}
               onClick={async (e) => {
-                // // 실제
-                // const res = await sendFunction(phone);
-                // if (res?.data) {
-                //   alert("전송완료. 이메일을 확인하세요");
-                //   // css
-                //   cir.current[2].classList.add("checked");
-                //   box.current[1].classList.remove("checked");
-                //   box.current[2].classList.add("checked");
-                // } else {
-                //   alert("에러발생. 콘솔창 확인");
-                // }
-
-                // 테스트용
-                // css
+                // const res = await sendFunction(email);
                 cir.current[2].classList.add("checked");
                 box.current[1].classList.remove("checked");
                 box.current[2].classList.add("checked");
@@ -600,7 +602,7 @@ function AccountSearch() {
           >
             3
           </CircleN>
-          인증 확인
+          인증 완료
         </DivTitle>
         <DivContent
           ref={(e) => {
@@ -635,17 +637,17 @@ function AccountSearch() {
               onClick={async () => {
                 const result = await checkFunction(phone, token);
                 if (result.checkSMS === "인증 성공") {
-                  const result = await findIdFunction(phone);
-                  const userEmail = result.data.findId;
+                  const userEmail = (await findIdFunction(phone)).data.findId;
 
-                  console.log("result : ", result);
-                  console.log("userEmail : ", userEmail);
-
+                  // 유저 있을 경우에는 이메일 알려주고
                   if (userEmail === "가입된 아이디 없음.") {
-                    alert("가입된 아이디 없음. 회원가입 페이지로 이동합니다");
-                    window.location.href = "/login/agreement";
+                    // 아이디 없는 유저의 경우
+                    // 회원가입 페이지로 쏴주자.
+                    navigate("/login/signup/input", {
+                      state: { phoneNum: phone },
+                    });
                   } else {
-                    setEmail(userEmail as string);
+                    setEmail(userEmail.data.findId as any);
                     toggleModal();
                   }
                 } else if (result.checkSMS === "토큰 다름") {
@@ -672,4 +674,4 @@ function AccountSearch() {
   );
 }
 
-export default AccountSearch;
+export default SignUpPhone;
