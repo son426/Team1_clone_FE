@@ -309,7 +309,10 @@ function Agreement() {
           <img
             src={logo}
             alt=""
-            style={{ width: "145px", paddingTop: "4px" }}
+            style={{ width: "145px", paddingTop: "4px", cursor: "pointer" }}
+            onClick={() => {
+              window.location.href = "/";
+            }}
           ></img>
         </LogoDivInner>
       </LogoDiv>
@@ -409,7 +412,7 @@ function Agreement() {
       <Footer>
         <BtnDiv>
           <a
-            href="/login/cert"
+            href="/login/signup/phone"
             onClick={(e) => {
               if (chN !== 2) {
                 e.preventDefault();

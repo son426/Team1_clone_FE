@@ -8,6 +8,9 @@ import AccountSearch from "./login/AccountSearch";
 import PasswordInit from "./login/PasswordInit";
 import T from "./login/T";
 import PhoneCert from "./login/PhoneCert";
+import Test from "./login/Test";
+import SignUpPhone from "./login/SignUpPhone";
+import SignUpInput from "./login/SignUpInput";
 
 function Router() {
   return (
@@ -21,6 +24,11 @@ function Router() {
       <Route path="/login/password-init" element={<PasswordInit />} />
       <Route path="/login/t" element={<T />} />
       <Route path="/login/phonecert" element={<PhoneCert />} />
+      <Route path="/login/signup/phone" element={<SignUpPhone />} />
+      <Route path="/login/signup/input" element={<SignUpInput />} />
+      <Route path="/:token" element={<Main />} />
+      <Route path="/logout" element={<Main />} />
+      <Route path="/test" element={<Test />} />
     </Routes>
   );
 }

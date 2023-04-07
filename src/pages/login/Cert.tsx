@@ -195,7 +195,10 @@ function Cert() {
           <img
             src={logo}
             alt=""
-            style={{ width: "145px", paddingTop: "4px" }}
+            style={{ width: "145px", paddingTop: "4px", cursor: "pointer" }}
+            onClick={() => {
+              window.location.href = "/";
+            }}
           ></img>
         </LogoDivInner>
       </LogoDiv>

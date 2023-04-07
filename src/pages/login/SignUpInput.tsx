@@ -2,8 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { CHECKSMS, SENDSMS } from "../../lib/util/gql";
-import { FINDID } from "../../apis/gql";
+import { EMAIL, FINDID, SIGNUP, sendEmail } from "../../apis/gql";
+import { CheckEmail, SendFirstEmail } from "../../lib/util/gql";
+import { useLocation } from "react-router-dom";
 
 export const Wrapper = styled.div`
   margin: 0;
@@ -214,6 +215,36 @@ export const BlueBtn = styled.div`
   }
 `;
 
+export const BlueBtn2 = styled.div`
+  box-sizing: border-box;
+  width: 30%;
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: white;
+  background-color: #3387bd;
+  font-weight: 300;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
+  position: relative;
+  line-height: 100%;
+  margin-bottom: 7px;
+  cursor: default;
+  opacity: 0.5;
+  &.checked {
+    cursor: pointer;
+    opacity: 1;
+    &:hover {
+      background-color: rgb(0, 40, 132);
+    }
+    &:focus {
+      background-color: rgb(0, 40, 132);
+    }
+  }
+`;
+
 export const MenuSection = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -308,6 +339,27 @@ export const Input = styled.input`
   }
 `;
 
+export const Input2 = styled.input`
+  z-index: 50;
+  box-sizing: border-box;
+  width: 70%;
+  height: 50px;
+  border: 1px solid #ced4da;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-bottom: 7px;
+  transition: 0.2s ease;
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    letter-spacing: -0.7px;
+  }
+  &:focus {
+    outline: 1px solid #00a7cf;
+  }
+`;
+
 const ModalWrapper = styled.div`
   z-index: 999;
   position: fixed;
@@ -322,7 +374,6 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -369,12 +420,20 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-function AccountSearch() {
+function SignUpPhone() {
   const [pw1, setPw1] = useState("");
   const [pw2, setPw2] = useState("");
   const [phone, setPhone] = useState("");
   const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [simplePw, setSimplePw] = useState("0000");
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setPhone(location.state.phoneNum);
+  }, [phone]);
 
   const btn = useRef<any>([]);
   const cir = useRef<any>([]);
@@ -386,58 +445,68 @@ function AccountSearch() {
     setShowModal(!showModal);
   };
 
-  // 문자 보내기 - useMutation
-  const [sendSMS, {}] = useMutation(SENDSMS, { onError: () => {} });
-  const sendFunction = async (phone: any) => {
-    const send_result = await sendSMS({
+  // 이메일 인증 - 보내기
+  const [sendE, {}] = useMutation(SendFirstEmail, { onError: () => {} });
+  const sendFunction = async (email: any) => {
+    const send_result = await sendE({
       variables: {
-        phone,
+        email,
       },
     });
     if (send_result.data) {
-      console.log(send_result.data);
-      return send_result;
+      console.log(`${email}로 전송완료`);
     } else {
+      alert("에러 발생. 콘솔창 확인.");
       const errors = send_result.errors;
       console.log(errors);
     }
   };
 
-  // 토큰 체크 - useMutation
-  const [checkSMS, {}] = useMutation(CHECKSMS, { onError: () => {} });
-  const checkFunction = async (phone: string, token: string) => {
-    const check_result = await checkSMS({
+  // 이메일 인증 - 인증 체크
+  // 여기가 안됨.
+  const { refetch, error } = useQuery(CheckEmail, {
+    variables: { email },
+  });
+  const checkFunction = async () => {
+    const check_result = await refetch();
+    return check_result;
+  };
+
+  // 회원가입 api - useMutation
+  const [signUp, {}] = useMutation(SIGNUP, { onError: () => {} });
+  const signUpFunction = async (
+    email: string,
+    password: string,
+    simplePw: string,
+    name: string,
+    phone: string
+  ) => {
+    const signUp_result = await signUp({
       variables: {
+        email,
+        password,
+        simplePw,
+        name,
         phone,
-        token,
       },
     });
-    if (check_result.data) {
-      console.log(check_result.data);
-      return check_result.data;
+    if (signUp_result.data) {
+      console.log(signUp_result.data);
+      return signUp_result.data;
     } else {
-      const errors = check_result.errors;
+      const errors = signUp_result.errors;
       console.log(errors);
       return errors;
     }
   };
-
-  // 아이디 꺼내오기 - useMutation
-  const [findId, {}] = useMutation(FINDID);
-  const findIdFunction = async (phoneNumber: any) => {
-    const result = await findId({ variables: { phone: phoneNumber } });
-    return result;
-  };
-
   return (
     <Wrapper>
       {showModal && (
         <ModalWrapper onClick={toggleModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <div className="header">아이디 찾기 완료</div>
             <div className="row2">
-              <span>회원님의 아이디는</span>
-              <span>{email}입니다</span>
+              <span>가입된 아이디가 존재합니다.</span>
+              <span>{email} 으로 로그인해주세요</span>
             </div>
             <div className="row3">
               <span>비밀번호를 잊으셨나요?</span>
@@ -483,7 +552,7 @@ function AccountSearch() {
               marginBottom: "9px",
             }}
           >
-            아이디 찾기
+            가입 정보 입력
           </div>
         </TitleDivInner>
       </TitleDiv>
@@ -497,7 +566,7 @@ function AccountSearch() {
           >
             1
           </CircleN>
-          아이디 찾기
+          이메일 주소 중복 확인 및 인증 이메일 발송
         </DivTitle>
         <DivContent
           className="checked"
@@ -505,27 +574,41 @@ function AccountSearch() {
             box.current[0] = e;
           }}
         >
-          <Dot></Dot>이메일 아이디를 찾으시려면 본인 인증 또는 모바일 인증을
-          선택하세요.
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>이메일 주소
+            </div>
+          </div>
           <BtnDiv>
-            <Btn
-              onClick={() => {
+            <Input2
+              style={{}}
+              type="email"
+              placeholder="이메일 주소"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                btn.current[0].classList.add("checked");
+                if (e.target.value === "")
+                  btn.current[0].classList.remove("checked");
+              }}
+            ></Input2>
+            <BlueBtn2
+              ref={(e) => {
+                btn.current[0] = e;
+              }}
+              onClick={async () => {
+                // 이메일 발송 api
+                sendFunction(email);
+                console.log(`${email}로 메일 발송`);
+                alert("전송완료. 이메일을 확인하세요.");
+
+                // css;
                 cir.current[1].classList.toggle("checked");
                 box.current[0].classList.remove("checked");
                 box.current[1].classList.add("checked");
               }}
             >
-              본인 인증
-            </Btn>
-            <Btn
-              onClick={() => {
-                cir.current[1].classList.toggle("checked");
-                box.current[0].classList.remove("checked");
-                box.current[1].classList.add("checked");
-              }}
-            >
-              모바일 인증
-            </Btn>
+              중복 확인
+            </BlueBtn2>
           </BtnDiv>
         </DivContent>
         <DivTitle>
@@ -536,59 +619,57 @@ function AccountSearch() {
           >
             2
           </CircleN>
-          인증 요청
+          인증 확인
         </DivTitle>
         <DivContent
           ref={(e) => {
             box.current[1] = e;
           }}
         >
-          <Dot></Dot>휴대폰 번호
-          <Input
-            type="phone"
-            placeholder="휴대폰 번호"
-            onChange={(e) => {
-              setPhone(e.target.value);
-              btn.current[0].classList.add("checked");
-              if (e.target.value === "")
-                btn.current[0].classList.remove("checked");
-            }}
-          ></Input>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>입력한 이메일로 이동하여 이메일 인증을 완료해주세요.
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>이메일 인증 완료 후 아래 '인증' 버튼을 눌러 주세요.
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Dot></Dot>이메일 인증 방법 안내 (자세히 보기)
+            </div>
+          </div>
           <BtnDiv>
             <Btn
               onClick={() => {
                 cir.current[1].classList.remove("checked");
                 box.current[1].classList.remove("checked");
                 box.current[0].classList.add("checked");
+                btn.current[0].classList.add("checked");
               }}
             >
               이전
             </Btn>
             <BlueBtn
-              ref={(e) => {
-                btn.current[0] = e;
-              }}
+              className="checked"
               onClick={async (e) => {
-                // // 실제
-                // const res = await sendFunction(phone);
-                // if (res?.data) {
-                //   alert("전송완료. 이메일을 확인하세요");
-                //   // css
-                //   cir.current[2].classList.add("checked");
-                //   box.current[1].classList.remove("checked");
-                //   box.current[2].classList.add("checked");
-                // } else {
-                //   alert("에러발생. 콘솔창 확인");
-                // }
+                // 이메일 인증 체크 api
+                const check_result = await checkFunction();
+                if (error) {
+                  alert("에러 발생. 콘솔창 확인");
+                  console.log("error : ", error);
+                }
+                if (check_result.data.completeEmailCheck === "true") {
+                  alert("인증 성공");
 
-                // 테스트용
-                // css
-                cir.current[2].classList.add("checked");
-                box.current[1].classList.remove("checked");
-                box.current[2].classList.add("checked");
+                  // css
+                  cir.current[2].classList.add("checked");
+                  box.current[1].classList.remove("checked");
+                  box.current[2].classList.add("checked");
+                } else if (check_result.data.completeEmailCheck === "false") {
+                  alert("인증 실패");
+                }
               }}
             >
-              발송하기
+              인증
             </BlueBtn>
           </BtnDiv>
         </DivContent>
@@ -600,64 +681,70 @@ function AccountSearch() {
           >
             3
           </CircleN>
-          인증 확인
+          회원 정보 입력
         </DivTitle>
         <DivContent
           ref={(e) => {
             box.current[2] = e;
           }}
         >
-          <Dot></Dot>인증 번호
+          <Dot></Dot>이메일 주소
           <Input
-            type="token"
-            placeholder="숫자 6자리"
+            style={{ backgroundColor: "rgba(0,0,0,0.1)", border: "none" }}
+            value={email}
+            readOnly
+          ></Input>
+          <Dot></Dot>비밀번호
+          <Input
+            type="password"
+            placeholder="비밀번호 입력"
             onChange={(e) => {
-              setToken(e.target.value);
+              setPw1(e.target.value);
+            }}
+          ></Input>
+          <Input
+            type="password"
+            placeholder="비밀번호 확인"
+            onChange={(e) => {
+              setPw2(e.target.value);
+            }}
+          ></Input>
+          <Dot></Dot>이름
+          <Input
+            type="text"
+            placeholder="이름"
+            onChange={(e) => {
+              setName(e.target.value);
               btn.current[1].classList.add("checked");
               if (e.target.value === "")
                 btn.current[1].classList.remove("checked");
             }}
           ></Input>
-          <BtnDiv>
-            <Btn
-              onClick={() => {
-                cir.current[2].classList.remove("checked");
-                box.current[2].classList.remove("checked");
-                box.current[1].classList.add("checked");
-              }}
-            >
-              이전
-            </Btn>
-            <BlueBtn
-              ref={(e) => {
-                btn.current[1] = e;
-              }}
-              onClick={async () => {
-                const result = await checkFunction(phone, token);
-                if (result.checkSMS === "인증 성공") {
-                  const result = await findIdFunction(phone);
-                  const userEmail = result.data.findId;
-
-                  console.log("result : ", result);
-                  console.log("userEmail : ", userEmail);
-
-                  if (userEmail === "가입된 아이디 없음.") {
-                    alert("가입된 아이디 없음. 회원가입 페이지로 이동합니다");
-                    window.location.href = "/login/agreement";
-                  } else {
-                    setEmail(userEmail as string);
-                    toggleModal();
-                  }
-                } else if (result.checkSMS === "토큰 다름") {
-                  alert("토큰이 다름.");
-                } else if (result.checkSMS === "해당 휴대폰 토큰정보 없음.") {
-                  alert("휴대폰 정보 다시 확인");
-                }
-              }}
-            >
-              인증
-            </BlueBtn>
-          </BtnDiv>
+          <BlueBtn
+            style={{ margin: "15px auto", width: "70%" }}
+            ref={(e) => {
+              btn.current[1] = e;
+            }}
+            onClick={async (e) => {
+              // 회원가입 api
+              const signUp_result = await signUpFunction(
+                email,
+                pw1,
+                simplePw,
+                name,
+                phone
+              );
+              if (signUp_result) {
+                alert("회원가입 완료. 로그인 페이지로 이동합니다.");
+                window.location.href = "/login";
+              } else {
+                console.log(signUp_result);
+                alert("에러. 콘솔창 확인바람.");
+              }
+            }}
+          >
+            회원가입
+          </BlueBtn>
         </DivContent>
       </Section>
       <Footer>
@@ -672,4 +759,4 @@ function AccountSearch() {
   );
 }
 
-export default AccountSearch;
+export default SignUpPhone;
