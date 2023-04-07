@@ -17,6 +17,7 @@ function Firstarea({ style }: IStyle) {
   const isLiked = useRecoilValue(likedOrNot);
   const setLike = useSetRecoilState(likedOrNot);
   const btnOn = useSetRecoilState(likeBtn);
+  const [logOn, setOn] = useState(false);
   const [loginCheck, { loading, error, data }] = useLazyQuery(USER);
   const [like, {}] = useMutation(LIKEADD, { onError: () => {} });
   const likeAdd = async (modelId: any) => {
@@ -33,12 +34,16 @@ function Firstarea({ style }: IStyle) {
   };
 
   useEffect(() => {
-    if (isLiked) {
-      heart.current.style.color = "red";
+    if (logOn) {
+      if (isLiked) {
+        heart.current.style.color = "red";
+      } else {
+        heart.current.style.color = "white";
+      }
     } else {
       heart.current.style.color = "white";
     }
-  }, [isLiked]);
+  }, [isLiked, logOn]);
 
   return (
     <S.Container style={style}>
@@ -73,12 +78,13 @@ function Firstarea({ style }: IStyle) {
             }}
             onClick={async () => {
               loginCheck();
-              console.log(data);
+              /* console.log(data); */
               if (data) {
-                btnOn((prev) => !prev);
+                setOn(true);
                 /* setLike((prev) => !prev); */
                 const likes = await likeAdd("1");
-                console.log("♡");
+                btnOn((prev) => !prev);
+                /* console.log("♡"); */
               } else {
                 alert("로그인 후 이용해주세요~");
               }
