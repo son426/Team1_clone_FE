@@ -94,3 +94,17 @@ export const CHANGEPASSWORD = gql`
     resetPasswordByEmail(email: $email, password: $password)
   }
 `;
+
+export const LIKEADD = gql`
+  mutation likeAdd($modelId: String!) {
+    likeAdd(modelId: $modelId)
+  }
+`;
+
+export const GETLIKES = gql`
+  query getLikesNum($modelId: String!, $userEmail: String!) {
+    getLikesNum(modelId: $modelId, userEmail: $userEmail) {
+      isLiked
+    }
+  }
+`;
