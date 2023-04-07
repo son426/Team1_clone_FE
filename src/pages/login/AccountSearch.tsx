@@ -569,23 +569,23 @@ function AccountSearch() {
                 btn.current[0] = e;
               }}
               onClick={async (e) => {
-                // // 실제
-                // const res = await sendFunction(phone);
-                // if (res?.data) {
-                //   alert("전송완료. 이메일을 확인하세요");
-                //   // css
-                //   cir.current[2].classList.add("checked");
-                //   box.current[1].classList.remove("checked");
-                //   box.current[2].classList.add("checked");
-                // } else {
-                //   alert("에러발생. 콘솔창 확인");
-                // }
+                // 실제
+                const res = await sendFunction(phone);
+                if (res?.data) {
+                  alert("전송완료. 휴대폰을 확인하세요");
+                  // css
+                  cir.current[2].classList.add("checked");
+                  box.current[1].classList.remove("checked");
+                  box.current[2].classList.add("checked");
+                } else {
+                  alert("에러발생. 콘솔창 확인");
+                }
 
-                // 테스트용
-                // css
-                cir.current[2].classList.add("checked");
-                box.current[1].classList.remove("checked");
-                box.current[2].classList.add("checked");
+                // // 테스트용
+                // // css
+                // cir.current[2].classList.add("checked");
+                // box.current[1].classList.remove("checked");
+                // box.current[2].classList.add("checked");
               }}
             >
               발송하기

@@ -398,6 +398,7 @@ function SignUpPhone() {
     });
     if (send_result.data) {
       console.log(send_result.data);
+      return send_result;
     } else {
       const errors = send_result.errors;
       console.log(errors);
@@ -584,10 +585,21 @@ function SignUpPhone() {
                 btn.current[0] = e;
               }}
               onClick={async (e) => {
+                const res = await sendFunction(phone);
+                if (res?.data) {
+                  alert("전송완료. 휴대폰을 확인하세요");
+                  // css
+                  cir.current[2].classList.add("checked");
+                  box.current[1].classList.remove("checked");
+                  box.current[2].classList.add("checked");
+                } else {
+                  alert("에러발생. 콘솔창 확인");
+                }
+
                 // const res = await sendFunction(email);
-                cir.current[2].classList.add("checked");
+                /* cir.current[2].classList.add("checked");
                 box.current[1].classList.remove("checked");
-                box.current[2].classList.add("checked");
+                box.current[2].classList.add("checked"); */
               }}
             >
               발송하기

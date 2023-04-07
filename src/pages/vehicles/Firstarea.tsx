@@ -2,11 +2,11 @@ import { CSSProperties } from "styled-components";
 import NavyButton from "../../components/atoms/NavyButton";
 import * as S from "./Firstarea.styled";
 import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
-import { USER, LIKEADD, GETLIKES } from "../../apis/gql";
+import { USER, LIKEADD, GETLIKES, getLikesNum } from "../../apis/gql";
 import React, { useRef, useState, useEffect } from "react";
 import ChLike from "./ChLike";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { likedOrNot, likeBtn } from "./../../lib/util/atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { likedOrNot, likeBtn, isUserAtom } from "./../../lib/util/atoms";
 
 interface IStyle {
   style: CSSProperties;
@@ -17,10 +17,23 @@ function Firstarea({ style }: IStyle) {
   const isLiked = useRecoilValue(likedOrNot);
   const setLike = useSetRecoilState(likedOrNot);
   const btnOn = useSetRecoilState(likeBtn);
-  const [logOn, setOn] = useState(false);
 
-  //
-  const [loginCheck, { loading, error, data }] = useLazyQuery(USER);
+  const [userLike, setUserLike] = useState(false);
+
+  // 해당 유저가 좋아요하는 상태인지 받아오는 api
+  const { refetch, data } = useQuery(getLikesNum);
+  const fetchLikes = async () => {
+    const fetchLike_result = await refetch();
+    console.log("fetchLike_result : ", fetchLike_result);
+    setUserLike(fetchLike_result.data.getLikesNum.isLiked);
+  };
+  useEffect(() => {
+    fetchLikes();
+  }, [userLike]);
+
+  // 좋아요 누르는 api
+  // 유저가 아니면 error 나오고
+  // 유저면 data가 옴.
   const [like, {}] = useMutation(LIKEADD, { onError: () => {} });
   const likeAdd = async (modelId: any) => {
     const res = await like({
@@ -28,24 +41,23 @@ function Firstarea({ style }: IStyle) {
         modelId,
       },
     });
+    if (res.errors) alert("로그인해주세요.");
     if (res.data) {
       console.log(res.data);
+      setUserLike((current) => !current);
+      return res.data;
     } else {
       console.log(res.errors);
     }
   };
 
   useEffect(() => {
-    if (logOn) {
-      if (isLiked) {
-        heart.current.style.color = "red";
-      } else {
-        heart.current.style.color = "white";
-      }
+    if (userLike) {
+      heart.current.style.color = "red";
     } else {
       heart.current.style.color = "white";
     }
-  }, [isLiked, logOn]);
+  }, [userLike]);
 
   return (
     <S.Container style={style}>
@@ -79,17 +91,8 @@ function Firstarea({ style }: IStyle) {
               color: "white",
             }}
             onClick={async () => {
-              loginCheck();
-              /* console.log(data); */
-              if (data) {
-                setOn(true);
-                /* setLike((prev) => !prev); */
-                const likes = await likeAdd("1");
-                btnOn((prev) => !prev);
-                /* console.log("♡"); */
-              } else {
-                alert("로그인 후 이용해주세요~");
-              }
+              const result = await likeAdd("1");
+              console.log("result : ", result);
             }}
           >
             favorite

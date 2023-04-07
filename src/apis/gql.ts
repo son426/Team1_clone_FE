@@ -43,6 +43,15 @@ export const USER = gql`
   }
 `;
 
+export const getLikesNum = gql`
+  query {
+    getLikesNum(modelId: "1") {
+      isLiked
+      likesNum
+    }
+  }
+`;
+
 export const FINDID = gql`
   mutation findId($phone: String!) {
     findId(phone: $phone)
