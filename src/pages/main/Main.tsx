@@ -297,6 +297,7 @@ function Main() {
 
   const restoreTokenFunction = async () => {
     const result = await restoreToken();
+    console.log("result : ", result);
     if (result) {
       const newAccessToken = result.data.restoreAccessToken;
       saveAccessToken(newAccessToken);

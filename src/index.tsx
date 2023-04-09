@@ -15,7 +15,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { CookiesProvider } from "react-cookie";
 
-export const SERVER_URL = "http://172.16.101.159";
+export const SERVER_URL = "http://172.30.1.23";
 
 const httpLink = createHttpLink({
   uri: `${SERVER_URL}:8080/graphql`,

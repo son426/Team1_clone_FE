@@ -26,7 +26,7 @@ function Router() {
       <Route path="/login/phonecert" element={<PhoneCert />} />
       <Route path="/login/signup/phone" element={<SignUpPhone />} />
       <Route path="/login/signup/input" element={<SignUpInput />} />
-      <Route path="/:token" element={<Main />} />
+      <Route path="/accesstoken/:token" element={<Main />} />
       <Route path="/logout" element={<Main />} />
       <Route path="/test" element={<Test />} />
     </Routes>
